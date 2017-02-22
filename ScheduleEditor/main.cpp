@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "AppUI.h"
 
 using namespace winrt;
 
@@ -18,6 +19,7 @@ struct App : ApplicationT<App>
 {
 	void OnLaunched(LaunchActivatedEventArgs const &)
 	{
+		/*
 		TextBlock block;
 
 		block.FontFamily(FontFamily(L"Segoe UI Semibold"));
@@ -26,13 +28,18 @@ struct App : ApplicationT<App>
 		block.VerticalAlignment(VerticalAlignment::Center);
 		block.TextAlignment(TextAlignment::Center);
 		block.TextWrapping(TextWrapping::Wrap);
-
+		
 		Window window = Window::Current();
 		window.Content(block);
 		window.Activate();
-
+		
 		Async(block);
+		*/
+		Window window = Window::Current();
 
+		AppUI::get().initalize();
+		AppUI::get().statusbar_set(L"Yo");
+		window.Activate();
 		
 	}
 
