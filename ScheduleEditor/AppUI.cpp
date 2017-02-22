@@ -4,6 +4,7 @@
 using namespace winrt::Windows::UI;
 using namespace winrt::Windows::UI::Xaml;
 using namespace winrt::Windows::UI::Xaml::Controls;
+using namespace winrt::Windows::UI::Xaml::Media;
 
 AppUI appui;
 
@@ -23,15 +24,35 @@ void AppUI::initalize()
 	mTop = StackPanel();
 	mMiddle = StackPanel();
 	mBottom = StackPanel();
-	mContent = StackPanel();
+	mContent = Grid();
 	mStatusBar = TextBlock();
+
+	RowDefinition row1, row2, row3;
+	Thickness border{ 0,1,0,0 };
+
+	row1.MaxHeight(100.0);
+	row3.MaxHeight(25.0);
 	
+	mContent.RowDefinitions().Append(row1);
+	mContent.RowDefinitions().Append(row2);
+	mContent.RowDefinitions().Append(row3);
+
 	mTop.MaxHeight(100);
 	mBottom.MaxHeight(50);
-	mMiddle.MinHeight(window.Bounds().Height - 100 - 50);
+	//mBottom.VerticalAlignment(VerticalAlignment::Center);
+	mBottom.Background(SolidColorBrush(Colors::LightGray()));
+	mBottom.BorderThickness(border);
+	mBottom.BorderBrush(SolidColorBrush(Colors::Black()));
+
+	mStatusBar.VerticalAlignment(VerticalAlignment::Center);
+
 	mContent.Children().Append(mTop);
 	mContent.Children().Append(mMiddle);
 	mContent.Children().Append(mBottom);
+
+	mContent.SetRow(mTop, 0);
+	mContent.SetRow(mMiddle, 1);
+	mContent.SetRow(mBottom, 2);
 
 	mBottom.Orientation(Orientation::Horizontal);
 	mBottom.Children().Append(mStatusBar);

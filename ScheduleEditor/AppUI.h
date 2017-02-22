@@ -18,7 +18,7 @@ public:
 	static AppUI & get();
 
 private:
-	winrt::Windows::UI::Xaml::Controls::StackPanel mContent{ nullptr };
+	winrt::Windows::UI::Xaml::Controls::Grid mContent{ nullptr };
 	winrt::Windows::UI::Xaml::Controls::StackPanel mTop{ nullptr };
 	winrt::Windows::UI::Xaml::Controls::StackPanel mMiddle{ nullptr };
 	winrt::Windows::UI::Xaml::Controls::StackPanel mBottom{ nullptr };
