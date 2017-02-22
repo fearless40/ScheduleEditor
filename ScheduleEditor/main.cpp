@@ -32,6 +32,8 @@ struct App : ApplicationT<App>
 		window.Activate();
 
 		Async(block);
+
+		
 	}
 
 	fire_and_forget Async(TextBlock block)
