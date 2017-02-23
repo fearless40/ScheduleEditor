@@ -1,5 +1,9 @@
 #include "pch.h"
+#include <vector>
+#include <memory>;
+
 #include "AppUI.h"
+#include "ResourceView.h"
 
 using namespace winrt;
 
@@ -17,6 +21,8 @@ using namespace winrt::Windows::Storage::Pickers;
 
 struct App : ApplicationT<App>
 {
+	std::unique_ptr<ResourceView> rView{ nullptr };
+
 	void OnLaunched(LaunchActivatedEventArgs const &)
 	{
 		/*
@@ -39,6 +45,12 @@ struct App : ApplicationT<App>
 
 		AppUI::get().initalize();
 		AppUI::get().statusbar_set(L"Yo");
+
+		rView = std::make_unique<ResourceView>();
+		rView->initalize();
+
+		AppUI::get().content_set(rView->xaml_get());
+
 		window.Activate();
 		
 	}

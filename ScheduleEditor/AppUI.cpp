@@ -65,6 +65,7 @@ void AppUI::initalize()
 	mStatusBar.TextWrapping(TextWrapping::Wrap);
 	*/
 	window.Content(mContent);
+
 }
 
 void AppUI::content_vert()
