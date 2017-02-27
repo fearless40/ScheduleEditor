@@ -100,10 +100,10 @@
     <PackageCertificateKeyFile>ScheduleEditor_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\spiva\Programming\Lib\cppwinrt\10.0.14393.0;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\..\lib\cppwinrt\10.0.14393.0;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\spiva\Programming\Lib\cppwinrt\10.0.14393.0;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\..\lib\cppwinrt\10.0.14393.0;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>

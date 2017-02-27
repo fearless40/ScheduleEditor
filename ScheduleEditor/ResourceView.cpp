@@ -55,27 +55,71 @@ void ResourceView::initalize()
 	for (auto i : { L"IVL",L"IVL",L"HC",L"HC",L"IR",L"IR",L"ET",L"ET" })
 	{
 		auto data = TextBox();
+		/*auto border = Border();
+
+		border.BorderBrush(SolidColorBrush(Colors::Silver()));
+		border.Padding({ 0,0,0,0 });
+		border.Margin({ 0,0,0,0 });
+		border.BorderThickness({ 0.5,0.5,0.5,0.5 });
+		border.Child(data);*/
 		data.Text(i);
 		data.Padding({ 0,0,0,0 });
 		data.Margin({ 0,0,0,0 });
+		data.MaxHeight( 20 );
+		data.MaxWidth(100);
 		mData.Items().Append(data);
 	}
 
 	
-	mData.MinHeight = 0;
-	mData.MaxHeight = 0;
+	//mData.MinHeight = 0;
+	//mData.MaxHeight = 0;
 
 	mBody.Children().Append(mData);
 	
+	
+
 	mData.Loaded([this](winrt::Windows::IInspectable const &, const winrt::Windows::UI::Xaml::RoutedEventArgs &) {
 		auto iwp = mData.ItemsPanelRoot().as<ItemsWrapGrid>();
 		iwp.MaximumRowsOrColumns(4);
 		iwp.Orientation(Orientation::Vertical);
 		iwp.Margin({ 0,0,0,0 });
 		iwp.GroupPadding({ 0,0,0,0 });
+		iwp.ItemHeight(20);
+		iwp.ItemWidth(100);
+
+		//DataTemplate dt;
+		///winrt::Windows::Foundation::IReference<double> pv;
+		//winrt::Windows::Foundation::IReference<double> pw;
+		//auto pw = winrt::Windows::Foundation::PropertyValue::CreateDouble(5.0);
+
+
+		//dt.SetValue(FrameworkElement::MaxWidthProperty(), pw);
+		//dt.SetValue(FrameworkElement::MaxHeightProperty(), pw);
+
+		//mData.ItemTemplate(dt);
+		//auto marg = style.GetValue(FrameworkElement::MarginProperty());
+		//auto border = marg.as<Thickness>();
+		//border->Top //= 0;
+		//border->Bottom = 0;
+		//border->Left = 0;
+		//border->Right = 0;
+		//style.SetValue(FrameworkElement::MarginProperty(), marg );
+		
+		//winrt::Windows::UI::Xaml::Media::VisualTreeHelper::GetChild()
+		//dt = mData.ItemTemplate();
+		
+		//dt.SetValue(FrameworkElement::MaxWidthProperty(), pw);
+		//dt.SetValue(FrameworkElement::MaxHeightProperty(), pw);
+
+		//mData.ItemTemplate(dt);
+
 	});
 
-	mData.
+	
+
+	
+
+	
 }
 
 FrameworkElement ResourceView::xaml_get()
