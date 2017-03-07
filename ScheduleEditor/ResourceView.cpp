@@ -62,12 +62,15 @@ void ResourceView::initalize()
 		border.Margin({ 0,0,0,0 });
 		border.BorderThickness({ 0.5,0.5,0.5,0.5 });
 		border.Child(data);*/
-		data.Text(i);
+		/*data.Text(i);
 		data.Padding({ 0,0,0,0 });
 		data.Margin({ 0,0,0,0 });
 		data.MaxHeight( 20 );
-		data.MaxWidth(100);
-		mData.Items().Append(data);
+		data.MaxWidth(100);*/
+
+		auto stringValue = winrt::Windows::Foundation::PropertyValue::CreateString(i);
+
+		mData.Items().Append(stringValue);
 	}
 
 	
@@ -84,8 +87,8 @@ void ResourceView::initalize()
 		iwp.Orientation(Orientation::Vertical);
 		iwp.Margin({ 0,0,0,0 });
 		iwp.GroupPadding({ 0,0,0,0 });
-		iwp.ItemHeight(20);
-		iwp.ItemWidth(100);
+		//iwp.ItemHeight(20);
+		//iwp.ItemWidth(100);
 
 		//DataTemplate dt;
 		///winrt::Windows::Foundation::IReference<double> pv;
