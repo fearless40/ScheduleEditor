@@ -100,10 +100,10 @@
     <PackageCertificateKeyFile>ScheduleEditor_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)..\..\lib\cppwinrt\10.0.14393.0;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\..\lib;$(ProjectDir)..\..\lib\cppwinrt\10.0.14393.0;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)..\..\lib\cppwinrt\10.0.14393.0;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\..\lib;$(ProjectDir)..\..\lib\cppwinrt\10.0.14393.0;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>
@@ -147,8 +147,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AppUI.h" />
+    <ClInclude Include="Data.h" />
+    <ClInclude Include="Model.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PropertyMap.h" />
+    <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceView.h" />
+    <ClInclude Include="Slots.h" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -176,6 +181,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PropertyMap.cpp" />
+    <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceView.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
