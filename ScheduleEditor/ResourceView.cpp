@@ -69,6 +69,7 @@ void ResourceView::initalize()
 		data.MaxWidth(100);*/
 
 		auto stringValue = winrt::Windows::Foundation::PropertyValue::CreateString(i);
+		
 
 		mData.Items().Append(stringValue);
 	}

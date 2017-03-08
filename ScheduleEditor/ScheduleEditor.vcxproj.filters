@@ -20,7 +20,13 @@
     <ClCompile Include="PropertyMap.cpp">
       <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="Resource.cpp">
+    <ClCompile Include="Data.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Range.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources.cpp">
       <Filter>Model</Filter>
     </ClCompile>
   </ItemGroup>
@@ -28,9 +34,6 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="AppUI.h" />
     <ClInclude Include="ResourceView.h" />
-    <ClInclude Include="Resource.h">
-      <Filter>Model</Filter>
-    </ClInclude>
     <ClInclude Include="PropertyMap.h">
       <Filter>Model</Filter>
     </ClInclude>
@@ -41,6 +44,12 @@
       <Filter>Model</Filter>
     </ClInclude>
     <ClInclude Include="Data.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Range.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources.h">
       <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>

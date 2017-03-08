@@ -3,10 +3,10 @@
 namespace Model {
 	namespace Resources {
 		
-		class ResourceCategory {
+		class Group {
 			Index mIndex;
-			std::string name;
-			Properties::PropertyMap mProperties;
+			std::string mName;
+			std::vector<Resource> mMembers;
 		};
 		
 		class Resource
@@ -17,7 +17,7 @@ namespace Model {
 
 		protected:
 			Index mIndex;
-			const ResourceCategory * mCategory;
+
 			
 			Properties::PropertyMap mProperties;
 

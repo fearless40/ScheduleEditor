@@ -1,5 +1,5 @@
 #pragma once
-#include <chrono>
+
 
 
 namespace Model::Slots {
@@ -40,7 +40,9 @@ namespace Model::Slots {
 		Slots mSlots;
 	public:
 		void add(T & value);
-		std::size_t count();
+		std::size_t count() const;
+
+		operator (SlotGroup<Slot>)() {}
 
 	};
 }
