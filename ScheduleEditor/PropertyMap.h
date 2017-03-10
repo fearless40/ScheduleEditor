@@ -75,7 +75,7 @@ namespace Model {
 
 		protected:
 			PMap mMap;
-			const PropertyTemplate * mTemplate;
+			
 		};
 
 		class PropertyTemplate {

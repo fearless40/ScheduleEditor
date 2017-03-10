@@ -3,34 +3,22 @@
 
 
 namespace Model::Data {
-	enum class Duration {
-		Month,
-		Week,
-		Day
-	};
+	
+	bool			hasData(const Model::Resources::Resource * res);
+	ResourceData &	Get(const Model::Resources::Resource * res);
+	ResourceData &	Create(const Model::Resources::Resource * res);
 
-	/// Range only supports contigous ranges of data. You cannot merge two discontinous ranges
-	/// The range implements a single dimensional array but simulates a two dimensional array
-	/// Ranges need a SlotGroup associated with them.
-	/*class Range {
-		TimePoint mStart;
-		TimePoint mEnd;
+	/// Triggers an event changed signal
+	void			Save(const Model::Data::Range * changed);
+	
+	/// Holds a group of Ranges. Allowing discontinous data to be stored
+	/// It is associated with only one type of resource (the mOwner)
+	class ResourceData {
+		Index mIndex;
 
-		// Currently not used
-		//Duration mDurations;
-		
-		const SlotGroup<Slot> * mSlots;
-		std::vector<const Resource *> mData;
-
-	public:
-		operator const Resource * (TimePoint tm);
-	};*/
+		Model::Resources::Resource * mOwner;
 
 
-
-	class Data {
-		//Duration mDurations;
-		
 
 	};
 }

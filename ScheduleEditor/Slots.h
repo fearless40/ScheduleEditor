@@ -15,34 +15,33 @@ namespace Model::Slots {
 		unsigned char minute;
 	};
 
+	/// A item that represents a time-period or organizing block
+	/// Slots are strongly ordered represented by mSlotOrder
 	class Slot {
 	protected:
 		Index	mIndex;
-		long	mSlotID;
+		long	mSlotOrder;
 		Properties::PropertyMap mProperty;
-	};
-	
-	class SlotTime : public Slot {
 		TimeOnly mStart;
 		TimeOnly mEnd;
-		
+		const SlotGroup * const mOwner;
 	};
-
-	class SlotCustom : public Slot {
-		std::string mName;
-	};
-
-	template <typename T>
+	
+	
+	/// A collection of Slot. Items within are ordered by mSlotOrder
 	class SlotGroup {
 		Index mIndex;
-		using Slots = std::vector<T>;
+		using Slots = std::vector<Slot>;
 
 		Slots mSlots;
 	public:
-		void add(T & value);
+		void add(Slot & value);
 		std::size_t count() const;
 
-		operator (SlotGroup<Slot>)() {}
+		
 
 	};
+
+	SlotGroup & Get(Index index);
+	SlotGroup & Create(Index index);
 }

@@ -3,7 +3,7 @@
 class Model::Slots::Slot;
 class Model::Slots::SlotGroup<Slot>;
 class Model::Resources::Resource;
-class Model::Resources::Group;
+class Model::Resources::ResourceGroup;
 
 namespace Model::Data {
 
@@ -15,20 +15,20 @@ namespace Model::Data {
 	/// contigous day range. </remark>
 	class Range
 	{
-		using Resources = std::vector<const Resource *>;
+		using ResourcesVector = std::vector<const Model::Resources::Resource *>;
 
 		// Time is stored in 1 day increments
 		date::year_month_day mStart;
 		date::year_month_day mEnd;
 
 		// Slot group
-		const Model::Slots::SlotGroup<Slot> * mSlots;
+		const Model::Slots::SlotGroup * mSlots;
 
-		// Resource Group allowed
-		const Model::Resources::Group * mResourceGroup;
+		// Resource that this range is associated with
+		const Model::Resources::Resource * mOwner;
 
 		// Actual data
-		Resources mResources; 
+		ResourcesVector mResources;
 
 	public:
 		/*class iterator_day : public std::iterator<
@@ -59,13 +59,15 @@ namespace Model::Data {
 		Range(Range &&) = default;
 		Range(const Range &) = default;
 
-		/// If it is an empty range. It can exist if you try to merge to non contigous ranges
+		/// If it is an empty range. 
 		bool empty () const;
 
+		// Get a copy limiting the selection to what is asked
 		const Range get(date::year_month_day day) const;
 		const Range get(date::year_month_day start, date::year_month_day end) const;
 
-		// Allows the data to be edited
+
+		// Allows the data to be edited. Copies the current object
 		Range edit() const;
 		Range edit(date::year_month_day day) const;
 		Range edit(date::year_month_day start, date::year_month_day end) const;
