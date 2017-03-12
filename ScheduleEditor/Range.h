@@ -1,5 +1,7 @@
 #pragma once
 
+#include "date\date.h"
+
 class Model::Slots::Slot;
 class Model::Slots::SlotGroup<Slot>;
 class Model::Resources::Resource;
@@ -8,6 +10,55 @@ class Model::Resources::ResourceGroup;
 namespace Model::Data {
 
 	class RangeView;
+	class RangeCompressed;
+	class Range;
+	class Day;
+	
+
+	class IRange {
+	public:
+
+		class iterator_slot {
+			long slotindex;
+
+		};
+		
+		// Iterates over each day in the range
+		class iterator_day {
+			
+			
+			
+			const Resource & operator[] (long slotindex) const;
+			const Resource & operator[] (const Slot & slot) const;
+
+			const Resource & operator[] (long slotindex);
+			const Resource & operator[] (const Slot & slot);
+
+			
+		};
+
+		virtual bool empty() const;
+		virtual bool dirty() const;
+
+		virtual Model::Data::DataModel & model() const;
+
+		//virtual const Resource * at(date::year_month_day dt, uint32_t slotid) const;
+		virtual const IRange * at(date::year_month_day dt) const;
+		virtual const IRange * at(date::year_month_day start, date::year_month_day end) const;
+
+		virtual iterator begin();
+		virtual iterator end();
+
+		/// Returns the old value
+		virtual Model::Resources::Resource * change(date::year_month_day day, long SlotIndex, Model::Resources::Resource * value);
+
+		/// Change multiple days but only a single slot within those days
+		/// <example> You wanted to clear out from 5/5 to 5/10 only the 6th slot </example>
+		virtual void change(date::year_month_day start, date::year_month_day end, long SlotIndex, Model::Resources::Resource * value);
+
+		/// Overwrite each day with the slot
+		virtual void change(date::year_month_day start, date::year_month_day end, Model::Resources::Resource * value);
+	};
 
 	/// All resources are organized by days and then by slots. 
 	/// A range is always continous set of dates. Empty spots are represented by nullptr
@@ -21,11 +72,9 @@ namespace Model::Data {
 		date::year_month_day mStart;
 		date::year_month_day mEnd;
 
-		// Slot group
-		const Model::Slots::SlotGroup * mSlots;
-
+	
 		// Resource that this range is associated with
-		const Model::Resources::Resource * mOwner;
+		const Model::DataModel & mOwner;
 
 		// Actual data
 		ResourcesVector mResources;
@@ -63,8 +112,8 @@ namespace Model::Data {
 		bool empty () const;
 
 		// Get a copy limiting the selection to what is asked
-		const Range get(date::year_month_day day) const;
-		const Range get(date::year_month_day start, date::year_month_day end) const;
+		Range get(date::year_month_day day) const;
+		Range get(date::year_month_day start, date::year_month_day end) const;
 
 
 		// Allows the data to be edited. Copies the current object

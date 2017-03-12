@@ -22,16 +22,21 @@ namespace Model {
 			//end()
 			//add()
 			//remove()
+			//count();
 		};
 		
 		class Resource
 		{
 		public:
+			static Resource NullResource;
+
 			const Model::Properties::PropertyMap & properties_get();
 
+			// Helpful to allow if() like constructs to check if something is empty or null
+			operator bool() { return (this != &NullResource); }
 
 		protected:
-			Index mIndex;
+			//Index mIndex;
 			const ResourceGroup * const mOwner;
 
 			
