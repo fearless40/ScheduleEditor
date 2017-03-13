@@ -9,33 +9,54 @@ class Model::Resources::ResourceGroup;
 
 namespace Model::Data {
 
-	class RangeView;
-	class RangeCompressed;
-	class Range;
-	class Day;
 	
 
-	class IRange {
+	class RangeData {
+		date startdate;
+		date enddate;
+		
+		std::vector<uint8_t> mData;
+		std::vector<const Resource *> mMapper;
+
+		Range(const Range & r, startdate, enddate) { return copy_if(startdate, enddate matches); }
+	};
+
+	class RangeView {
+		date startdate;
+		date enddate;
+		const RangeData & mRange;
+
+		RangeData edit(startdate,enddate) {
+			return RangeData(mRange, startdate, enddate);
+		}
+	};
+
+	class iterator_slot {
+		long slotindex;
+
+	};
+
+	// Iterates over each day in the range
+	class iterator_day {
+
+
+
+		const Resource & operator[] (long slotindex) const;
+		const Resource & operator[] (const Slot & slot) const;
+
+		const Resource & operator[] (long slotindex);
+		const Resource & operator[] (const Slot & slot);
+
+
+	};
+	
+	
+	class Range {
 	public:
 
-		class iterator_slot {
-			long slotindex;
-
-		};
 		
-		// Iterates over each day in the range
-		class iterator_day {
-			
-			
-			
-			const Resource & operator[] (long slotindex) const;
-			const Resource & operator[] (const Slot & slot) const;
-
-			const Resource & operator[] (long slotindex);
-			const Resource & operator[] (const Slot & slot);
-
-			
-		};
+		
+		
 
 		virtual bool empty() const;
 		virtual bool dirty() const;
@@ -46,8 +67,8 @@ namespace Model::Data {
 		virtual const IRange * at(date::year_month_day dt) const;
 		virtual const IRange * at(date::year_month_day start, date::year_month_day end) const;
 
-		virtual iterator begin();
-		virtual iterator end();
+		virtual iterator_day begin();
+		virtual iterator_day end();
 
 		/// Returns the old value
 		virtual Model::Resources::Resource * change(date::year_month_day day, long SlotIndex, Model::Resources::Resource * value);

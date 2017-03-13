@@ -23,8 +23,9 @@ namespace Model {
 		//boost::multiindex<blah blah blah> ranges;
 
 	public:
-		const Range get_dates(date::year_month_day start, date::year_month_day end);
-		const Range get_month(int year, int month);
+		const RangeView get_dates(date::year_month_day start, date::year_month_day end);
+		const RangeView get_month(int year, int month);
+		
 
 		void		refresh();
 		

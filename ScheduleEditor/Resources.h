@@ -10,11 +10,13 @@ namespace Model {
 
 		void			Remove(ResourceGroup * rg);
 
+		// Groups a set of resources together. Order is enforced by position within the vector
 		class ResourceGroup {
 			Index mIndex;
 			std::string mName;
-			std::vector<Resource> mMembers;
-			const PropertyTemplate * mTemplate;
+			std::vector<const Resource *> mMembers;
+			std::vector<uint32_t> mPriority;
+			
 
 		public:
 			//find()
@@ -25,8 +27,21 @@ namespace Model {
 			//count();
 		};
 		
+		// Owns a resource. Every resource must have a defining type
+		class ResourceType
+		{
+			Index mIndex;
+			std::string mName;
+			std::vector<Resource> mMembers;
+			const PropertyTemplate * mTemplate;
+		};
+
+		
 		class Resource
 		{
+			Properties::PropertyMap mProperties;
+			const ResourceType & mType;
+
 		public:
 			static Resource NullResource;
 
@@ -35,12 +50,6 @@ namespace Model {
 			// Helpful to allow if() like constructs to check if something is empty or null
 			operator bool() { return (this != &NullResource); }
 
-		protected:
-			//Index mIndex;
-			const ResourceGroup * const mOwner;
-
-			
-			Properties::PropertyMap mProperties;
 
 		};
 	}
