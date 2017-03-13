@@ -4,6 +4,7 @@
 
 namespace Model::Data::Range {
 
+	
 	/// A view into a Data. Lightweight class pass by value. 
 	/// Always const cannot edit data.
 	class View {

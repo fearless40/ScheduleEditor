@@ -17,53 +17,86 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="AppUI.cpp" />
     <ClCompile Include="ResourceView.cpp" />
-    <ClCompile Include="PropertyMap.cpp">
+    <ClCompile Include="Model\Properties.PropertyMap.cpp">
       <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="Data.cpp">
+    <ClCompile Include="Model\Properties.PropertyTemplate.cpp">
       <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="Range.cpp">
+    <ClCompile Include="Model\Data.cpp">
       <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="Resources.cpp">
+    <ClCompile Include="Model\Range.cpp">
       <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="RangeData.cpp">
+    <ClCompile Include="Model\Range.Data.cpp">
       <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="RangeView.cpp">
+    <ClCompile Include="Model\Range.View.cpp">
       <Filter>Model</Filter>
     </ClCompile>
+    <ClCompile Include="Model\Resources.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Model\Resources.Resource.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Model\Resources.ResourceGroup.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Model\Resources.ResourceType.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Model\Slots.SlotGroup.cpp" />
+    <ClCompile Include="Slots.Slot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="AppUI.h" />
     <ClInclude Include="ResourceView.h" />
-    <ClInclude Include="PropertyMap.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Model</Filter>
-    </ClInclude>
     <ClInclude Include="Slots.h">
       <Filter>Model</Filter>
     </ClInclude>
-    <ClInclude Include="Data.h">
+    <ClInclude Include="Model\Properties.h">
       <Filter>Model</Filter>
     </ClInclude>
-    <ClInclude Include="Range.h">
+    <ClInclude Include="Model\Properties.PropertyMap.h">
       <Filter>Model</Filter>
     </ClInclude>
-    <ClInclude Include="Resources.h">
+    <ClInclude Include="Model\Properties.PropertyTemplate.h">
       <Filter>Model</Filter>
     </ClInclude>
-    <ClInclude Include="RangeView.h">
+    <ClInclude Include="Model\Data.h">
       <Filter>Model</Filter>
     </ClInclude>
-    <ClInclude Include="RangeData.h">
+    <ClInclude Include="Model\Model.h">
       <Filter>Model</Filter>
     </ClInclude>
+    <ClInclude Include="Model\Range.Data.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Range.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Range.View.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Resources.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Resources.Resource.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Resources.ResourceGroup.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Resources.ResourceType.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Slots.h" />
+    <ClInclude Include="Model\Slots.SlotGroup.h" />
+    <ClInclude Include="Model\TimeDuration.h" />
+    <ClInclude Include="Slots.Slot.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">

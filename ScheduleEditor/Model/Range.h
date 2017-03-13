@@ -13,6 +13,7 @@ namespace Model::Data::Range {
 
 	
 	using Date = date::year_month_day;
-	
+	class Data;
+	class View;
 
 }
