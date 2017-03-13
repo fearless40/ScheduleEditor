@@ -29,6 +29,12 @@
     <ClCompile Include="Resources.cpp">
       <Filter>Model</Filter>
     </ClCompile>
+    <ClCompile Include="RangeData.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="RangeView.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -50,6 +56,12 @@
       <Filter>Model</Filter>
     </ClInclude>
     <ClInclude Include="Resources.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeView.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeData.h">
       <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>

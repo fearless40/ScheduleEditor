@@ -152,6 +152,8 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="PropertyMap.h" />
     <ClInclude Include="Range.h" />
+    <ClInclude Include="RangeData.h" />
+    <ClInclude Include="RangeView.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="ResourceView.h" />
     <ClInclude Include="Slots.h" />
@@ -185,6 +187,8 @@
     </ClCompile>
     <ClCompile Include="PropertyMap.cpp" />
     <ClCompile Include="Range.cpp" />
+    <ClCompile Include="RangeData.cpp" />
+    <ClCompile Include="RangeView.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="ResourceView.cpp" />
   </ItemGroup>

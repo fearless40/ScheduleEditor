@@ -1,8 +1,10 @@
 #pragma once
 
+class Model::Resources::Resource;
+class Model::Resources::ResourceGroup;
+class Model::Slots::SlotGroup;
 
-
-namespace Model {
+namespace Model::Data {
 	
 	/// Holds a group of Ranges. Allowing discontinous data to be stored
 	/// It is associated with only one type of resource (the mOwner)

@@ -1,7 +1,6 @@
 #pragma once
 
-namespace Model {
-	namespace Resources {
+namespace Model::Resources {
 		
 		ResourceGroup & Get_Name(std::string name);
 		ResourceGroup & Get_Index(Index mIndex);
@@ -52,5 +51,4 @@ namespace Model {
 
 
 		};
-	}
 }
