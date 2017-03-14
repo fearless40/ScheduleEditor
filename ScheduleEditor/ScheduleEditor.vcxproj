@@ -149,7 +149,6 @@
     <ClInclude Include="AppUI.h" />
     <ClInclude Include="Model\Data.h" />
     <ClInclude Include="Model\Model.h" />
-    <ClInclude Include="Model\Slots.h" />
     <ClInclude Include="Model\TimeDuration.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Model\Properties.h" />
