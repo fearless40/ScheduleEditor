@@ -39,12 +39,19 @@ namespace Model::Slots {
 		const Slot & operator [] (uint32_t index) const;
 		Slot & operator [] (uint32_t index);
 
-		void insert(const_iterator before, const Slot & slot);
-		void push_back(const Slot & slot);
+		Slot & insert(const_iterator before);
+		Slot & push_back();
 
 		void remove(const_iterator slot);
 		
 		const Model::Properties::PropertyTemplate & propertyTemplate() const;
+		Model::Properties::PropertyTempate & propertyTemplate();
 
+
+		// Static functions
+		static const SlotGroup & Find(std::string name);
+		static SlotGroup &	Create(std::string name);
+		static void Save(SlotGroup & slotgroup);
+		
 	};
 }

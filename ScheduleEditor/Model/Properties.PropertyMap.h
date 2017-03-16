@@ -1,5 +1,6 @@
 #pragma once
 
+#include <unordered_map>
 #include "Properties.h"
 
 namespace Model::Properties {
@@ -10,15 +11,23 @@ namespace Model::Properties {
 		void add(std::string key, Property prop);
 		void remove(std::string key);
 
-		auto begin() -> decltype(mMap.cbegin()) const {
+		auto begin() const {
 			return mMap.cbegin();
 		}
 
-		auto end() -> decltype(mMap.cend()) const {
+		auto end() const {
 			return mMap.cend();
 		}
 
-		bool has(std::string key) {
+		auto begin() {
+			return mMap.begin();
+		}
+
+		auto end() {
+			return mMap.end();
+		}
+
+		bool has(std::string key) const {
 			return (mMap.find(key) != mMap.end());
 		}
 
@@ -40,7 +49,6 @@ namespace Model::Properties {
 				return defValue;
 			}
 		}
-
 
 
 	protected:

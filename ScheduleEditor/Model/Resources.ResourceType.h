@@ -1,4 +1,5 @@
 #pragma once
+//#include "Model.h"
 
 namespace Model::Resources {
 	
@@ -14,17 +15,25 @@ namespace Model::Resources {
 	public:
 
 		class iterator {};
+		class const_iterator {};
 
-		const iterator begin() const;
-		const iterator end() const;
+		const_iterator begin() const;
+		const_iterator end() const;
 
 		iterator begin();
 		iterator end();
 
 		size_t count() const;
 
-		const PropertTemplate & template_get() const;
+		const Model::Properties::PropertyTemplate & propertyTemplate() const;
+		Model::Properties::PropertyTemplate & propertyTemplate();
 
 
+		// Static functions
+		static const ResourceType & Find(Model::Index name);
+		static ResourceType & Create(Model::Index name);
+		static void Save(ResourceType & rt);
+		static ResourceType & Edit(const ResourceType & rt);
+		std::vector<Model::Index> GetAllNames();
 	};
 }

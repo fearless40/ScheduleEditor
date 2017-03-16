@@ -5,19 +5,9 @@ namespace Model::Resources {
 	class ResourceType;
 	class Resource;
 	class ResourceGroup;
-		/*ResourceGroup & Get_Name(std::string name);
-		ResourceGroup & Get_Index(Index mIndex);
 
-		ResourceGroup & Create(Index mIndex, std::string name);
+	// ResourceType owned by self. 
+	// Resource owned by ResourceType
+	// ResourceGroup owned by self. Points to Resource but does not own Resource
 
-		void			Remove(ResourceGroup * rg);
-
-		// Groups a set of resources together. Order is enforced by position within the vector
-		
-		
-		
-
-		
-		
-		*/
 }

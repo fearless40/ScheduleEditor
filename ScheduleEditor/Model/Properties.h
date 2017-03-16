@@ -21,4 +21,11 @@ namespace Model::Properties {
 		RangeProperty	min;
 		RangeProperty	max;
 	};
+
+	class PropertyMap; 
+	class ProperyTemplate;
+
+	// PropertyMap are owned by the class that contains it. 
+
+	// PropertyTemplates are global ownership and must be retrieved by name
 }
