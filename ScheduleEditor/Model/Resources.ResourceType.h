@@ -1,5 +1,6 @@
-#pragma once
-//#include "Model.h"
+pragma once
+
+#include "Resources.h"
 
 namespace Model::Resources {
 	
@@ -12,10 +13,18 @@ namespace Model::Resources {
 		//std::vector<Resource> mMembers;
 		//const PropertyTemplate * mTemplate;
 
+		// This items resource ID
+		ResourceID mID;
+
+		// The next resource that is created will use this value. Values are never recyeled. 
+		ResourceID mNextResourceID;
+
 	public:
 
 		class iterator {};
 		class const_iterator {};
+
+		ResourceID getID() const; 
 
 		const_iterator begin() const;
 		const_iterator end() const;
@@ -24,6 +33,9 @@ namespace Model::Resources {
 		iterator end();
 
 		size_t count() const;
+
+		Resource & resource_create();
+		void resource_remove(const_iterator it);
 
 		const Model::Properties::PropertyTemplate & propertyTemplate() const;
 		Model::Properties::PropertyTemplate & propertyTemplate();
@@ -34,6 +46,8 @@ namespace Model::Resources {
 		static ResourceType & Create(Model::Index name);
 		static void Save(ResourceType & rt);
 		static ResourceType & Edit(const ResourceType & rt);
-		std::vector<Model::Index> GetAllNames();
+		static std::vector<Model::Index> GetAllNames();
+
+		static const Resouce & FindResource(ResourceUniqueID id);
 	};
 }

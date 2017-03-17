@@ -37,7 +37,7 @@ namespace Model::Data {
 		bool isDefaultModel() const;
 
 		/// Checks to see if the given resource has a DataModel associated with it
-		static bool			HasData(const Model::Resources::Resource * res);
+		static bool			HasData(const Model::Resources::Resource & res);
 		
 		/// Throws if it can't find the data, returns the default data model
 		static DataModel &	GetDefaultModel(const Model::Resources::Resource & res);

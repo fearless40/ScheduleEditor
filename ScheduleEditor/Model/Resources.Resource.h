@@ -9,9 +9,17 @@ namespace Model::Resources {
 	{
 		Properties::PropertyMap mProperties;
 		const ResourceType & mType;
+		
+		// Only writable by ResourceType
+		ResourceUniqueID mUnique;
 
 	public:
-		
+		ResourceUniqueID getID() const;
+
+		/// Checks to see if the resouce has been deleted. Deleted resource are still kept around unless all references to them have been removed
+		/// <remarks> Resource are not deleted right away as parts of the schedule will still rely on them. The data will still
+		/// exist in the file however it will no longer be editable. The resource will not be selected for new data entry. </remarks>
+		bool deleted() const;
 
 		const Model::Properties::PropertyMap & properties_get();
 
