@@ -6,10 +6,15 @@
 namespace Model::Properties {
 	class PropertyMap {
 	public:
-		using PMap = std::unordered_map<std::string, Property>;
+		using PMap = std::unordered_map<Model::Index, Property>;
 
-		void add(std::string key, Property prop);
-		void remove(std::string key);
+		PropertyMap();
+		PropertyMap(PropertyMap & map);
+		PropertyMap(PropertyMap && map);
+		~PropertyMap();
+
+		void add(Model::Index key, Property prop);
+		void remove(Model::Index key);
 
 		auto begin() const {
 			return mMap.cbegin();
@@ -33,14 +38,14 @@ namespace Model::Properties {
 
 		// Will throw an exception if no value exists
 		template< typename T >
-		T get(std::string key) const {
+		T get(Model::Index key) const {
 			auto value = mMap.at(key);
 			return std::get<T>(value);
 		}
 
 		// If it can't find the value will return the default value specifie by the user
 		template< typename T >
-		T get(std::string key, T defValue) const {
+		T get(Model::Index key, T defValue) const {
 			auto found = mMap.find(key);
 			if (found != mMap.end()) {
 				return std::get<T>(*found);

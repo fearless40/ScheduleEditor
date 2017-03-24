@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26206.0
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScheduleEditor", "ScheduleEditor\ScheduleEditor.vcxproj", "{964CD6D4-4096-4D5B-A0D5-D43C0290C8CE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test", "Test\Test.vcxproj", "{C2A51175-C554-4C5C-9287-0AE9BE0C7B89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,20 @@ Global
 		{964CD6D4-4096-4D5B-A0D5-D43C0290C8CE}.Release|x86.ActiveCfg = Release|Win32
 		{964CD6D4-4096-4D5B-A0D5-D43C0290C8CE}.Release|x86.Build.0 = Release|Win32
 		{964CD6D4-4096-4D5B-A0D5-D43C0290C8CE}.Release|x86.Deploy.0 = Release|Win32
+		{C2A51175-C554-4C5C-9287-0AE9BE0C7B89}.Debug|ARM.ActiveCfg = Debug|ARM
+		{C2A51175-C554-4C5C-9287-0AE9BE0C7B89}.Debug|x64.ActiveCfg = Debug|x64
+		{C2A51175-C554-4C5C-9287-0AE9BE0C7B89}.Debug|x64.Build.0 = Debug|x64
+		{C2A51175-C554-4C5C-9287-0AE9BE0C7B89}.Debug|x64.Deploy.0 = Debug|x64
+		{C2A51175-C554-4C5C-9287-0AE9BE0C7B89}.Debug|x86.ActiveCfg = Debug|Win32
+		{C2A51175-C554-4C5C-9287-0AE9BE0C7B89}.Release|ARM.ActiveCfg = Release|ARM
+		{C2A51175-C554-4C5C-9287-0AE9BE0C7B89}.Release|ARM.Build.0 = Release|ARM
+		{C2A51175-C554-4C5C-9287-0AE9BE0C7B89}.Release|ARM.Deploy.0 = Release|ARM
+		{C2A51175-C554-4C5C-9287-0AE9BE0C7B89}.Release|x64.ActiveCfg = Release|x64
+		{C2A51175-C554-4C5C-9287-0AE9BE0C7B89}.Release|x64.Build.0 = Release|x64
+		{C2A51175-C554-4C5C-9287-0AE9BE0C7B89}.Release|x64.Deploy.0 = Release|x64
+		{C2A51175-C554-4C5C-9287-0AE9BE0C7B89}.Release|x86.ActiveCfg = Release|Win32
+		{C2A51175-C554-4C5C-9287-0AE9BE0C7B89}.Release|x86.Build.0 = Release|Win32
+		{C2A51175-C554-4C5C-9287-0AE9BE0C7B89}.Release|x86.Deploy.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
