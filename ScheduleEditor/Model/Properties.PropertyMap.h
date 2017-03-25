@@ -13,8 +13,8 @@ namespace Model::Properties {
 		PropertyMap(PropertyMap && map);
 		~PropertyMap();
 
-		void add(Model::Index key, Property prop);
-		void remove(Model::Index key);
+		void add(PropertyIndex key, Property prop);
+		void remove(PropertyIndex key);
 
 		auto begin() const {
 			return mMap.cbegin();
@@ -32,20 +32,20 @@ namespace Model::Properties {
 			return mMap.end();
 		}
 
-		bool has(std::string key) const {
+		bool has(PropertyIndex key) const {
 			return (mMap.find(key) != mMap.end());
 		}
 
 		// Will throw an exception if no value exists
 		template< typename T >
-		T get(Model::Index key) const {
+		T get(PropertyIndex key) const {
 			auto value = mMap.at(key);
 			return std::get<T>(value);
 		}
 
 		// If it can't find the value will return the default value specifie by the user
 		template< typename T >
-		T get(Model::Index key, T defValue) const {
+		T get(PropertyIndex key, T defValue) const {
 			auto found = mMap.find(key);
 			if (found != mMap.end()) {
 				return std::get<T>(*found);

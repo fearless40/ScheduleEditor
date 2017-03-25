@@ -1,12 +1,13 @@
 #include "pch.h"
+#include <vector>
+#include "Model.h"
+#include "Properties.h"
 #include "Properties.PropertyTemplate.h"
 
+using namespace  Model::Properties;
 
-PropertyTemplate::PropertyTemplate()
+
+void Model::Properties::PropertyTemplate::string_add(PropertyIndex name, std::string defaultvalue, bool mandatory)
 {
-}
-
-
-PropertyTemplate::~PropertyTemplate()
-{
+	mDefs.emplace_back(name, mandatory, ValueTypes::vtSTRING, defaultvalue);
 }

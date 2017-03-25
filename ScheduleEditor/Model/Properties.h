@@ -5,6 +5,7 @@
 namespace Model::Properties {
 	using Property = std::variant<long, double, bool, std::string>;
 	using RangeProperty = std::variant<long, double>;
+	using PropertyIndex = std::string;
 
 	enum class ValueTypes {
 		vtLONG,

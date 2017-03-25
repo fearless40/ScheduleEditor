@@ -27,12 +27,12 @@ PropertyMap::~PropertyMap()
 {
 }
 
-void Model::Properties::PropertyMap::add(Model::Index key, Property prop)
+void Model::Properties::PropertyMap::add(PropertyIndex key, Property prop)
 {
 	mMap[key] = prop;
 }
 
-void Model::Properties::PropertyMap::remove(Model::Index key)
+void Model::Properties::PropertyMap::remove(PropertyIndex key)
 {
 	mMap.erase(key);
 }
