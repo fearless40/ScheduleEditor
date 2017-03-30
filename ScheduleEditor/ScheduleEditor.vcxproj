@@ -136,13 +136,13 @@
     <PackageCertificateKeyFile>ScheduleEditor_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)..\..\lib;$(ProjectDir)..\..\lib\cppwinrt\10.0.14393.0;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\..\lib;$(ProjectDir)..\..\lib\cppwinrt\10.0.14393.0;$(ProjectDir)..\..\lib\boost;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Test|x64'">
-    <IncludePath>$(ProjectDir)..\..\lib;$(ProjectDir)..\..\lib\cppwinrt\10.0.14393.0;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\..\lib;$(ProjectDir)..\..\lib\cppwinrt\10.0.14393.0;$(ProjectDir)..\..\lib\boost;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)..\..\lib;$(ProjectDir)..\..\lib\cppwinrt\10.0.14393.0;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\..\lib;$(ProjectDir)..\..\lib\cppwinrt\10.0.14393.0;$(ProjectDir)..\..\lib\boost;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>

@@ -81,7 +81,12 @@ void Model::Properties::PropertyTemplate::make_valid(PropertyMap & map) const
 const PropertyTemplate & Model::Properties::PropertyTemplate::Find(Model::Index name)
 {
 	// TODO: insert return statement here
-	return templates.find(name);
+	auto it = templates.find(name);
+	if (it == templates.end() )
+	{
+		throw "Could not find the item specified";
+	}
+	return *it;
 }
 
 PropertyTemplate & Model::Properties::PropertyTemplate::Create(Model::Index name)
