@@ -11,7 +11,7 @@ namespace Utility {
 		template <typename T>
 		using FixedList = boost::multi_index_container<T,
 			indexed_by<
-			random_access<>,
+			//random_access<>,
 			hashed_unique<const_mem_fun<T, Model::Index, &T::index> >
 			>
 		>;

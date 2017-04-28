@@ -9,6 +9,9 @@ namespace Model::Properties {
 	public:
 		using PropertyDefinitions = std::vector<PropertyDefinition>;
 
+		PropertyTemplate(const PropertyTemplate & pt) = default;
+		PropertyTemplate(PropertyTemplate && pt) = default;
+
 		Model::Index index() const { return mIndex; }
 
 		void string_add(PropertyIndex name, std::string defaultvalue, bool mandatory = false);
@@ -25,9 +28,9 @@ namespace Model::Properties {
 		// Static functions
 
 		static const PropertyTemplate & Find(Model::Index name);
-		static PropertyTemplate & Create(Model::Index name);
+		static PropertyTemplate Create(Model::Index name);
 		static void Save(PropertyTemplate & pt);
-		static PropertyTemplate & Edit(const PropertyTemplate & pt);
+		static PropertyTemplate Edit(const PropertyTemplate & pt);
 		static std::vector<Model::Index> GetAllNames();
 
 
@@ -39,5 +42,9 @@ namespace Model::Properties {
 
 		// Used to look it up 
 		Model::Index mIndex;
+
+	protected:
+		explicit PropertyTemplate(Model::Index index);
+		
 	};
 }

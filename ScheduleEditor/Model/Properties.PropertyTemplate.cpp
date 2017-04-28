@@ -82,6 +82,7 @@ const PropertyTemplate & Model::Properties::PropertyTemplate::Find(Model::Index 
 {
 	// TODO: insert return statement here
 	auto it = templates.find(name);
+
 	if (it == templates.end() )
 	{
 		throw "Could not find the item specified";
@@ -89,26 +90,47 @@ const PropertyTemplate & Model::Properties::PropertyTemplate::Find(Model::Index 
 	return *it;
 }
 
-PropertyTemplate & Model::Properties::PropertyTemplate::Create(Model::Index name)
+PropertyTemplate Model::Properties::PropertyTemplate::Create(Model::Index name)
 {
 	// TODO: insert return statement here
+	PropertyTemplate pt(name);
+	if (templates.find(name) == templates.end()) {
+		return pt;
+	}
+	else {
+		throw "Item already exists in the collection.";
+	}
 }
 
 void Model::Properties::PropertyTemplate::Save(PropertyTemplate & pt)
 {
+	auto item = templates.find(pt.index());
+	if (item == templates.end()) {
+		templates.insert(pt);
+	}
+	else {
+		templates.modify(item, pt);
+	}
 }
 
-PropertyTemplate & Model::Properties::PropertyTemplate::Edit(const PropertyTemplate & pt)
+PropertyTemplate Model::Properties::PropertyTemplate::Edit(const PropertyTemplate & pt)
 {
-	// TODO: insert return statement here
+	PropertyTemplate ret(pt);
+	return ret;
 }
 
 std::vector<Model::Index> Model::Properties::PropertyTemplate::GetAllNames()
 {
-	return std::vector<Model::Index>();
+	std::vector<Model::Index> ret;
+	std::for_each(templates.begin(), templates.end(), [&ret](auto & k) { ret.push_back(k.index()); });
+	return ret;
 }
 
 Model::Properties::PropertyTemplate::PropertyDefinitions::iterator Model::Properties::PropertyTemplate::find(PropertyIndex index)
 {
 	return std::find_if(mDefs.begin(), mDefs.end(), [&index](auto const & item) { return item.name == index; });
+}
+
+Model::Properties::PropertyTemplate::PropertyTemplate(Model::Index index) : mIndex(index)
+{
 }

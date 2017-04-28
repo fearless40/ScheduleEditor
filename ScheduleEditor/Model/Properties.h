@@ -15,12 +15,13 @@ namespace Model::Properties {
 	};
 
 	struct PropertyDefinition {
-		std::string		name;
+		PropertyIndex	name;
 		bool			mandatory;
 		ValueTypes		type;
 		Property		defvalue;
 		RangeProperty	min;
 		RangeProperty	max;
+		const PropertyIndex & index() { return name;  }
 	};
 
 	class PropertyMap; 
