@@ -10,7 +10,11 @@
 
 using namespace  Model::Properties;
 
-Utility::FixedList<PropertyTemplate> templates;
+//Utility::FixedList<PropertyTemplate> templates;
+
+Model::Properties::PropertyTemplate::PropertyTemplate(Model::Index index) : mIndex(index)
+{
+}
 
 void Model::Properties::PropertyTemplate::string_add(PropertyIndex name, std::string defaultvalue, bool mandatory)
 {
@@ -33,8 +37,8 @@ void Model::Properties::PropertyTemplate::long_add(PropertyIndex name, long defa
 	{
 		(*f).defvalue = defaultvalue;
 		(*f).mandatory = mandatory;
-		(*f).min = min;
-		(*f).max = max;
+		(*f).minvalue = min;
+		(*f).maxvalue = max;
 	}
 	else {
 		mDefs.emplace_back(name, mandatory, ValueTypes::vtLONG, defaultvalue, min, max);
@@ -48,8 +52,8 @@ void Model::Properties::PropertyTemplate::double_add(PropertyIndex name, double 
 	{
 		(*f).defvalue = defaultvalue;
 		(*f).mandatory = mandatory;
-		(*f).min = min;
-		(*f).max = max;
+		(*f).minvalue = min;
+		(*f).maxvalue = max;
 	}
 	else {
 		mDefs.emplace_back(name, mandatory, ValueTypes::vtDOUBLE, defaultvalue, min, max);
@@ -78,6 +82,12 @@ void Model::Properties::PropertyTemplate::make_valid(PropertyMap & map) const
 {
 }
 
+Model::Properties::PropertyTemplate::PropertyDefinitions::iterator Model::Properties::PropertyTemplate::find(PropertyIndex index)
+{
+	return std::find_if(mDefs.begin(), mDefs.end(), [&index](auto const & item) { return item.name == index; });
+}
+
+/*
 const PropertyTemplate & Model::Properties::PropertyTemplate::Find(Model::Index name)
 {
 	// TODO: insert return statement here
@@ -88,6 +98,7 @@ const PropertyTemplate & Model::Properties::PropertyTemplate::Find(Model::Index 
 		throw "Could not find the item specified";
 	}
 	return *it;
+
 }
 
 PropertyTemplate Model::Properties::PropertyTemplate::Create(Model::Index name)
@@ -109,7 +120,7 @@ void Model::Properties::PropertyTemplate::Save(PropertyTemplate & pt)
 		templates.insert(pt);
 	}
 	else {
-		templates.modify(item, pt);
+		templates.replace(item, pt);
 	}
 }
 
@@ -126,11 +137,5 @@ std::vector<Model::Index> Model::Properties::PropertyTemplate::GetAllNames()
 	return ret;
 }
 
-Model::Properties::PropertyTemplate::PropertyDefinitions::iterator Model::Properties::PropertyTemplate::find(PropertyIndex index)
-{
-	return std::find_if(mDefs.begin(), mDefs.end(), [&index](auto const & item) { return item.name == index; });
-}
+*/
 
-Model::Properties::PropertyTemplate::PropertyTemplate(Model::Index index) : mIndex(index)
-{
-}

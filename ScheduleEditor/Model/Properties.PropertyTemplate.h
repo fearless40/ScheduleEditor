@@ -1,16 +1,18 @@
 #pragma once
 
 #include <vector>
+#include "ModelIndex.h"
 #include "Properties.h"
 
 namespace Model::Properties {
 	
-	class PropertyTemplate {
+	class PropertyTemplate : public ModelIndex<PropertyTemplate> {
 	public:
 		using PropertyDefinitions = std::vector<PropertyDefinition>;
 
 		PropertyTemplate(const PropertyTemplate & pt) = default;
 		PropertyTemplate(PropertyTemplate && pt) = default;
+		PropertyTemplate & operator = (const PropertyTemplate & pt) = default;
 
 		Model::Index index() const { return mIndex; }
 
@@ -25,14 +27,14 @@ namespace Model::Properties {
 		/// Makes the PropertyMap valid by adding memebers and changing values if out of range
 		void make_valid(PropertyMap & map) const;
 
-		// Static functions
-
+		// Static functions inherited from ModelIndex
+		/*
 		static const PropertyTemplate & Find(Model::Index name);
 		static PropertyTemplate Create(Model::Index name);
 		static void Save(PropertyTemplate & pt);
 		static PropertyTemplate Edit(const PropertyTemplate & pt);
 		static std::vector<Model::Index> GetAllNames();
-
+		*/
 
 	private:
 

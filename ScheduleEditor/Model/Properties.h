@@ -14,14 +14,23 @@ namespace Model::Properties {
 		vtSTRING
 	};
 
+
 	struct PropertyDefinition {
 		PropertyIndex	name;
 		bool			mandatory;
 		ValueTypes		type;
 		Property		defvalue;
-		RangeProperty	min;
-		RangeProperty	max;
+		RangeProperty	minvalue;
+		RangeProperty	maxvalue;
 		const PropertyIndex & index() { return name;  }
+
+		PropertyDefinition(PropertyIndex tname, bool tMandatory, ValueTypes ttype, Property tdefvalue, RangeProperty tmin, RangeProperty tmax) :
+			name(tname), mandatory(tMandatory), type(ttype), defvalue(tdefvalue), minvalue(tmin), maxvalue(tmax) {};
+		PropertyDefinition(PropertyIndex tname, bool tMandatory, ValueTypes ttype, Property tdefvalue) :
+			name(tname), mandatory(tMandatory), type(ttype), defvalue(tdefvalue) {};
+		PropertyDefinition(PropertyDefinition && pd) = default;
+		PropertyDefinition(const PropertyDefinition & pd) = default;
+		PropertyDefinition & operator = (const PropertyDefinition & pd) = default;
 	};
 
 	class PropertyMap; 
