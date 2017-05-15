@@ -16,6 +16,12 @@ namespace Model::Properties {
 
 		Model::Index index() const { return mIndex; }
 
+		auto cbegin() const { return mIndex.cbegin(); }
+		auto cend() const { return mIndex.cend(); }
+
+		auto begin() { return mIndex.begin(); }
+		auto end() { return mIndex.end(); }
+
 		void string_add(PropertyIndex name, std::string defaultvalue, bool mandatory = false);
 		void long_add(PropertyIndex name, long defaultvalue, long min, long max, bool mandatory = false);
 		void double_add(PropertyIndex name, double defaultvalue, double min, double max, bool mandatory = false);
