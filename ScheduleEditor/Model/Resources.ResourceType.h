@@ -1,53 +1,49 @@
-pragma once
+#pragma once
+#include "Model.h"
+#include "ModelIndex.h"
+#include "Resources.Resource.h"
+#include "Properties.PropertyTemplate.h"
 
-#include "Resources.h"
-
-namespace Model::Resources {
+namespace Model::Resources  {
 	
 	/// Owns a group of resources and defines the type of resource
 	/// Owned by: self, obtain by using static functions
-	class ResourceType
+	class ResourceType : public ModelIndex<ResourceType>
 	{
 		//Index mIndex;
 		//std::string mName;
 		//std::vector<Resource> mMembers;
 		//const PropertyTemplate * mTemplate;
 
-		// This items resource ID
-		ResourceID mID;
-
-		// The next resource that is created will use this value. Values are never recyeled. 
-		ResourceID mNextResourceID;
-
 	public:
 
-		class iterator {};
-		class const_iterator {};
+		Model::Index index() const { return mIndex;  }
 
-		ResourceID getID() const; 
 
-		const_iterator begin() const;
-		const_iterator end() const;
+		auto cbegin() const { return mItems.cbegin(); }
+		auto cend() const { return mItems.cend();  }
 
-		iterator begin();
-		iterator end();
+		auto begin() { return mItems.begin(); }
+		auto end() { return mItems.end(); }
+
+		auto begin() const { return cbegin(); }
+		auto end() const { return cend(); }
 
 		size_t count() const;
 
-		Resource & resource_create();
-		void resource_remove(const_iterator it);
-
-		const Model::Properties::PropertyTemplate & propertyTemplate() const;
-		Model::Properties::PropertyTemplate & propertyTemplate();
+		const Model::Properties::PropertyTemplate & propertyTemplate() const { return mPropTemp; }
+		Model::Properties::PropertyTemplate & propertyTemplate() { return mPropTemp;  }
 
 
-		// Static functions
-		static const ResourceType & Find(Model::Index name);
+		// Static functions Inherited from the template
+		/*static const ResourceType & Find(Model::Index name);
 		static ResourceType & Create(Model::Index name);
 		static void Save(ResourceType & rt);
 		static ResourceType & Edit(const ResourceType & rt);
-		static std::vector<Model::Index> GetAllNames();
-
-		static const Resouce & FindResource(ResourceUniqueID id);
+		std::vector<Model::Index> GetAllNames();*/
+	private:
+		Model::Index mIndex;
+		Utility::FixedList<Resource> mItems;
+		Model::Properties::PropertyTemplate mPropTemp;
 	};
 }
