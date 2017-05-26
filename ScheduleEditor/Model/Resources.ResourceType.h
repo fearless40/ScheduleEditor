@@ -1,8 +1,11 @@
 #pragma once
+#include <boost\iterator\indirect_iterator.hpp>
+
 #include "Model.h"
 #include "ModelIndex.h"
 #include "Resources.Resource.h"
 #include "Properties.PropertyTemplate.h"
+
 
 namespace Model::Resources  {
 	
@@ -11,21 +14,28 @@ namespace Model::Resources  {
 	class ResourceType : public ModelIndex<ResourceType>
 	{
 	public:
+		using IndirectAdaptor = boost::indirect_iterator<std::vector<std::unique_ptr<Resource>>::iterator, Resource &>;
+		using ConstIndirectAdaptor = boost::indirect_iterator<std::vector<std::unique_ptr<Resource>>::const_iterator, const Resource &>;
 
 		Model::Index index() const { return mIndex;  }
 
 
-		auto cbegin() const { return mItems.cbegin(); }
-		auto cend() const { return mItems.cend();  }
+		auto cbegin() const { return ConstIndirectAdaptor(mItems.cbegin()); }
+		auto cend() const { return ConstIndirectAdaptor(mItems.cend());  }
 
-		auto begin() { return mItems.begin(); }
-		auto end() { return mItems.end(); }
+		auto begin() { return IndirectAdaptor(mItems.begin()); }
+		auto end() { return IndirectAdaptor(mItems.end()); }
 
 		auto begin() const { return cbegin(); }
 		auto end() const { return cend(); }
 
-		size_t count() const;
+		size_t size() const { return mItems.size(); }
 
+		Resource & create();
+		Resource & create(const Model::Properties::PropertyMap & map);
+		void remove(const Resource & r);
+		
+		
 		const Model::Properties::PropertyTemplate & propertyTemplate() const { return mPropTemp; }
 		Model::Properties::PropertyTemplate & propertyTemplate() { return mPropTemp;  }
 
@@ -44,7 +54,8 @@ namespace Model::Resources  {
 		// Todo: determine if having a vector here is better or a list. A list allows direct memory access without having to worry about a resource being moved.
 		// The vector is much faster iteration at the cost of greater difficluty coding as it is safe for reading at the same time but not editing. It would therefore
 		// require mutexs and such to get it to work.
-		Utility::FixedList<Resource> mItems;
+		std::vector<std::unique_ptr<Resource>> mItems;
+
 		
 		Model::Properties::PropertyTemplate mPropTemp;
 		Model::Properties::PropertyMap mProperties;

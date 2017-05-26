@@ -1,41 +1,37 @@
 #pragma once
 
+
 #include "Resources.h"
+#include "Model.h"
+#include "ModelIndex.h"
 
 namespace Model::Resources {
 	
 	/// Holds a set of possible unrelated resources to allow easier user interaction and arbitray grouping
 	// Owned by: self
-	class ResourceGroup {
-		/*Index mIndex;
-		std::string mName;
-		std::vector<const Resource *> mMembers;
-		std::vector<uint32_t> mPriority;
-		*/
+	class ResourceGroup : public ModelIndex<ResourceGroup> {
+		Model::Index mIndex;
+		Model::Properties::PropertyMap mPropMap;
+		std::vector<std::reference_wrapper<Resource>> mMembers;
+		
 
 	public:
 
-		class iterator {};
-		class const_iterator {};
-
-		void insert(const Resource & resource, uint32_t priority);
+		//todo: Order may be important in this class. There may need to be a way to set which resources are first or sort them in some way
+		
+		void insert(const Resource & resource);
 		void remove(const Resource & resource);
 
-		const_iterator begin() const;
-		const_iterator end() const;
+		auto begin() const { return mMembers.begin(); }
+		auto end() const { return mMembers.end(); }
 
-		iterator begin();
-		iterator end();
+		auto begin() { return mMembers.begin(); }
+		auto end() { return mMembers.end();  }
 
-		bool contains(const Resource & resource);
-		
-		size_t count() const;
+		auto cbegin() const { return mMembers.cbegin(); }
+		auto cend() const { return mMembers.cend(); }
 
-		// Static functions
-		static const ResourceGroup & Find(Model::Index name);
-		static ResourceGroup & Create(Model::Index name);
-		static void Save(ResourceGroup & rt);
-		static ResourceGroup & Edit(const ResourceGroup & rt);
-		std::vector<Model::Index> GetAllNames();
+		size_t size() const { return mMembers.size(); }
+
 	};
 }
