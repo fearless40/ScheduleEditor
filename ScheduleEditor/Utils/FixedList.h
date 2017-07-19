@@ -3,6 +3,7 @@
 #include "boost/multi_index/hashed_index.hpp"
 #include "boost/multi_index/random_access_index.hpp"
 #include "boost/multi_index/mem_fun.hpp"
+//#include "boost/multi_index/member.hpp"
 
 
 namespace Utility {
@@ -11,8 +12,9 @@ namespace Utility {
 		template <typename T>
 		using FixedList = boost::multi_index_container<T,
 			indexed_by<
-			//random_access<>,
-			hashed_unique<const_mem_fun<T, Model::Index, &T::index> >
+				//random_access<>,
+				hashed_unique< const_mem_fun<T, Model::Index, &T::index> >
+				// hashed_unique< member<T, Model::Index, &::T::mIndex> >
 			>
 		>;
 	}

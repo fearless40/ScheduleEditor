@@ -10,7 +10,8 @@
 
 using namespace  Model::Properties;
 
-//Utility::FixedList<PropertyTemplate> templates;
+ModelIndex<PropertyTemplate> PropertyTemplateOwner;
+
 
 Model::Properties::PropertyTemplate::PropertyTemplate(Model::Index index) : mIndex(index)
 {

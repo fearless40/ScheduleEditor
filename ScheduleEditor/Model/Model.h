@@ -4,7 +4,7 @@ namespace Model {
 	using Index = std::string;
 
 
-	template <class BaseType, class Owner> 
+	/*template <class BaseType, class Owner> 
 	class SmartHandle {
 	public:
 		using type = BaseType;
@@ -32,6 +32,6 @@ namespace Model {
 		}
 
 
-	};
+	};*/
 
 }

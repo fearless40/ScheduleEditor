@@ -1,10 +1,9 @@
 
 #include "../Utils/FixedList.h"
+using namespace boost::multi_index;
 
 template <class T>
 class ModelIndex {
-private:
-	static Utility::FixedList<T> templates;
 
 public:
 
@@ -58,6 +57,10 @@ public:
 		std::for_each(templates.begin(), templates.end(), [&ret](auto & k) { ret.push_back(k.index()); });
 		return ret;
 	}
+private:
+	
+	
+	static Utility::FixedList<T> templates;
 
 };
 

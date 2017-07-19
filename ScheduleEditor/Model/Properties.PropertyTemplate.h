@@ -6,7 +6,9 @@
 
 namespace Model::Properties {
 	
-	class PropertyTemplate : public ModelIndex<PropertyTemplate> {
+	
+
+	class PropertyTemplate /*: public ModelIndex<PropertyTemplate> */{
 	public:
 		using PropertyDefinitions = std::vector<PropertyDefinition>;
 
@@ -55,4 +57,7 @@ namespace Model::Properties {
 		explicit PropertyTemplate(Model::Index index);
 		
 	};
+
+	static ModelIndex<PropertyTemplate> PropertyTemplateOwner;
+
 }
