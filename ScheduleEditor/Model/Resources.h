@@ -6,16 +6,12 @@ namespace Model::Resources {
 	class Resource;
 	class ResourceGroup;
 
-	using ResourceID = uint16_t;
+	using ResourceID = uint32_t;
 
-	struct ResourceUniqueID {
-		ResourceID ResourceTypeID;
-		ResourceID ResourceID;
-	};
+	
 
-
-	// ResourceType owned by self. 
+	// ResourceType owned by static ResourceTypeOwner. 
 	// Resource owned by ResourceType
-	// ResourceGroup owned by self. Points to Resource but does not own Resource
+	// ResourceGroup owned by static ResourceGroupOwner. Points to Resource but does not own Resource
 
 }

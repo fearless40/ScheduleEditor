@@ -3,21 +3,22 @@
 #include <algorithm>
 
 #include "Model.h"
-#include "Properties.h"
+#include "ModelIndex.h"
 #include "Properties.PropertyTemplate.h"
 #include "Properties.PropertyMap.h"
-#include "../Utils/FixedList.h"
 
+using namespace  Model;
 using namespace  Model::Properties;
 
 ModelIndex<PropertyTemplate> PropertyTemplateOwner;
 
 
-Model::Properties::PropertyTemplate::PropertyTemplate(Model::Index index) : mIndex(index)
+PropertyTemplate::PropertyTemplate() : mIndex(NullIndex)
 {
+
 }
 
-void Model::Properties::PropertyTemplate::string_add(PropertyIndex name, std::string defaultvalue, bool mandatory)
+void PropertyTemplate::string_add(PropertyIndex name, std::string defaultvalue, bool mandatory)
 {
 	auto f = find(name);
 	if (f != mDefs.end())

@@ -3,15 +3,16 @@
 
 #include "Model.h"
 #include "ModelIndex.h"
-#include "Resources.Resource.h"
+//#include "Resources.Resource.h"
 #include "Properties.PropertyTemplate.h"
+#include "Properties.HasProperties.h"
 
 
 namespace Model::Resources  {
 	
 	/// Owns a group of resources and defines the type of resource
 	/// Owned by: self, obtain by using static functions
-	class ResourceType 
+	class ResourceType : public Properties::HasProperties
 	{
 	public:
 		using IndirectAdaptor = boost::indirect_iterator<std::vector<std::unique_ptr<Resource>>::iterator, Resource &>;
@@ -36,24 +37,37 @@ namespace Model::Resources  {
 		void remove(const Resource & r);
 		
 		
-		const Model::Properties::PropertyTemplate & propertyTemplate() const { return mPropTemp; }
-		Model::Properties::PropertyTemplate & propertyTemplate() { return mPropTemp;  }
+		const Model::Properties::PropertyTemplate & propertyTemplate() const;
 
-		const auto & properties() const { return mProperties; }
-		auto & properties() { return mProperties; }
 
+		/// Set a new PropertyTemplate to the class.
+		void propertyTemplate_set(const Properties::PropertyTemplate & propt) {
+			mPropTemp = &propt;
+		}
+		
+
+		//const auto & properties() const { return mProperties; }
+		//auto & properties() { return mProperties; }
+
+		ResourceType();
+		ResourceType( const Model::Index & index,  Properties::PropertyTemplate & pTemplate ) : mIndex(index) , mPropTemp(&pTemplate) { }
 
 	private:
-		Model::Index mIndex;
+		Model::Index mIndex{ Model::NullIndex };
 		
 		// Todo: determine if having a vector here is better or a list. A list allows direct memory access without having to worry about a resource being moved.
 		// The vector is much faster iteration at the cost of greater difficluty coding as it is safe for reading at the same time but not editing. It would therefore
 		// require mutexs and such to get it to work.
 		std::vector<std::unique_ptr<Resource>> mItems;
 
-		
-		Model::Properties::PropertyTemplate mPropTemp;
-		Model::Properties::PropertyMap mProperties;
+		/// Optional holds a pointer to a PropertyTemplate. Allows one to apply a template to each of the sub resource
+		/// included in the group
+		const Properties::PropertyTemplate * mPropTemp{ nullptr };
+		//Model::Properties::PropertyMap mProperties;
+
+		ResourceID mNextID{ 1 };
+
+		ResourceID getNextID();
 	};
 
 	static ModelIndex<ResourceType> ResourceTypeOwner;

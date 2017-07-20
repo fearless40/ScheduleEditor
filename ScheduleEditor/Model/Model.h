@@ -3,6 +3,7 @@
 namespace Model {
 	using Index = std::string;
 
+	static const Index NullIndex;
 
 	/*template <class BaseType, class Owner> 
 	class SmartHandle {

@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include "../Utils/FixedList.h"
 using namespace boost::multi_index;
 
@@ -11,6 +13,7 @@ public:
 
 	static const T & Find(Model::Index name)
 	{
+
 		// TODO: insert return statement here
 		auto it = templates.find(name);
 
@@ -22,12 +25,12 @@ public:
 
 	}
 
+	
 	static T Create(Model::Index name)
 	{
 		// TODO: insert return statement here
-		T pt(name);
 		if (templates.find(name) == templates.end()) {
-			return pt;
+			return T(name);
 		}
 		else {
 			throw "Item already exists in the collection.";
@@ -51,7 +54,7 @@ public:
 		return ret;
 	}
 
-	static std::vector<Model::Index> GetAllNames()
+	static std::vector<Model::Index> Indexs_GetAll()
 	{
 		std::vector<Model::Index> ret;
 		std::for_each(templates.begin(), templates.end(), [&ret](auto & k) { ret.push_back(k.index()); });
