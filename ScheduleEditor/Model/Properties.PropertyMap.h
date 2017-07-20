@@ -2,16 +2,19 @@
 
 #include <unordered_map>
 #include "Properties.h"
+#include "Model.h"
 
 namespace Model::Properties {
 	class PropertyMap {
 	public:
 		using PMap = std::unordered_map<Model::Index, Property>;
 
-		PropertyMap();
-		PropertyMap(PropertyMap & map);
-		PropertyMap(PropertyMap && map);
-		~PropertyMap();
+		PropertyMap() = default;
+		PropertyMap(PropertyMap & map) = default;
+		PropertyMap(PropertyMap && map) = default;
+		~PropertyMap() = default;
+
+		PropertyMap & operator = (const PropertyMap & map) = default;
 
 		void add(PropertyIndex key, Property prop);
 		void remove(PropertyIndex key);

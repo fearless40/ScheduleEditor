@@ -11,7 +11,7 @@ namespace Model::Resources  {
 	
 	/// Owns a group of resources and defines the type of resource
 	/// Owned by: self, obtain by using static functions
-	class ResourceType : public ModelIndex<ResourceType>
+	class ResourceType 
 	{
 	public:
 		using IndirectAdaptor = boost::indirect_iterator<std::vector<std::unique_ptr<Resource>>::iterator, Resource &>;
@@ -42,12 +42,7 @@ namespace Model::Resources  {
 		const auto & properties() const { return mProperties; }
 		auto & properties() { return mProperties; }
 
-		// Static functions Inherited from the template
-		/*static const ResourceType & Find(Model::Index name);
-		static ResourceType & Create(Model::Index name);
-		static void Save(ResourceType & rt);
-		static ResourceType & Edit(const ResourceType & rt);
-		std::vector<Model::Index> GetAllNames();*/
+
 	private:
 		Model::Index mIndex;
 		
@@ -60,4 +55,6 @@ namespace Model::Resources  {
 		Model::Properties::PropertyTemplate mPropTemp;
 		Model::Properties::PropertyMap mProperties;
 	};
+
+	static ModelIndex<ResourceType> ResourceTypeOwner;
 }

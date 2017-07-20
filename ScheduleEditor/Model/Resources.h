@@ -9,7 +9,7 @@ namespace Model::Resources {
 	using ResourceID = uint16_t;
 
 	struct ResourceUniqueID {
-	//	ResourceID ResourceTypeID;
+		ResourceID ResourceTypeID;
 		ResourceID ResourceID;
 	};
 
