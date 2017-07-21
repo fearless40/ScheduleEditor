@@ -34,12 +34,17 @@ namespace Model::Resources {
 
 
 		Resource(Resource &&) = default;
+		
+		/// Cannot create a resource without an owner or an id
 		Resource() = delete;
 
 		/// Checks to see if the resouce has been deleted. Deleted resource are still kept around unless all references to them have been removed
 		/// <remarks> Resource are not deleted right away as parts of the schedule will still rely on them. The data will still
 		/// exist in the file however it will no longer be editable. The resource will not be selected for new data entry. </remarks>
 		bool isDeleted() const { return mIsDeleted; }
+		
+		/// ID is used only internally as there is no way to identify unique resource without looking at 
+		/// mMap and scanning it for its values
 		ResourceID getId() const{ return mId; }
 		
 		void markAsDeleted() { mIsDeleted = true; }
@@ -49,5 +54,4 @@ namespace Model::Resources {
 		
 	};
 
-//	static Resource NullResource;
 }

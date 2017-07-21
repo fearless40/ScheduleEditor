@@ -209,6 +209,7 @@
     <ClInclude Include="Model\Data.h" />
     <ClInclude Include="Model\Model.h" />
     <ClInclude Include="Model\Properties.HasProperties.h" />
+    <ClInclude Include="Model\Slots.Slot.h" />
     <ClInclude Include="Model\TimeDuration.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Model\Properties.h" />
@@ -224,7 +225,6 @@
     <ClInclude Include="ResourceView.h" />
     <ClInclude Include="Slots.h" />
     <ClInclude Include="Model\Slots.SlotGroup.h" />
-    <ClInclude Include="Slots.Slot.h" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -246,6 +246,7 @@
     <ClCompile Include="Model\Data.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model\Model.cpp" />
+    <ClCompile Include="Model\Slots.Slot.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Test|Win32'">Create</PrecompiledHeader>
@@ -268,7 +269,6 @@
     <ClCompile Include="Model\Resources.ResourceType.cpp" />
     <ClCompile Include="ResourceView.cpp" />
     <ClCompile Include="Model\Slots.SlotGroup.cpp" />
-    <ClCompile Include="Slots.Slot.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,21 +4,29 @@
 #include "Resources.h"
 #include "Model.h"
 #include "ModelIndex.h"
+#include "Properties.HasProperties.h"
 
 namespace Model::Resources {
 	
 	/// Holds a set of possible unrelated resources to allow easier user interaction and arbitray grouping
-	// Owned by: self
-	class ResourceGroup : public ModelIndex<ResourceGroup> {
-		Model::Index mIndex;
-		Model::Properties::PropertyMap mPropMap;
-		std::vector<std::reference_wrapper<Resource>> mMembers;
+	/// Owned by: ResourceGroupOwner
+	class ResourceGroup : public Properties::HasProperties{
+		Model::Index mIndex{ NullIndex };
+		
+		// Does not Own individual resources
+		std::vector<const Resource *> mMembers;
 		
 
 	public:
-
-		//todo: Order may be important in this class. There may need to be a way to set which resources are first or sort them in some way
 		
+		ResourceGroup() = default;
+		ResourceGroup(Index index) : mIndex(index) {}
+		ResourceGroup(const ResourceGroup & group) : mIndex(group.mIndex), mMembers(group.mMembers) { };
+		ResourceGroup(ResourceGroup &&) = default;
+		ResourceGroup & operator = (const ResourceGroup &) = default;
+
+		Index index() const { return mIndex; }
+
 		void insert(const Resource & resource);
 		void remove(const Resource & resource);
 
@@ -34,4 +42,6 @@ namespace Model::Resources {
 		size_t size() const { return mMembers.size(); }
 
 	};
+
+	static ModelIndex<ResourceGroup> ResourceGroupOwner;
 }

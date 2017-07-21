@@ -13,7 +13,7 @@
 using namespace Model;
 using namespace Resources;
 
-ModelIndex<ResourceType> ResourceTypeOwner;
+//ModelIndex<ResourceType> ResourceTypeOwner;
 
 Resource & Model::Resources::ResourceType::create()
 {

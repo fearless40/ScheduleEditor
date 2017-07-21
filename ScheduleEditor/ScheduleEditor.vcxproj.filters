@@ -47,13 +47,13 @@
     <ClCompile Include="Model\Resources.ResourceType.cpp">
       <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="Slots.Slot.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
     <ClCompile Include="Model\Slots.SlotGroup.cpp">
       <Filter>Model</Filter>
     </ClCompile>
     <ClCompile Include="Model\Model.cpp" />
+    <ClCompile Include="Model\Slots.Slot.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -99,13 +99,13 @@
       <Filter>Model</Filter>
     </ClInclude>
     <ClInclude Include="Model\TimeDuration.h" />
-    <ClInclude Include="Slots.Slot.h">
-      <Filter>Model</Filter>
-    </ClInclude>
     <ClInclude Include="Model\Slots.SlotGroup.h">
       <Filter>Model</Filter>
     </ClInclude>
     <ClInclude Include="Model\Properties.HasProperties.h" />
+    <ClInclude Include="Model\Slots.Slot.h">
+      <Filter>Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">
