@@ -207,8 +207,12 @@
   <ItemGroup>
     <ClInclude Include="AppUI.h" />
     <ClInclude Include="Model\Data.h" />
+    <ClInclude Include="Model\Data.Range.SlotView.h" />
     <ClInclude Include="Model\Model.h" />
     <ClInclude Include="Model\Properties.HasProperties.h" />
+    <ClInclude Include="Model\Range.Detail.CompressedSlotEvents.h" />
+    <ClInclude Include="Model\Range.Event.h" />
+    <ClInclude Include="Model\Range.RawData.h" />
     <ClInclude Include="Model\Slots.Slot.h" />
     <ClInclude Include="Model\TimeDuration.h" />
     <ClInclude Include="pch.h" />

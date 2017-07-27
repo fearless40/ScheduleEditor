@@ -1,57 +1,48 @@
 #pragma once
 
+#include "Model.h"
 #include "Slots.h"
-
-class Model::Properties::PropertyTemplate;
+#include "Slots.Slot.h"
+#include "Properties.HasProperties.h"
 
 namespace Model::Slots {
 	
 	/// A collection of Slot. Items within are strongly ordered
-	class SlotGroup {
-		//Index mIndex;
-		//using Slots = std::vector<Slot>;
+	// The items in the vector can be passed by value. They are pretty light weight objects, this allows
+	// a vector to be used in the class.
+	// Each slot has a unique ID given by the class. It is NOT serialized and the ID is generated each time. 
+	// The ID would need to be synced across the network though. The ID is mostly for find and remove features. 
+	
+	class SlotGroup : public Properties::HasProperties {
+		Model::Index mIndex;
+		using Slots = std::vector<Slot>;
 
-		//Slots mSlots;
+		Slots mSlots;
 	public:
-		
-		class iterator {};
-		class const_iterator {};
-		
-		/// Checks if the group of slots are organized based on start time
-		bool timeBasedOrdering() const;
 
-		/// Changes the time based ordering. If not time based then slots are organized by position only
-		/// <remarks> If set to true it will re-sort the array </remarks>
-		void timeBasedOrdering(bool value);
+		Model::Index index() const { return mIndex; }
 
-		// Get and set the name
-		const std::string & name() const;
-		void name(std::string newname);
-		
-		std::size_t count() const;
+		std::size_t count() const { return mSlots.size(); }
 
-		const_iterator begin() const;
-		const_iterator end() const;
+		auto begin() const { 
+			return mSlots.cbegin();
+		}
+		auto end() const { return mSlots.cend(); }
 
-		iterator begin();
-		iterator end();
+		auto begin() { return mSlots.begin(); }
+		auto end() { return mSlots.end();  }
 
-		const Slot & operator [] (uint32_t index) const;
-		Slot & operator [] (uint32_t index);
+		const Slot operator [] (std::size_t tindex) const { return mSlots[tindex]; }
+		Slot operator [] (std::size_t tindex) { return mSlots[tindex]; }
 
-		Slot & insert(const_iterator before);
-		Slot & push_back();
+		void remove(const Slot & slot);
+		void remove(Slots::iterator it);
+		void remove(Slot::SlotID id);
+		Slot create();
+		Slot create(std::string_view name);
+		Slot create(Time::HourMinute start, Time::Duration duration);
+		Slot create(std::string_view name, Time::HourMinute start, Time::Duration duration);
+		void save(Slot slot);
 
-		void remove(const_iterator slot);
-		
-		const Model::Properties::PropertyTemplate & propertyTemplate() const;
-		Model::Properties::PropertyTempate & propertyTemplate();
-
-
-		// Static functions
-		static const SlotGroup & Find(std::string name);
-		static SlotGroup &	Create(std::string name);
-		static void Save(SlotGroup & slotgroup);
-		
 	};
 }

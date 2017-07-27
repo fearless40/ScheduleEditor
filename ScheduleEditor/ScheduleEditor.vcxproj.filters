@@ -106,6 +106,10 @@
     <ClInclude Include="Model\Slots.Slot.h">
       <Filter>Model</Filter>
     </ClInclude>
+    <ClInclude Include="Model\Range.Event.h" />
+    <ClInclude Include="Model\Range.RawData.h" />
+    <ClInclude Include="Model\Range.Detail.CompressedSlotEvents.h" />
+    <ClInclude Include="Model\Data.Range.SlotView.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">

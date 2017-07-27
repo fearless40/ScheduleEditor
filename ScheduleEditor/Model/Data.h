@@ -1,29 +1,57 @@
 #pragma once
 
-class Model::Resources::Resource;
-class Model::Resources::ResourceGroup;
-class Model::Slots::SlotGroup;
+#include <vector>
+#include <array>
+#include <list>
+
+#include "TimeDuration.h"
+#include "Model.h"
+#include "Resources.h"
+
 
 namespace Model::Data {
 	
 	/// Holds a group of Ranges. Allowing discontinous data to be stored
-	/// It is associated with only one type of resource (the mOwner)
-	class DataModel {
+	/// It is associated with only one type of resource (the mResource)
+	/// Only one DataResource per Resource! 
+	class DataResource {
+		// Index for loading and saving
 		Index mIndex;
 
 		// The owning resource
-		const Model::Resources::Resource * mOwner;
+		const Model::Resources::Resource * mResource;
 		
-		// The resource group which defines which resources types are allowed to be stored in this data model
-		const Model::Resources::ResourceGroup * mMembers;
+		// Holds the range of dates that the datastore has data for. It just has the first date and the last date.
+		// Makes it more efficent for querys to the datastore not to request data that does not exist.
+		// may get pushed off into the datastore api but placed in here for now
+		Time::DateRange mDBInfo;
 
-		// The way the data is organized in the model
-		const Model::Slots::SlotGroup * mSlots;
+		// Class will take the events and process them into Years, months, days. This acts as a small form of compression
+		// also will help make access to certain queries much faster and easier
+	
+		struct Event {
+			Model::Resources::Resource * value;
+			unsigned char hour;
+			unsigned char minute;
+			uint16_t duration_minutes;
+		};
 
-		
-		// Prob use a boost::multi index to get this to work properly
-		//boost::multiindex<blah blah blah> ranges;
+		struct DayIndex {
+			unsigned char day;
+			std::vector<Event> events;
+		};
 
+		struct MonthIndex {
+			unsigned char month;
+			std::vector<DayIndex> days;
+		};
+
+		struct YearIndex {
+			uint16_t year;
+			std::array<MonthIndex, 12> months;
+		};
+				
+		std::list<YearIndex> mYears;
 	public:
 		const RangeView get_dates(date::year_month_day start, date::year_month_day end);
 		const RangeView get_month(int year, int month);
