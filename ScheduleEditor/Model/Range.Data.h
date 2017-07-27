@@ -1,50 +1,34 @@
 #pragma once
 
 #include "Range.h"
+#include "Range.RawData.h"
 
 namespace Model::Data::Range {
 
-	/// All resources are organized by days and then by slots. 
-	/// A range is always continous set of dates. Empty spots are represented by nullptr
-	/// <remarks> Ranges can only be merged if they would produce a 
-	/// contigous day range. </remark>
+	// Holds a contiguous set of events that are seperated by days.
+	// For instance of you have a list of days like so:
+	// {1,2,3,5,6,7,8,9,15,16,20} it would be split into the following
+	// d1 = {1,2,3}
+	// d2 = {5,6,7,8,9}
+	// d3 = {15, 16}
+	// d4 = {20}
+	// Hours to do not have to be contiguous 
+	// This class is NOT a view but an actual container of the events
+	// The class keeps the events by sorting them in order of time
+	// Each set of events must have the same ResourceOwner
+	class ContiguousDays {
+		const Model::Data::DataModel & owner;
 
-	/// Data holds a list of "Events" however internally it does not do so for efficnecy purposes. 
-	/// It does Erase the start time and end time of an event and matches it to a slot. If you need to 
-	/// keep the start time and end time of an event it must be explicitly marked as such
-	class Data {
-		Model::Data::DataModel * owner;
-
-		date::year_month_day mDate_Start;
-		date::year_month_day mDate_End;
+		// The range of dates in this Store
+		Time::DateRange mDates;
 		
-		// Cached for easier use
-		std::size_t mSlotCount;
-
-		// Use a linear array (2d array)
-		using DayEvents = std::unique_ptr<Model::Resources::Resource *>;
-		using DateEvents = std::vector<DayEvents>;
-		DateEvents mEvents;
-
-		struct EventMeta {
-			bool keepOriginalDateTime;
-			std::size_t eventExtraPropertiesIndex;
-			std::size_t originalDateTime;
-		};
-
-		using DaySlotIndex = uint64_t;
-
-		DaySlotIndex make_index(date::year_month_day dt, SlotID id) {
-			return (dt.year) | (dt.month << 16) | (dt.day << 24) | (id << 32);
-		}
-
-		std::unordered_map<DaySlotIndex, EventMeta> mMetaData;
-
-		std::vector<Model::Properties::PropertyMap> eventExtraProperties;
-		std::vector<RawEvent> mRawEventData;
+		std::vector<RawEvent> mEvents;
+		std::vector<Model::Properties::PropertyMap> mPropertyIndex;
+		const Model::Resources::Resource * mResourceOwner;
 		
 	public:
-		const Model::Data::DataModel & model() const;
+
+		
 
 		bool empty() const;
 
