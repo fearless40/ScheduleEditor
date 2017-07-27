@@ -6,7 +6,7 @@
 #include "Resources.h"
 #include "Properties.h"
 
-namespace Model::Data::Range {
+namespace Model::Data {
 
 	
 
@@ -33,9 +33,6 @@ namespace Model::Data::Range {
 	};
 
 	struct RawEvents {
-
-		
-
 		std::vector<RawEvent> mEvents;
 		std::vector<Model::Properties::PropertyMap> mPropertyIndex;
 		const Model::Resources::Resource * mResourceOwner;

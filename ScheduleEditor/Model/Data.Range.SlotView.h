@@ -1,11 +1,15 @@
 #pragma once
 
+#include "Slots.h"
+
 namespace Model::Data::Range
 {
-	/// Class takes a RawEvent and process it into a view of the items as if the slots were
-	/// Applied to them. Can convert slot data to RawRange data.
+	// Holds a view of the data with events forced into a slot
 	class SlotView
 	{
+		Model::Data::DataStore & store;
+		const Model::Slots::SlotGroup & group;
+
 
 	};
 }

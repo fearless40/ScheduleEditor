@@ -14,7 +14,7 @@ namespace Model::Data {
 	/// Holds a group of Ranges. Allowing discontinous data to be stored
 	/// It is associated with only one type of resource (the mResource)
 	/// Only one DataResource per Resource! 
-	class DataResource {
+	class DataModel {
 		// Index for loading and saving
 		Index mIndex;
 
@@ -29,29 +29,7 @@ namespace Model::Data {
 		// Class will take the events and process them into Years, months, days. This acts as a small form of compression
 		// also will help make access to certain queries much faster and easier
 	
-		struct Event {
-			Model::Resources::Resource * value;
-			unsigned char hour;
-			unsigned char minute;
-			uint16_t duration_minutes;
-		};
-
-		struct DayIndex {
-			unsigned char day;
-			std::vector<Event> events;
-		};
-
-		struct MonthIndex {
-			unsigned char month;
-			std::vector<DayIndex> days;
-		};
-
-		struct YearIndex {
-			uint16_t year;
-			std::array<MonthIndex, 12> months;
-		};
-				
-		std::list<YearIndex> mYears;
+		
 	public:
 		const RangeView get_dates(date::year_month_day start, date::year_month_day end);
 		const RangeView get_month(int year, int month);
