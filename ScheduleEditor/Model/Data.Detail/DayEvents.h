@@ -5,7 +5,7 @@ namespace Model::Data::Detail {
 	/// Holds the events in a Day
 	class DayEvents {
 		data::day mDay;
-		std::vector<DataStore::Event> mEvents;
+		std::vector<Model::Data::Detail::Event> mEvents;
 
 	public:
 		// Event find interface

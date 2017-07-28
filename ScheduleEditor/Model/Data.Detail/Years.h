@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <../../../Lib/date/date.h>
+#include "Event.h"
 #include "Helpers.h"
 
 namespace Model::Data::Detail {
@@ -13,6 +14,17 @@ namespace Model::Data::Detail {
 	public:
 		//Years();
 		//~Years();
+
+		class EditorLock : public ModifierT<Years> {
+		public:
+			EditorLock(Years & yr) : ModifierT<Years>(yr,LockType::Write) {};
+			void add(Year yr);
+			void remove(Year yr);
+			void reserve(std::size_t nbrOfYears);
+		};
+
+		// Needed for the reserve function
+		friend class EditorLock;
 
 		// Event interface helper
 		const Event	* event_find(EventHandle evt) const;
