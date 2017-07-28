@@ -39,4 +39,18 @@ namespace Model::Data::Detail {
 		// In this class does nothing but if the implementation changes it may switch to doing something!
 		void sort(); 
 	};
+
+
+	// Operators needed for std::algorythm
+	bool operator < (const Months & m1, const Months & m2) {
+		return m1.year() < m2.year();
+	}
+
+	bool operator < (const Months & m1, const date::year & y) {
+		return m1.year() < y;
+	}
+
+	bool operator < (const date::year & y, const Months & m1) {
+		return y < m1.year();
+	}
 }

@@ -1,17 +1,22 @@
 #pragma once
 
+#include "../TimeDuration.h"
+
+class Model::Resources::Resource;
+class Model::Properties::PropertyMap;
+
 namespace Model::Data::Detail {
 	
-	class Model::Resources::Resource;
-	class Model::Properties::PropertyMap;
+	
 
 	union EventHandle {
-		struct {
+		struct FIELDS{
 			uint32_t year : 12;
 			uint32_t month : 4;
 			uint32_t day : 5;
 			uint32_t minute : 11;
-		} fields;
+		};
+		FIELDS fields;
 		uint32_t value;
 	};
 
@@ -20,8 +25,8 @@ namespace Model::Data::Detail {
 	struct Event {
 		Model::Resources::Resource * value;
 		Model::Properties::PropertyMap * properties;
-		Time::HourMinute start;
-		Time::Duration minutes;
+		Model::Time::HourMinute start;
+		Model::Time::Duration minutes;
 		EventHandle handle;
 	};
 }

@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <../../../Lib/date/date.h>
-#include "Event.h"
 #include "Helpers.h"
 
 namespace Model::Data::Detail {
@@ -18,8 +17,8 @@ namespace Model::Data::Detail {
 		class EditorLock : public ModifierT<Years> {
 		public:
 			EditorLock(Years & yr) : ModifierT<Years>(yr,LockType::Write) {};
-			void add(Year yr);
-			void remove(Year yr);
+			void add(date::year yr);
+			void remove(date::year yr);
 			void reserve(std::size_t nbrOfYears);
 		};
 
@@ -35,14 +34,14 @@ namespace Model::Data::Detail {
 
 		date::year		first() const noexcept;
 		date::year		last() const noexcept;
-		date::years		span() const noexcept;
+		//std::pair<date::year,date::year>		span() const noexcept;
 
 		// Interator interface
-		auto begin() const;
-		auto end() const;
+		auto begin() const { return mYears.cbegin(); }
+		auto end() const { return mYears.cend(); }
 
 		// Edit interface
-		SomeType edit() const;
+		//SomeType edit() const;
 
 		// Lockable interface
 		bool lock(LockType type);
