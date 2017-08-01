@@ -57,6 +57,7 @@
     <ClCompile Include="Model\Data.Detail\Years.cpp" />
     <ClCompile Include="Model\Data.DataModel.cpp" />
     <ClCompile Include="Model\Data.DataStore.cpp" />
+    <ClCompile Include="Model\Data.Detail\Events.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -114,17 +115,17 @@
     <ClInclude Include="Model\Range.Detail.CompressedSlotEvents.h" />
     <ClInclude Include="Model\Data.Range.SlotView.h" />
     <ClInclude Include="Model\Data.Detail\Years.h" />
-    <ClInclude Include="Model\Data.Detail\DayEvents.h" />
-    <ClInclude Include="Model\Data.Detail\Days.h" />
     <ClInclude Include="Model\Data.Detail\Event.h" />
     <ClInclude Include="Model\Data.Detail\Events.h" />
     <ClInclude Include="Model\Data.Detail\Helpers.h" />
-    <ClInclude Include="Model\Data.Detail\Months.h" />
     <ClInclude Include="Model\Data.RawEvents.h" />
     <ClInclude Include="Model\ModelIndex.h" />
     <ClInclude Include="Model\Data.DataModel.h" />
     <ClInclude Include="Model\Data.DataStore.h" />
     <ClInclude Include="Model\Data.Event.h" />
+    <ClInclude Include="Model\Data.Detail\Year.h" />
+    <ClInclude Include="Model\Data.Detail\Month.h" />
+    <ClInclude Include="Model\Data.Detail\Day.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">

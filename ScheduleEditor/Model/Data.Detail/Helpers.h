@@ -10,12 +10,17 @@ namespace Model::Data::Detail {
 	struct YesLock {};
 	
 	template<typename LockAble, typename ShouldLock = YesLock>
-	class ModifierT {
-		bool mIsValid{ false; }
-		bool mChanged{ false; }
+	class ModifierT {};
+
+	template<typename LockAble>
+	class ModifierT<LockAble, YesLock> {
+	protected:
+		bool mIsValid{ false };
+		bool mChanged{ false };
+		LockType locktype;
 		LockAble & owner;
 	public:
-		ModifierT(LockAble & t, LockType lt = LockType::Write) : owner(t) {
+		ModifierT(LockAble & t, LockType lt = LockType::Write) : owner(t), locktype(lt) {
 			mIsValid = owner.lock(lt);
 		}
 
@@ -25,7 +30,7 @@ namespace Model::Data::Detail {
 			}
 			if (mIsValid)
 			{
-				owner.unlock();
+				owner.unlock(locktype);
 			}
 		}
 		bool isValid() const { return mIsValid; }

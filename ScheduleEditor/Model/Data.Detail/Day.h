@@ -3,11 +3,20 @@
 namespace Model::Data::Detail {
 	
 	/// Holds the events in a Day
-	class DayEvents {
-		data::day mDay;
+	class Day {
+		date::day mDay;
 		std::vector<Model::Data::Detail::Event> mEvents;
 
 	public:
+
+		class Editor : public ModifierT<Day> {
+		public:
+			Editor(Day & d) : ModifierT(d) {}
+			Model::Data::Detail::Event * add(unsigned short minutes_since_midnight);
+			void remove(EventHandle evt);
+			void reserve(std::size_t sz);
+		};
+
 		// Event find interface
 		const Event * event_find(EventHandle evt) const;
 
@@ -16,7 +25,7 @@ namespace Model::Data::Detail {
 		bool  has(EventHandle evt) const;
 
 		// Informational 
-		data::day	day() const noexcept;
+		date::day	day() const noexcept;
 		EventHandle first() const;
 		EventHandle last() const;
 		
@@ -25,7 +34,7 @@ namespace Model::Data::Detail {
 		auto end() const;
 
 		// Edit interface
-		SomeType edit() const;
+		Editor edit() const;
 
 		// Lockable interface
 		bool lock(LockType type);

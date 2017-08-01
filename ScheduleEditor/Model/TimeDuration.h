@@ -1,6 +1,8 @@
 #pragma once
 
 #include <chrono>
+#undef min
+#undef max
 #include "../../Lib/date/date.h"
 
 namespace Model::Time {

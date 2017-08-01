@@ -6,7 +6,7 @@ namespace Model::Resources {
 	class Resource;
 	class ResourceGroup;
 
-	//using ResourceID = uint32_t;
+	using ResourceID = uint32_t;
 
 	
 

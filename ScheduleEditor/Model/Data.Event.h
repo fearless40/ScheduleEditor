@@ -2,8 +2,8 @@
 
 namespace Model::Data {
 
-	/// Public interface to an event. This is used between the program and the DataLayer
-	class Event {
+	/// Public interface to an event. 
+	struct Event {
 		Model::Resources::Resource * mValue;
 		date::year_month_day mDate;
 		Time::HourMinute	 mStartTime;

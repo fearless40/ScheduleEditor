@@ -1,7 +1,12 @@
 #include "pch.h"
 #include <algorithm>
+#include "../Resources.Resource.h"
+#include "../Properties.PropertyMap.h"
+#include "Helpers.h"
 #include "Event.h"
-#include "Months.h"
+#include "Day.h"
+#include "Month.h"
+#include "Year.h"
 #include "Years.h"
 
 using namespace Model::Data::Detail;
@@ -17,7 +22,7 @@ const Event * Years::event_find(EventHandle evt) const
 	}
 }
 
-const Months * Model::Data::Detail::Years::find(date::year y) const
+const Year * Model::Data::Detail::Years::find(date::year y) const
 {
 	auto it = std::lower_bound(begin(), end(), y);
 	if (it != end() && it->year() == y) {
@@ -44,6 +49,11 @@ date::year Model::Data::Detail::Years::first() const noexcept
 date::year Model::Data::Detail::Years::last() const noexcept
 {
 	return mYears.back().year();
+}
+
+Model::Data::Detail::Years::EditorLock Model::Data::Detail::Years::edit() const
+{
+	return Model::Data::Detail::Years::EditorLock( *const_cast<Years*>(this) );
 }
 
 bool Model::Data::Detail::Years::lock(LockType type)

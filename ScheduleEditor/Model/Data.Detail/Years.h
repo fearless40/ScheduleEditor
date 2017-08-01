@@ -8,16 +8,18 @@ namespace Model::Data::Detail {
 	
 	/// Holds years
 	class Years {
-		std::vector<Months> mYears;
+		std::vector<Year> mYears;
 
 	public:
 		//Years();
 		//~Years();
 
-		class EditorLock : public ModifierT<Years> {
+		class EditorLock : public ModifierT<Years>{
+			EditorLock() = delete;
+			
 		public:
-			EditorLock(Years & yr) : ModifierT<Years>(yr,LockType::Write) {};
-			void add(date::year yr);
+			EditorLock(Years & yr) : ModifierT(yr,LockType::Write) {};
+			Year * add(date::year yr);
 			void remove(date::year yr);
 			void reserve(std::size_t nbrOfYears);
 		};
@@ -29,7 +31,7 @@ namespace Model::Data::Detail {
 		const Event	* event_find(EventHandle evt) const;
 
 		// Year information interface
-		const Months *	find(date::year y) const;
+		const Year *	find(date::year y) const;
 		bool			has(date::year y) const;
 
 		date::year		first() const noexcept;
@@ -41,7 +43,7 @@ namespace Model::Data::Detail {
 		auto end() const { return mYears.cend(); }
 
 		// Edit interface
-		//SomeType edit() const;
+		EditorLock edit() const;
 
 		// Lockable interface
 		bool lock(LockType type);

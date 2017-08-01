@@ -3,13 +3,22 @@
 namespace Model::Data::Detail {
 	
 	/// Holds the months in a year
-	class Months {
+	class Year {
 		date::year mYear;
-		std::array<Days, 12> mMonths;
+		std::array<Month, 12> mMonths;
 
 	public:
 		//Months();
 		//~Months();
+
+		class Editor : public ModifierT<Year> {
+		public:
+			Editor(Year & yr) : ModifierT(yr) {};
+			~Editor() {}
+			Days * add(date::month mt);
+			void	remove(date::month mt);
+			void	reserve(std::size_t sz);
+		};
 
 		// Event interface helper
 		const Event * event_find(EventHandle evt) const;
@@ -22,14 +31,14 @@ namespace Model::Data::Detail {
 		date::year	year() const noexcept;
 		date::month	first() const noexcept;
 		date::month last() const noexcept;
-		date::months span() const noexcept;
+		//date::months span() const noexcept;
 		
 		// Interator interface
 		auto begin() const;
 		auto end() const;
 
 		// Edit interface
-		SomeType edit() const;
+		Editor edit() const;
 
 		// Lockable interface
 		bool lock(LockType type);
@@ -42,15 +51,15 @@ namespace Model::Data::Detail {
 
 
 	// Operators needed for std::algorythm
-	bool operator < (const Months & m1, const Months & m2) {
+	bool operator < (const Year & m1, const Year & m2) {
 		return m1.year() < m2.year();
 	}
 
-	bool operator < (const Months & m1, const date::year & y) {
+	bool operator < (const Year & m1, const date::year & y) {
 		return m1.year() < y;
 	}
 
-	bool operator < (const date::year & y, const Months & m1) {
+	bool operator < (const date::year & y, const Year & m1) {
 		return y < m1.year();
 	}
 }
