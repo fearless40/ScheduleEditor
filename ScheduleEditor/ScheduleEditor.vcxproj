@@ -263,7 +263,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model\Data.DataModel.cpp" />
     <ClCompile Include="Model\Data.DataStore.cpp" />
+    <ClCompile Include="Model\Data.Detail\Day.cpp" />
     <ClCompile Include="Model\Data.Detail\Events.cpp" />
+    <ClCompile Include="Model\Data.Detail\Year.cpp" />
     <ClCompile Include="Model\Data.Detail\Years.cpp" />
     <ClCompile Include="Model\Model.cpp" />
     <ClCompile Include="Model\Slots.Slot.cpp" />

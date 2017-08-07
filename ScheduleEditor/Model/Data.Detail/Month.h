@@ -4,10 +4,16 @@ namespace Model::Data::Detail {
 	
 	/// Holds the days in a Month
 	class Month {
-		date::month mMonth;
+		date::month mMonth{ 0 };
 		std::vector<Day> mDays;
 
 	public:
+		Month() = default;
+		Month(date::month m) : mMonth(m) {};
+		Month(Month && m) = default;
+		Month(const Month & m) = default;
+		Month & operator = (const Month & m) = default;
+
 
 		class Editor : public ModifierT<Month> {
 		public:

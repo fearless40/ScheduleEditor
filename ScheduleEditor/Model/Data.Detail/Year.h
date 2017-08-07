@@ -19,16 +19,18 @@ namespace Model::Data::Detail {
 		public:
 			Editor(Year & yr) : ModifierT(yr) {};
 			~Editor() {}
-			Days * add(date::month mt);
+			Month * add(date::month mt);
 			void	remove(date::month mt);
 			void	reserve(std::size_t sz);
 		};
+
+		friend class Editor;
 
 		// Event interface helper
 		const Event * event_find(EventHandle evt) const;
 
 		// Day finder
-		const Days * find(date::month m) const;
+		const Month * find(date::month m) const;
 		bool has(date::month m) const;
 
 		// Information
@@ -38,8 +40,8 @@ namespace Model::Data::Detail {
 		//date::months span() const noexcept;
 		
 		// Interator interface
-		auto begin() const;
-		auto end() const;
+		auto begin() const { return mMonths.cbegin(); }
+		auto end() const { return mMonths.cend(); }
 
 		// Edit interface
 		Editor edit() const;

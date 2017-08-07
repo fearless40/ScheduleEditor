@@ -30,8 +30,8 @@ namespace Model::Data::Detail {
 		EventHandle last() const;
 		
 		// Interator interface
-		auto begin() const;
-		auto end() const;
+		auto begin() const { return mEvents.cbegin(); }
+		auto end() const { return mEvents.cend(); }
 
 		// Edit interface
 		Editor edit() const;

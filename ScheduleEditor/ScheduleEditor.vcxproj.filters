@@ -58,6 +58,8 @@
     <ClCompile Include="Model\Data.DataModel.cpp" />
     <ClCompile Include="Model\Data.DataStore.cpp" />
     <ClCompile Include="Model\Data.Detail\Events.cpp" />
+    <ClCompile Include="Model\Data.Detail\Year.cpp" />
+    <ClCompile Include="Model\Data.Detail\Day.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
