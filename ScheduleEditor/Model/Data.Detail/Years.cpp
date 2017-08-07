@@ -72,7 +72,26 @@ void Model::Data::Detail::Years::sort()
 
 
 
+// Editor Lock Code
+// 
+Year * Model::Data::Detail::Years::EditorLock::add(date::year yr)
+{
+	auto doesExist = owner.find(yr);
+	if (doesExist) {
+		return const_cast<Year*>(doesExist);
+	}
+	else {
+		owner.mYears.emplace_back(yr);
+	}
+}
 
+void Model::Data::Detail::Years::EditorLock::remove(date::year yr)
+{
+	// Assume that since we are adding things that it is not sorted so do a linear search
+	std::remove_if(owner.mYears.begin(), owner.mYears.end(), [&yr](const auto & value) { return (value.year() == yr); });
+}
 
-
-
+void Model::Data::Detail::Years::EditorLock::reserve(std::size_t nbrOfYears)
+{
+	owner.mYears.reserve(nbrOfYears);
+}

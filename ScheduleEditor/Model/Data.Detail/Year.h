@@ -8,8 +8,12 @@ namespace Model::Data::Detail {
 		std::array<Month, 12> mMonths;
 
 	public:
-		//Months();
-		//~Months();
+		Year() = default;
+		Year(date::year yr) : mYear(yr) {};
+		Year(const Year & y) = default;
+		Year(Year && y) = default;
+
+		Year & operator = (const Year & y) = default;
 
 		class Editor : public ModifierT<Year> {
 		public:
