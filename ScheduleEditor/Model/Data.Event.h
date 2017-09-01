@@ -11,7 +11,7 @@ namespace Model::Data {
 		date::year_month_day mDate;
 		Time::HourMinute	 mStartTime;
 		Time::Duration		 mDuration;
-		Model::Properties::PropertyMapUniquePtr  mProperties;
+		Model::Properties::PropertyMap*   mProperties; //non owner
 	};
 
 }

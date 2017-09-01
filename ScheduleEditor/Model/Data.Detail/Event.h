@@ -7,7 +7,6 @@ class Model::Properties::PropertyMap;
 
 namespace Model::Data::Detail {
 	
-	
 
 	union EventHandle {
 		struct FIELDS{
@@ -28,9 +27,9 @@ namespace Model::Data::Detail {
 
 	EventHandle make_handle(date::year_month_day day, Time::HourMinute start) {
 		EventHandle hand;
-		hand.fields.year = static_cast<uint32_t>(static_cast<int>(day.year));
-		hand.fields.month = static_cast<uint32_t>(static_cast<int>(day.month));
-		hand.fields.day = static_cast<uint32_t>(static_cast<int>(day.day));
+		hand.fields.year = (uint32_t)(int)day.year();
+		hand.fields.month = (uint32_t)day.month();
+		hand.fields.day = (uint32_t)day.day();
 		hand.fields.minute = start.minutes();
 		return hand;
 	}
@@ -83,6 +82,10 @@ namespace Model::Data::Detail {
 
 	bool operator < (const Event & e1, const date::year_month_day & h1) {
 		return e1.handle < h1;
+	}
+
+	bool operator < (const date::year_month_day & h1, const Event & e1 ) {
+		return  h1 < e1.handle;
 	}
 
 	bool operator == (const Event & e1, const date::year_month_day & h1) {

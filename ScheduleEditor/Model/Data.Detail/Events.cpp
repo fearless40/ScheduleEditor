@@ -5,11 +5,13 @@
 #include "../Resources.Resource.h"
 #include "../Properties.PropertyMap.h"
 #include "../Data.Event.h"
+#include "../Data.DataStore.h"
+#include "EventsEditor.h"
+
 #include "Event.h"
 #include "Events.h"
-#include "EventsEditor.h"
 #include "../Data.Event.h"
-#include "../Data.DataStore.h"
+
 
 using namespace Model::Data::Detail;
 
@@ -42,12 +44,12 @@ const bool Model::Data::Detail::Events::has(EventHandle evt) const
 	return find(evt) == nullptr ? false : true;
 }
 
-Model::Data::Detail::Events::const_iterator Model::Data::Detail::Events::begin_date(date::year_month_day day) const
+Events::const_iterator Events::begin_date(date::year_month_day day) const
 {
 	return std::lower_bound(mData.cbegin(), mData.cend(), day);
 }
 
-Model::Data::Detail::Events::const_iterator Model::Data::Detail::Events::end_date(date::year_month_day day) const
+Events::const_iterator Events::end_date(date::year_month_day day) const
 {
 	return std::upper_bound(mData.cbegin(), mData.cend(), day);
 }
@@ -56,7 +58,7 @@ int Model::Data::Detail::Events::NbrDays() const
 {
 	date::year_month_day first = mData.front().handle;
 	return std::accumulate(mData.cbegin(), mData.cend(), 0, [&first](const int v, const Event & e) {
-		if (e.handle.fields.year == first.year && e.handle.fields.month == first.month && e.handle.fields.day == first.day) {
+		if (e.handle.fields.year == (uint32_t)(int)first.year() && e.handle.fields.month == (uint32_t)first.month() && e.handle.fields.day == (uint32_t)first.day()) {
 			return 0;
 		} 
 		else {
@@ -93,7 +95,7 @@ EventHandle Model::Data::Detail::Events::make_unique_handle(date::year_month_day
 	return ret;
 }
 
-EventsEditor Model::Data::Detail::Events::edit() const
+EventsEditor Events::edit() const
 {
 	return EventsEditor(*const_cast<Events *>(this));
 }

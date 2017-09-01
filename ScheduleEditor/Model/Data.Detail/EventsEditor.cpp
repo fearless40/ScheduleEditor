@@ -16,9 +16,30 @@ Model::Data::Detail::EventsEditor::~EventsEditor()
 	// Do nothing for now
 }
 
+EventHandle EventsEditor::new_handle(date::year_month_day day, Model::Time::HourMinute starttime) 
+{
+	EventHandle handle = mEvents.make_unique_handle(day, starttime);
+
+	while (mExistingHandles.count(handle) == 1) {
+		handle.fields.minute += 1;
+	}
+	
+	mExistingHandles.insert(handle);
+
+	return handle;
+}
+
 EventHandle Model::Data::Detail::EventsEditor::create(date::year_month_day day, Model::Time::HourMinute starttime, Model::Time::Duration length, Resource * resource)
 {
-	return EventHandle();
+	Event evt;
+	evt.handle = new_handle(day, starttime);
+	evt.start = starttime;
+	evt.value = resource;
+	evt.minutes = length;
+	
+	mToBeAdded.push_back(evt);
+
+	return evt.handle;
 }
 
 EventHandle Model::Data::Detail::EventsEditor::create(date::year_month_day day, Model::Time::HourMinute starttime, Model::Time::Duration length, Resource * resource, Model::Properties::PropertyMapUniquePtr pmap)

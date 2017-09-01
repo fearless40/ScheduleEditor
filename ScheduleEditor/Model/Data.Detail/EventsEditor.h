@@ -5,12 +5,11 @@
 #include "Events.h"
 #include <unordered_set>
 
-class Model::Data::Event;
+struct Model::Data::Event;
 class Model::Resources::Resource;
+class Model::Data::Detail::Events;
 
 namespace Model::Data::Detail {
-
-	class Events;
 
 	class EventsEditor {
 		std::vector<EventHandle> mToBeDeleted;
@@ -20,11 +19,20 @@ namespace Model::Data::Detail {
 		
 		Events & mEvents;
 
+		EventHandle new_handle(date::year_month_day day, Model::Time::HourMinute starttime);
+
 	public:
 
 
 		EventsEditor(Events & evt);
 		~EventsEditor();
+
+		// Moveable
+		EventsEditor(EventsEditor && evt) = default;
+
+		// Non copyable
+		EventsEditor(const EventsEditor & evt) = delete;
+		EventsEditor operator = (const EventsEditor & evt) = delete;
 
 		EventHandle create(date::year_month_day day, Model::Time::HourMinute starttime, Model::Time::Duration length, Model::Resources::Resource * resource);
 		EventHandle create(date::year_month_day day, Model::Time::HourMinute starttime, Model::Time::Duration length, Model::Resources::Resource * resource, Model::Properties::PropertyMapUniquePtr pmap);
