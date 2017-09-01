@@ -1,5 +1,8 @@
 #pragma once
 
+//#include "../../Lib/date/date.h"
+#include "TimeDuration.h"
+
 namespace Model::Data {
 
 	/// Public interface to an event. 
@@ -8,7 +11,7 @@ namespace Model::Data {
 		date::year_month_day mDate;
 		Time::HourMinute	 mStartTime;
 		Time::Duration		 mDuration;
-		Model::Properties::PropertyMap * mProperties;
+		Model::Properties::PropertyMapUniquePtr  mProperties;
 	};
 
 }

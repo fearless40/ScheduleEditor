@@ -64,4 +64,6 @@ namespace Model::Properties {
 
 	};
 
+	using PropertyMapUniquePtr = std::unique_ptr<PropertyMap>;
+
 }

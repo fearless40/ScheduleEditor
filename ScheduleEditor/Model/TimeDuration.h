@@ -22,7 +22,19 @@ namespace Model::Time {
 		operator Model::Time::Duration () {
 			return std::chrono::hours(hour) + std::chrono::minutes(minute);
 		}
+
+		uint32_t minutes() const {
+			return hour * 60 + minute;
+		}
 	};
+
+	Model::Time::Duration operator + (Model::Time::HourMinute hm, Model::Time::Duration dur) {
+		return static_cast<Model::Time::Duration>(hm) + dur;
+	}
+
+	Model::Time::Duration operator + (Model::Time::Duration dur, Model::Time::HourMinute hm) {
+		return static_cast<Model::Time::Duration>(hm) + dur;
+	}
 
 	struct DateRange {
 		date::year_month_day start;

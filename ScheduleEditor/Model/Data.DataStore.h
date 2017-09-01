@@ -12,35 +12,11 @@ namespace Model::Data {
 	class EventIndex;
 	class DataStore {
 	public:
-		union EventHandle {
-			struct {
-				uint32_t year : 12;
-				uint32_t month : 4;
-				uint32_t day : 5;
-				uint32_t minute : 11;
-			} fields;
-			uint32_t value;
-		};
 
-		static constexpr EventHandle NullHandle{ 0 };
 
 	private:
-		const Model::Data::DataModel & owner;
-
-		// The range of dates in this Store
-		Time::DateRange mDates;
+	
 		
-		struct Event {
-			Model::Resources::Resource * value;
-			Time::HourMinute;
-			Time::Duration minutes;
-			EventHandle handle;
-			std::unique_ptr<Model::Properties::PropertyMap> properties;
-		};
-
-		
-		std::unique_ptr<EventIndex> mDataIndex;
-		std::vector<EventHandle> mChangedEvents;
 	
 	public:
 

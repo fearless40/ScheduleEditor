@@ -1,21 +1,25 @@
 #include "pch.h"
 #include <memory>
+#include <algorithm>
+#include <numeric>
 #include "../Resources.Resource.h"
 #include "../Properties.PropertyMap.h"
+#include "../Data.Event.h"
 #include "Event.h"
 #include "Events.h"
-#include "Years.h"
-#include "Year.h"
-#include "Month.h"
-#include "Day.h"
+#include "EventsEditor.h"
 #include "../Data.Event.h"
 #include "../Data.DataStore.h"
 
 using namespace Model::Data::Detail;
 
+void Model::Data::Detail::Events::sort()
+{
+	std::sort(mData.begin(), mData.end());
+}
+
 Model::Data::Detail::Events::Events(Data::DataStore & owner) : mOwner(owner)
 {
-	//mYears = std::make_unique<Years*>();
 
 }
 
@@ -23,26 +27,74 @@ Model::Data::Detail::Events::~Events()
 {
 }
 
-// Helper functions
-template <typename SearchWho, typename SearchType>
-auto add_event(const SearchWho * owner, SearchType s) -> decltype(owner->find(s)) {
-	auto ret = owner->find(s);
-	if (ret) {
-		return ret;
+const Event * Model::Data::Detail::Events::find(EventHandle evt) const
+{
+	auto ret_iterator = std::lower_bound(mData.begin(), mData.end(), evt);
+	if (ret_iterator->handle == evt) {
+		return &(*ret_iterator);
 	}
-	else {
-		auto ed = owner->edit();
-		return ed.add(s);
-	}
+
+	return nullptr;
 }
 
-EventHandle Model::Data::Detail::Events::add(Model::Data::Event evt)
+const bool Model::Data::Detail::Events::has(EventHandle evt) const
 {
-	Event iEvent;
-	//iEvent.handle = make_handle(evt.mDate);
-	auto date = evt.mDate;
-	auto year = add_event<Years, date::year>(mYears.get(), date.year);
-	auto month = add_event<Month, date::month>(year, date.month);
-	auto day = add_event<Day, date::day>(days, date.day);
-	
+	return find(evt) == nullptr ? false : true;
 }
+
+Model::Data::Detail::Events::const_iterator Model::Data::Detail::Events::begin_date(date::year_month_day day) const
+{
+	return std::lower_bound(mData.cbegin(), mData.cend(), day);
+}
+
+Model::Data::Detail::Events::const_iterator Model::Data::Detail::Events::end_date(date::year_month_day day) const
+{
+	return std::upper_bound(mData.cbegin(), mData.cend(), day);
+}
+
+int Model::Data::Detail::Events::NbrDays() const
+{
+	date::year_month_day first = mData.front().handle;
+	return std::accumulate(mData.cbegin(), mData.cend(), 0, [&first](const int v, const Event & e) {
+		if (e.handle.fields.year == first.year && e.handle.fields.month == first.month && e.handle.fields.day == first.day) {
+			return 0;
+		} 
+		else {
+			first = e.handle;
+			return 1;
+		}
+	});
+}
+
+bool Model::Data::Detail::Events::lock_read()
+{
+	return false;
+}
+
+void Model::Data::Detail::Events::unlock_read()
+{
+}
+
+bool Model::Data::Detail::Events::lock_write()
+{
+	return false;
+}
+
+void Model::Data::Detail::Events::unlock_write()
+{
+}
+
+EventHandle Model::Data::Detail::Events::make_unique_handle(date::year_month_day day, Time::HourMinute start) const
+{
+	EventHandle ret = make_handle(day, start);
+	while (has(ret) == true) {
+		++ret.fields.minute;
+	}
+	return ret;
+}
+
+EventsEditor Model::Data::Detail::Events::edit() const
+{
+	return EventsEditor(*const_cast<Events *>(this));
+}
+

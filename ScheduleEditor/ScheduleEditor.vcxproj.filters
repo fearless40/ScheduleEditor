@@ -60,6 +60,7 @@
     <ClCompile Include="Model\Data.Detail\Events.cpp" />
     <ClCompile Include="Model\Data.Detail\Year.cpp" />
     <ClCompile Include="Model\Data.Detail\Day.cpp" />
+    <ClCompile Include="Model\Data.Detail\EventsEditor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -128,6 +129,7 @@
     <ClInclude Include="Model\Data.Detail\Year.h" />
     <ClInclude Include="Model\Data.Detail\Month.h" />
     <ClInclude Include="Model\Data.Detail\Day.h" />
+    <ClInclude Include="Model\Data.Detail\EventsEditor.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">

@@ -1,26 +1,61 @@
 
+#include "Event.h"
+
+class Model::Data::DataStore;
+
 namespace Model::Data::Detail {
 
-	using namespace Model;
+	class EventsEditor;
 
-	/// Event interface into the heirarchy of Years->Months->Days->DayEvents
+	/// Holds a list of events sorted by date
 	class Events {
-		std::unique_ptr<Years> mYears;
-		const Data::DataStore &  mOwner;
+		std::vector<Event> mData;
+		//Read lock
+		//Write lock
+
+		Data::DataStore & mOwner; 
+
+		void sort();
 
 	public:
-		Events(Data::DataStore & owner);
+		using iterator = std::vector<Events>::iterator;
+		using const_iterator = std::vector<Events>::const_iterator;
+
+		Events(Model::Data::DataStore & owner);
 		~Events();
 
 		// Const Interface
-		const Event * event_find(EventHandle evt) const;
+		const Event * find(EventHandle evt) const;
+		const bool	has(EventHandle evt) const;
+
+		const_iterator begin_date(date::year_month_day day) const;
+		// Works like a standard iterator (1 beyond the requested value)
+		const_iterator end_date(date::year_month_day day) const;
 
 
-		// Modification interface
-		EventHandle		add(Model::Data::Event evt);
-		void			remove(EventHandle eHandle);
-		EventHandle		change(EventHandle eHandle, Model::Data::Event evt)
 
+		//Information functions
+		date::year_month_day date_start() const { return mData.front().handle; }
+		date::year_month_day date_last() const { return mData.back().handle; }
+		std::size_t size() const { return mData.size(); }
+		int NbrDays() const; 
 
+		// Iteration
+		auto begin() const { return mData.cbegin(); }
+		auto end() const { return mData.cend(); }
+
+		//auto begin() { return data.begin(); }
+		//auto end() { return data.end(); }
+
+		bool lock_read();
+		void unlock_read();
+
+		bool lock_write();
+		void unlock_write();
+
+		EventHandle make_unique_handle(date::year_month_day day, Time::HourMinute start) const;
+		
+		// Use the view classes to find stuff
+		EventsEditor edit() const; 
 	};
 }
