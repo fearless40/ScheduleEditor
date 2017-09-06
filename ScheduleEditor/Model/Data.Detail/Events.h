@@ -27,10 +27,18 @@ namespace Model::Data::Detail {
 		// Const Interface
 		const Event * find(EventHandle evt) const;
 		const bool	has(EventHandle evt) const;
-
 		const_iterator begin_date(date::year_month_day day) const;
 		// Works like a standard iterator (1 beyond the requested value)
 		const_iterator end_date(date::year_month_day day) const;
+
+
+		// Non const version
+		Event * find(EventHandle evt);
+		iterator begin_date(date::year_month_day day);
+		// Works like a standard iterator (1 beyond the requested value)
+		iterator end_date(date::year_month_day day);
+
+		std::vector<Event> & get() { return mData; }
 
 
 
@@ -44,14 +52,14 @@ namespace Model::Data::Detail {
 		auto begin() const { return mData.cbegin(); }
 		auto end() const { return mData.cend(); }
 
-		//auto begin() { return data.begin(); }
-		//auto end() { return data.end(); }
+		auto begin() { return mData.begin(); }
+		auto end() { return mData.end(); }
 
-		bool lock_read();
-		void unlock_read();
+		bool lock_read() const;
+		void unlock_read() const;
 
 		bool lock_write();
-		void unlock_write();
+		void unlock_write(bool dataChanged = false);
 
 		EventHandle make_unique_handle(date::year_month_day day, Time::HourMinute start) const;
 		

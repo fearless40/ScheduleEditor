@@ -10,7 +10,7 @@ namespace Model::Properties {
 		using PMap = std::unordered_map<Model::Index, Property>;
 
 		PropertyMap() = default;
-		PropertyMap(PropertyMap & map) = default;
+		PropertyMap(const PropertyMap & map) = default;
 		PropertyMap(PropertyMap && map) = default;
 		~PropertyMap() = default;
 

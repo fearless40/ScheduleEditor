@@ -39,6 +39,17 @@ const Event * Model::Data::Detail::Events::find(EventHandle evt) const
 	return nullptr;
 }
 
+Event * Model::Data::Detail::Events::find(EventHandle evt) 
+{
+	auto ret_iterator = std::lower_bound(mData.begin(), mData.end(), evt);
+	if (ret_iterator->handle == evt) {
+		return &(*ret_iterator);
+	}
+
+	return nullptr;
+}
+
+
 const bool Model::Data::Detail::Events::has(EventHandle evt) const
 {
 	return find(evt) == nullptr ? false : true;
@@ -54,6 +65,17 @@ Events::const_iterator Events::end_date(date::year_month_day day) const
 	return std::upper_bound(mData.cbegin(), mData.cend(), day);
 }
 
+Events::iterator Events::begin_date(date::year_month_day day) 
+{
+	return std::lower_bound(mData.begin(), mData.end(), day);
+}
+
+Events::iterator Events::end_date(date::year_month_day day) 
+{
+	return std::upper_bound(mData.begin(), mData.end(), day);
+}
+
+
 int Model::Data::Detail::Events::NbrDays() const
 {
 	date::year_month_day first = mData.front().handle;
@@ -68,12 +90,12 @@ int Model::Data::Detail::Events::NbrDays() const
 	});
 }
 
-bool Model::Data::Detail::Events::lock_read()
+bool Model::Data::Detail::Events::lock_read() const
 {
 	return false;
 }
 
-void Model::Data::Detail::Events::unlock_read()
+void Model::Data::Detail::Events::unlock_read() const
 {
 }
 
@@ -82,8 +104,10 @@ bool Model::Data::Detail::Events::lock_write()
 	return false;
 }
 
-void Model::Data::Detail::Events::unlock_write()
+void Model::Data::Detail::Events::unlock_write(bool dataChanged)
 {
+	if (dataChanged)
+		sort();
 }
 
 EventHandle Model::Data::Detail::Events::make_unique_handle(date::year_month_day day, Time::HourMinute start) const
