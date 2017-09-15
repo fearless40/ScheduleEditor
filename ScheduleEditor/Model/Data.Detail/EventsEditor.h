@@ -81,7 +81,7 @@ namespace Model::Data::Detail {
 		EventHandle move(EventHandle oldEvent, date::year_month_day day);
 		EventHandle move(EventHandle oldEvent, Model::Time::HourMinute starttime, Model::Time::Duration length);
 
-		bool commit_changes_only_memory();
+		void commit_changes_only_memory();
 		//bool commit_changes_to_filesystem();
 	};
 

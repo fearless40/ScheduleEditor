@@ -1,6 +1,7 @@
-#include "../../pch.h"
+#include "pch.h"
 #include <algorithm>
 #include "../Resources.Resource.h"
+#include "../Model/Data.DataStore.h"
 #include "../Data.Event.h"
 #include "EventsEditor.h"
 
@@ -37,9 +38,9 @@ EventHandle Model::Data::Detail::EventsEditor::create(date::year_month_day day, 
 	evt.value = resource;
 	evt.minutes = length;
 	
-	mToBeAdded.push_back(evt);
+	mToBeAdded.push_back(std::move(evt));
 
-	return evt.handle;
+	return mToBeAdded.back().handle;
 }
 
 EventHandle Model::Data::Detail::EventsEditor::create(date::year_month_day day, Model::Time::HourMinute starttime, Model::Time::Duration length, Resource * resource, Model::Properties::PropertyMapUniquePtr pmap)
@@ -51,7 +52,9 @@ EventHandle Model::Data::Detail::EventsEditor::create(date::year_month_day day, 
 	evt.value = resource;
 	evt.properties = std::move(pmap);
 
-	mToBeAdded.push_back(evt);
+	mToBeAdded.push_back(std::move(evt));
+
+	return mToBeAdded.back().handle;
 }
 
 EventHandle Model::Data::Detail::EventsEditor::create(const Model::Data::Event & evt)
@@ -66,6 +69,10 @@ EventHandle Model::Data::Detail::EventsEditor::create(const Model::Data::Event &
 		Model::Properties::PropertyMapUniquePtr pmu{ new Model::Properties::PropertyMap(*evt.mProperties) };
 		nevt.properties = std::move(pmu);
 	}
+
+	mToBeAdded.push_back(std::move(nevt));
+
+	return mToBeAdded.back().handle;
 }
 
 void Model::Data::Detail::EventsEditor::remove(EventHandle handle)
@@ -85,9 +92,9 @@ void Model::Data::Detail::EventsEditor::remove(Events::const_iterator start, Eve
 
 void Model::Data::Detail::EventsEditor::remove_day(date::year_month_day day)
 {
-auto day_it_start = mEvents.begin_date(day);
-auto day_it_end = mEvents.end_date(day);
-remove(day_it_start, day_it_end);
+	auto day_it_start = mEvents.begin_date(day);
+	auto day_it_end = mEvents.end_date(day);
+	remove(day_it_start, day_it_end);
 }
 
 void Model::Data::Detail::EventsEditor::remove_period(date::year_month_day start, date::year_month_day end)
@@ -134,6 +141,7 @@ EventHandle Model::Data::Detail::EventsEditor::move_impl(const Event * mPrior, d
 	}
 
 	remove(mPrior->handle);
+	return NullHandle;
 }
 
 EventHandle Model::Data::Detail::EventsEditor::move(EventHandle oldEvent, date::year_month_day day, Model::Time::HourMinute starttime, Model::Time::Duration length)
@@ -159,7 +167,7 @@ EventHandle Model::Data::Detail::EventsEditor::move(EventHandle oldEvent, Model:
 	return move_impl(oldevt, oldevt->handle, starttime, length);
 }
 
-bool Model::Data::Detail::EventsEditor::commit_changes_only_memory()
+void Model::Data::Detail::EventsEditor::commit_changes_only_memory()
 {
 	// The order of operations is very important. 
 	// First do the change operations (as they require reads from the data)
@@ -185,23 +193,30 @@ bool Model::Data::Detail::EventsEditor::commit_changes_only_memory()
 	}
 
 	{ // Remove Block
-		std::sort(mToBeDeleted.begin(), mToBeDeleted.end());
-		auto itRemover = mToBeDeleted.begin();
-		auto itEnd = mToBeDeleted.end();
+		if (mClearAll) {
+			mEvents.get().clear();
+		}
+		else {
+			std::sort(mToBeDeleted.begin(), mToBeDeleted.end());
+			auto itRemover = mToBeDeleted.begin();
+			auto itEnd = mToBeDeleted.end();
 
-		auto eraser = std::remove_if(mEvents.begin(), mEvents.end(), [&itRemover, &itEnd](auto & x) -> bool {
-			while ((itRemover != itEnd) && (*itRemover < x)) ++itRemover;
-			return (itRemover != itEnd) && (*itRemover == x);
-		});
+			auto eraser = std::remove_if(mEvents.begin(), mEvents.end(), [&itRemover, &itEnd](auto & x) -> bool {
+				while ((itRemover != itEnd) && (*itRemover < x)) ++itRemover;
+				return (itRemover != itEnd) && (*itRemover == x);
+			});
 
-		mEvents.get().erase(eraser, mEvents.end());
+			mEvents.get().erase(eraser, mEvents.end());
+		}
 	}
 	
 	
 	{ // Creation block
-
+		std::move(mToBeAdded.begin(), mToBeAdded.end(), mEvents.end());
 	}
+	
+	mClearAll = false;
 
 	mEvents.unlock_write(true);
-
+	
 }

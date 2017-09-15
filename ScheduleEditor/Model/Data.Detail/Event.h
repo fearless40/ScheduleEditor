@@ -76,6 +76,10 @@ namespace Model::Data::Detail {
 		return e1.handle == h1;
 	}
 
+	bool operator == (const EventHandle &h1, const Event & e1) {
+		return e1.handle == h1;
+	}
+
 	bool operator != (const Event & e1, const EventHandle &h1) {
 		return e1.handle != h1;
 	}
