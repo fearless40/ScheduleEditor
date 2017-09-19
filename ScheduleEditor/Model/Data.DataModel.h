@@ -26,19 +26,16 @@ namespace Model::Data {
 		// may get pushed off into the datastore api but placed in here for now
 		Time::DateRange mDBInfo;
 
-		// Class will take the events and process them into Years, months, days. This acts as a small form of compression
-		// also will help make access to certain queries much faster and easier
-	
-		
-	public:
-		const RangeView get_dates(date::year_month_day start, date::year_month_day end);
-		const RangeView get_month(int year, int month);
-		
+		// Is default resource model for the resource
+		bool mDefault;
 
+	public:
+		const Range get_dates(date::year_month_day start, date::year_month_day end);
+		const Range get_month(int year, int month);
+	
 		void		refresh();
 		
 		const Model::Resources::Resource & owner() const;
-		const Model::Slots::SlotGroup & slots() const;
 
 		bool isDefaultModel() const;
 
@@ -52,7 +49,7 @@ namespace Model::Data {
 		static std::vector<DataModel &> GetAllModels(const Model::Resources::Resource & res);
 
 		/// Throws if the data already exists
-		static DataModel &	Create(const Model::Resources::Resource & res, const Model::Resources::ResourceGroup & allowedEntries, const Slots::SlotGroup & slots);
+		static DataModel &	Create(const Model::Resources::Resource & res, const Model::Resources::ResourceGroup & allowedEntries);
 
 		/// Triggers an event changed signal
 		static void			Save(const Model::Data::Range & changed);

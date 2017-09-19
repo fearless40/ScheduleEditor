@@ -26,15 +26,6 @@
     <ClCompile Include="Model\Data.cpp">
       <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="Model\Range.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Model\Range.Data.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Model\Range.View.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
     <ClCompile Include="Model\Resources.cpp">
       <Filter>Model</Filter>
     </ClCompile>
@@ -54,13 +45,12 @@
     <ClCompile Include="Model\Slots.Slot.cpp">
       <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="Model\Data.Detail\Years.cpp" />
     <ClCompile Include="Model\Data.DataModel.cpp" />
-    <ClCompile Include="Model\Data.DataStore.cpp" />
     <ClCompile Include="Model\Data.Detail\Events.cpp" />
-    <ClCompile Include="Model\Data.Detail\Year.cpp" />
-    <ClCompile Include="Model\Data.Detail\Day.cpp" />
     <ClCompile Include="Model\Data.Detail\EventsEditor.cpp" />
+    <ClCompile Include="Model\Range.Range.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -87,12 +77,6 @@
     <ClInclude Include="Model\Range.Data.h">
       <Filter>Model</Filter>
     </ClInclude>
-    <ClInclude Include="Model\Range.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Model\Range.View.h">
-      <Filter>Model</Filter>
-    </ClInclude>
     <ClInclude Include="Model\Resources.h">
       <Filter>Model</Filter>
     </ClInclude>
@@ -115,21 +99,18 @@
     </ClInclude>
     <ClInclude Include="Model\Range.Event.h" />
     <ClInclude Include="Model\Range.RawData.h" />
-    <ClInclude Include="Model\Range.Detail.CompressedSlotEvents.h" />
     <ClInclude Include="Model\Data.Range.SlotView.h" />
-    <ClInclude Include="Model\Data.Detail\Years.h" />
     <ClInclude Include="Model\Data.Detail\Event.h" />
     <ClInclude Include="Model\Data.Detail\Events.h" />
     <ClInclude Include="Model\Data.Detail\Helpers.h" />
     <ClInclude Include="Model\Data.RawEvents.h" />
     <ClInclude Include="Model\ModelIndex.h" />
     <ClInclude Include="Model\Data.DataModel.h" />
-    <ClInclude Include="Model\Data.DataStore.h" />
     <ClInclude Include="Model\Data.Event.h" />
-    <ClInclude Include="Model\Data.Detail\Year.h" />
-    <ClInclude Include="Model\Data.Detail\Month.h" />
-    <ClInclude Include="Model\Data.Detail\Day.h" />
     <ClInclude Include="Model\Data.Detail\EventsEditor.h" />
+    <ClInclude Include="Model\Range.Range.h">
+      <Filter>Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">

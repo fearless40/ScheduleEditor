@@ -27,9 +27,12 @@ namespace Model::Data::Detail {
 		// Const Interface
 		const Event * find(EventHandle evt) const;
 		const bool	has(EventHandle evt) const;
+		const_iterator find_iterator(EventHandle evt) const;
 		const_iterator begin_date(date::year_month_day day) const;
 		// Works like a standard iterator (1 beyond the requested value)
 		const_iterator end_date(date::year_month_day day) const;
+
+		
 
 
 		// Non const version

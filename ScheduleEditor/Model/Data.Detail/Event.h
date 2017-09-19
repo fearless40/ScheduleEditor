@@ -23,6 +23,7 @@ namespace Model::Data::Detail {
 		}
 	};
 
+	constexpr EventHandle NullHandle{ 0 };
 	
 
 	EventHandle make_handle(date::year_month_day day, Time::HourMinute start) {
@@ -58,6 +59,10 @@ namespace Model::Data::Detail {
 		Model::Time::Duration minutes;
 		Model::Resources::Resource * value; // non owner
 		Model::Properties::PropertyMapUniquePtr properties; //owner
+
+		operator Model::Data::Event () const {
+			return Model::Data::Event(handle, start, minutes, value, properties.get());
+		}
 	};
 
 	bool operator < (const Event & e1, const EventHandle & h1) {

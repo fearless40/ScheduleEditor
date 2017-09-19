@@ -207,15 +207,10 @@
   <ItemGroup>
     <ClInclude Include="AppUI.h" />
     <ClInclude Include="Model\Data.DataModel.h" />
-    <ClInclude Include="Model\Data.DataStore.h" />
-    <ClInclude Include="Model\Data.Detail\Day.h" />
     <ClInclude Include="Model\Data.Detail\EventsEditor.h" />
-    <ClInclude Include="Model\Data.Detail\Month.h" />
     <ClInclude Include="Model\Data.Detail\Event.h" />
     <ClInclude Include="Model\Data.Detail\Events.h" />
     <ClInclude Include="Model\Data.Detail\Helpers.h" />
-    <ClInclude Include="Model\Data.Detail\Year.h" />
-    <ClInclude Include="Model\Data.Detail\Years.h" />
     <ClInclude Include="Model\Data.Event.h" />
     <ClInclude Include="Model\Data.h" />
     <ClInclude Include="Model\Data.Range.SlotView.h" />
@@ -223,7 +218,6 @@
     <ClInclude Include="Model\Model.h" />
     <ClInclude Include="Model\ModelIndex.h" />
     <ClInclude Include="Model\Properties.HasProperties.h" />
-    <ClInclude Include="Model\Range.Detail.CompressedSlotEvents.h" />
     <ClInclude Include="Model\Range.Event.h" />
     <ClInclude Include="Model\Range.RawData.h" />
     <ClInclude Include="Model\Slots.Slot.h" />
@@ -232,9 +226,8 @@
     <ClInclude Include="Model\Properties.h" />
     <ClInclude Include="Model\Properties.PropertyMap.h" />
     <ClInclude Include="Model\Properties.PropertyTemplate.h" />
-    <ClInclude Include="Model\Range.h" />
     <ClInclude Include="Model\Range.Data.h" />
-    <ClInclude Include="Model\Range.View.h" />
+    <ClInclude Include="Model\Range.Range.h" />
     <ClInclude Include="Model\Resources.h" />
     <ClInclude Include="Model\Resources.Resource.h" />
     <ClInclude Include="Model\Resources.ResourceGroup.h" />
@@ -263,12 +256,8 @@
     <ClCompile Include="Model\Data.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model\Data.DataModel.cpp" />
-    <ClCompile Include="Model\Data.DataStore.cpp" />
-    <ClCompile Include="Model\Data.Detail\Day.cpp" />
     <ClCompile Include="Model\Data.Detail\Events.cpp" />
     <ClCompile Include="Model\Data.Detail\EventsEditor.cpp" />
-    <ClCompile Include="Model\Data.Detail\Year.cpp" />
-    <ClCompile Include="Model\Data.Detail\Years.cpp" />
     <ClCompile Include="Model\Model.cpp" />
     <ClCompile Include="Model\Slots.Slot.cpp" />
     <ClCompile Include="pch.cpp">
@@ -284,9 +273,7 @@
     </ClCompile>
     <ClCompile Include="Model\Properties.PropertyMap.cpp" />
     <ClCompile Include="Model\Properties.PropertyTemplate.cpp" />
-    <ClCompile Include="Model\Range.cpp" />
-    <ClCompile Include="Model\Range.Data.cpp" />
-    <ClCompile Include="Model\Range.View.cpp" />
+    <ClCompile Include="Model\Range.Range.cpp" />
     <ClCompile Include="Model\Resources.cpp" />
     <ClCompile Include="Model\Resources.Resource.cpp" />
     <ClCompile Include="Model\Resources.ResourceGroup.cpp" />
