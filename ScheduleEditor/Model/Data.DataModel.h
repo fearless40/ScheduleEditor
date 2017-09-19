@@ -8,6 +8,7 @@
 #include "Model.h"
 #include "Resources.h"
 
+#include "Range.Range.h"
 
 namespace Model::Data {
 	
@@ -30,8 +31,8 @@ namespace Model::Data {
 		bool mDefault;
 
 	public:
-		const Range get_dates(date::year_month_day start, date::year_month_day end);
-		const Range get_month(int year, int month);
+		const Model::Data::Range get_dates(date::year_month_day start, date::year_month_day end) const;
+		const Model::Data::Range get_month(date::year year, date::month month) const;
 	
 		void		refresh();
 		

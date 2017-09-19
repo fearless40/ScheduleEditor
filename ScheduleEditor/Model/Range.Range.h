@@ -18,7 +18,7 @@ namespace Model::Data::Range {
 		const Model::Data::DataModel & mModel;
 		
 		struct TransFormer {
-			const Model::Data::Event operator(Model::Data::Detail::Events::const_iterator &it) {
+			const Model::Data::Event operator ()(Model::Data::Detail::Events::const_iterator &it) {
 				return *it;
 			}
 		};
@@ -34,6 +34,8 @@ namespace Model::Data::Range {
 		date::year_month_day date_start() const noexcept;
 		date::year_month_day date_end() const noexcept;
 
+		std::size_t count() const;
+
 		const_iterator begin() const {
 			return boost::make_transform_iterator(mEvents.find_iterator(mStart), TransFormer{});
 		}
@@ -41,13 +43,8 @@ namespace Model::Data::Range {
 			return boost::make_transform_iterator(mEvents.find_iterator(mEnd), TransFormer{});
 		}
 
-		const_iterator operator[] (Date dt) const;
-		const_iterator operator[] (uint32_t offset) const;
+		Range subset(date::year_month_day start, date::year_month_day end) const;
 
-		const_iterator at(Date dt) const;
-		const_iterator at(uint32_t offset) const;
-
-		Range subset(Date start, Date end) const;
 
 	};
 }
