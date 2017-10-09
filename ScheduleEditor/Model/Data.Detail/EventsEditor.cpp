@@ -1,7 +1,6 @@
 #include "pch.h"
 #include <algorithm>
 #include "../Resources.Resource.h"
-#include "../Model/Data.DataStore.h"
 #include "../Data.Event.h"
 #include "EventsEditor.h"
 
@@ -60,13 +59,13 @@ EventHandle Model::Data::Detail::EventsEditor::create(date::year_month_day day, 
 EventHandle Model::Data::Detail::EventsEditor::create(const Model::Data::Event & evt)
 {
 	Event nevt;
-	nevt.handle = new_handle(evt.mDate, evt.mStartTime);
-	nevt.start = evt.mStartTime;
-	nevt.value = evt.mValue;
-	nevt.minutes = evt.mDuration;
+	nevt.handle = new_handle(evt.date(), evt.start_time());
+	nevt.start = evt.start_time();
+	nevt.value = evt.resource();
+	nevt.minutes = evt.duration();
 	
-	if (evt.mProperties) {
-		Model::Properties::PropertyMapUniquePtr pmu{ new Model::Properties::PropertyMap(*evt.mProperties) };
+	if (evt.properties()) {
+		Model::Properties::PropertyMapUniquePtr pmu{ new Model::Properties::PropertyMap(*evt.properties()) };
 		nevt.properties = std::move(pmu);
 	}
 

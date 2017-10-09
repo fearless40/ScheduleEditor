@@ -20,29 +20,27 @@ namespace Model::Slots {
 		Slots mSlots;
 	public:
 
+		using const_iterator = Slots::const_iterator;
+		using iterator = Slots::iterator;
+
 		Model::Index index() const { return mIndex; }
 
 		std::size_t count() const { return mSlots.size(); }
 
-		auto begin() const { 
-			return mSlots.cbegin();
-		}
+		auto begin() const { return mSlots.cbegin(); }
 		auto end() const { return mSlots.cend(); }
 
 		auto begin() { return mSlots.begin(); }
 		auto end() { return mSlots.end();  }
-
+		
 		const Slot operator [] (std::size_t tindex) const { return mSlots[tindex]; }
 		Slot operator [] (std::size_t tindex) { return mSlots[tindex]; }
 
 		void remove(const Slot & slot);
 		void remove(Slots::iterator it);
 		void remove(Slot::SlotID id);
-		Slot create();
-		Slot create(std::string_view name);
-		Slot create(Time::HourMinute start, Time::Duration duration);
-		Slot create(std::string_view name, Time::HourMinute start, Time::Duration duration);
-		void save(Slot slot);
-
+		const Slot & create(Time::HourMinute start, Time::Duration duration);
+		const Slot & create(std::string_view name, Time::HourMinute start, Time::Duration duration);
+		
 	};
 }

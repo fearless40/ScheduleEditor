@@ -1,7 +1,6 @@
 #pragma once
 #include "Event.h"
 
-class Model::Data::DataStore;
 
 namespace Model::Data::Detail {
 
@@ -13,16 +12,11 @@ namespace Model::Data::Detail {
 		//Read lock
 		//Write lock
 
-		Model::Data::DataStore & mOwner; 
-
 		void sort();
 
 	public:
 		using iterator = std::vector<Event>::iterator;
 		using const_iterator = std::vector<Event>::const_iterator;
-
-		Events(Model::Data::DataStore & owner);
-		~Events();
 
 		// Const Interface
 		const Event * find(EventHandle evt) const;

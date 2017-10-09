@@ -5,7 +5,6 @@
 #include "../Resources.Resource.h"
 #include "../Properties.PropertyMap.h"
 #include "../Data.Event.h"
-#include "../Data.DataStore.h"
 #include "EventsEditor.h"
 
 #include "Event.h"
@@ -20,14 +19,6 @@ void Model::Data::Detail::Events::sort()
 	std::sort(mData.begin(), mData.end());
 }
 
-Model::Data::Detail::Events::Events(Data::DataStore & owner) : mOwner(owner)
-{
-
-}
-
-Model::Data::Detail::Events::~Events()
-{
-}
 
 const Event * Model::Data::Detail::Events::find(EventHandle evt) const
 {

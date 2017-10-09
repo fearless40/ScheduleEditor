@@ -1,5 +1,7 @@
 #pragma once
 
+#include "TimeDuration.h"
+
 namespace Model::Slots {
 
 
@@ -7,16 +9,16 @@ namespace Model::Slots {
 	struct Slot 
 	{
 		using SlotID = uint32_t;
-		std::string mDisplayName;
-		Time::HourMinute mStart;
-		Time::Duration mDuration;
+		std::string name_display;
+		Time::HourMinute start_time;
+		Time::Duration duration;
 	
 		Slot() = default;
 		Slot(Slot &&) = default;
 		Slot(const Slot &) = default;
 		Slot(uint32_t id) : mID(id) {}
-		Slot(uint32_t id, Time::HourMinute hm, Time::Duration d) : mID(id), mStart(hm), mDuration(d) {}
-		Slot(uint32_t id, Time::HourMinute hm, Time::Duration d, std::string_view name) : mID(id), mStart(hm), mDuration(d), mDisplayName(name) {}
+		Slot(uint32_t id, Time::HourMinute hm, Time::Duration d) : mID(id), start_time(hm), duration(d) {}
+		Slot(uint32_t id, Time::HourMinute hm, Time::Duration d, std::string_view name) : mID(id), start_time(hm), duration(d), name_display(name) {}
 
 		
 	/*	Time::HourMinute start() const;

@@ -51,8 +51,6 @@ namespace Model::Data::Detail {
 		return h1.value != h2.value;
 	}
 
-	static constexpr EventHandle NullHandle{ 0 };
-
 	struct Event {
 		EventHandle handle;
 		Model::Time::HourMinute start;
@@ -60,9 +58,9 @@ namespace Model::Data::Detail {
 		Model::Resources::Resource * value; // non owner
 		Model::Properties::PropertyMapUniquePtr properties; //owner
 
-		operator Model::Data::Event () const {
+	/*	operator Model::Data::Event () const {
 			return Model::Data::Event(handle, start, minutes, value, properties.get());
-		}
+		}*/
 	};
 
 	bool operator < (const Event & e1, const EventHandle & h1) {

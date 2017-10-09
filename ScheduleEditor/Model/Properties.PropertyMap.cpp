@@ -8,24 +8,6 @@
 
 using namespace Model::Properties;
 
-PropertyMap::PropertyMap()
-{
-}
-
-Model::Properties::PropertyMap::PropertyMap(PropertyMap & map) : mMap(map.mMap)
-{
-	
-}
-
-Model::Properties::PropertyMap::PropertyMap(PropertyMap && map) : mMap(std::move(map.mMap)) 
-{
-	
-}
-
-
-PropertyMap::~PropertyMap()
-{
-}
 
 void Model::Properties::PropertyMap::add(PropertyIndex key, Property prop)
 {

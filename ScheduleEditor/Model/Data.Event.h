@@ -4,12 +4,15 @@
 #include "TimeDuration.h"
 #include "Data.Detail\Event.h"
 
+class Model::Resources::Resource;
+class Model::Properties::PropertyMap;
+
 namespace Model::Data {
 
 	/// Public interface to an event. Only difference is it does not hold a unique pointer 
 	// as this class is used by client code in a read only manner mostly
 	class Event {
-		EventHandle mHandle;
+		Model::Data::Detail::EventHandle mHandle;
 		Time::HourMinute	 mStartTime;
 		Time::Duration		 mDuration;
 		Model::Resources::Resource * mValue;
@@ -19,7 +22,7 @@ namespace Model::Data {
 		Event() {}
 		~Event() {}
 
-		Event(EventHandle handle, Time::HourMinute start, Time::Duration dur, Model::Resources::Resource * res, Model::Properties::PropertyMap * map) :
+		Event(Model::Data::Detail::EventHandle handle, Time::HourMinute start, Time::Duration dur, Model::Resources::Resource * res, Model::Properties::PropertyMap * map) :
 			mHandle(handle),
 			mStartTime(start),
 			mDuration(dur),
@@ -35,7 +38,7 @@ namespace Model::Data {
 		Time::HourMinute start_time() const noexcept { return mStartTime; }
 		Time::Duration duration() const noexcept { return mDuration; }
 		Model::Resources::Resource * resource() const noexcept { return mValue; }
-		Model::Properties::PropertyMap * properties() const noexcept { reutrn mProperties; }
+		Model::Properties::PropertyMap * properties() const noexcept { return mProperties; }
 
 		// No setters for now will consider in the future
 

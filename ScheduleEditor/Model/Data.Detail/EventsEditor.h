@@ -5,7 +5,7 @@
 #include "Events.h"
 #include <unordered_set>
 
-struct Model::Data::Event;
+class Model::Data::Event;
 class Model::Resources::Resource;
 class Model::Data::Detail::Events;
 

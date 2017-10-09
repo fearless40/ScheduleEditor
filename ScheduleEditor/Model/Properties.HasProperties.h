@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Properties.PropertyMap.h"
+
 namespace Model::Properties {
 	class PropertyMap;
 

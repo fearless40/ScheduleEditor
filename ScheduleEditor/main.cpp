@@ -1,6 +1,6 @@
 #include "pch.h"
 #include <vector>
-#include <memory>;
+#include <memory>
 
 #include "AppUI.h"
 #include "ResourceView.h"

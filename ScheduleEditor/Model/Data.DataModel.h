@@ -1,21 +1,14 @@
 #pragma once
 
-#include <vector>
-#include <array>
-#include <list>
 
-#include "TimeDuration.h"
-#include "Model.h"
-#include "Resources.h"
 
-#include "Range.Range.h"
 
 namespace Model::Data {
 	
 	/// Holds a group of Ranges. Allowing discontinous data to be stored
 	/// It is associated with only one type of resource (the mResource)
 	/// Only one DataResource per Resource! 
-	class DataModel {
+	/*class DataModel {
 		// Index for loading and saving
 		Index mIndex;
 
@@ -55,5 +48,5 @@ namespace Model::Data {
 		/// Triggers an event changed signal
 		static void			Save(const Model::Data::Range & changed);
 
-	};
+	};*/
 }

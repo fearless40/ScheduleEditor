@@ -2,11 +2,3 @@
 #include "Slots.SlotGroup.h"
 
 
-SlotGroup::SlotGroup()
-{
-}
-
-
-SlotGroup::~SlotGroup()
-{
-}
