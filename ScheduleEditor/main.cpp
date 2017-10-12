@@ -83,6 +83,5 @@ struct App : ApplicationT<App>
 
 int __stdcall wWinMain(HINSTANCE, HINSTANCE, PWSTR, int)
 {
-	winrt::initialize();
 	Application::Start([](auto &&) { make<App>(); });
 }

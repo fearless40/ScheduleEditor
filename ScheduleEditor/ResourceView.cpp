@@ -82,7 +82,7 @@ void ResourceView::initalize()
 	
 	
 
-	mData.Loaded([this](winrt::Windows::IInspectable const &, const winrt::Windows::UI::Xaml::RoutedEventArgs &) {
+	mData.Loaded([this](winrt::Windows::Foundation::IInspectable const &, const winrt::Windows::UI::Xaml::RoutedEventArgs &) {
 		auto iwp = mData.ItemsPanelRoot().as<ItemsWrapGrid>();
 		iwp.MaximumRowsOrColumns(4);
 		iwp.Orientation(Orientation::Vertical);

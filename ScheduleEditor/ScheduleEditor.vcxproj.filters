@@ -23,9 +23,6 @@
     <ClCompile Include="Model\Properties.PropertyTemplate.cpp">
       <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="Model\Data.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
     <ClCompile Include="Model\Resources.cpp">
       <Filter>Model</Filter>
     </ClCompile>
@@ -56,9 +53,6 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="AppUI.h" />
     <ClInclude Include="ResourceView.h" />
-    <ClInclude Include="Slots.h">
-      <Filter>Model</Filter>
-    </ClInclude>
     <ClInclude Include="Model\Properties.h">
       <Filter>Model</Filter>
     </ClInclude>

@@ -28,14 +28,14 @@ namespace Model::Time {
 		}
 	};
 
-	Model::Time::Duration operator + (Model::Time::HourMinute hm, Model::Time::Duration dur) {
+	inline Model::Time::Duration operator + (Model::Time::HourMinute hm, Model::Time::Duration dur) {
 		return static_cast<Model::Time::Duration>(hm) + dur;
 	}
 
-	Model::Time::Duration operator + (Model::Time::Duration dur, Model::Time::HourMinute hm) {
+	inline Model::Time::Duration operator + (Model::Time::Duration dur, Model::Time::HourMinute hm) {
 		return static_cast<Model::Time::Duration>(hm) + dur;
 	}
-
+	
 	struct DateRange {
 		date::year_month_day start;
 		date::year_month_day end;

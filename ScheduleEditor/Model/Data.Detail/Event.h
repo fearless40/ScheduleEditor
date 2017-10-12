@@ -26,7 +26,7 @@ namespace Model::Data::Detail {
 	constexpr EventHandle NullHandle{ 0 };
 	
 
-	EventHandle make_handle(date::year_month_day day, Time::HourMinute start) {
+	inline EventHandle make_handle(date::year_month_day day, Time::HourMinute start) {
 		EventHandle hand;
 		hand.fields.year = (uint32_t)(int)day.year();
 		hand.fields.month = (uint32_t)day.month();
@@ -35,19 +35,19 @@ namespace Model::Data::Detail {
 		return hand;
 	}
 
-	bool operator < (const EventHandle & h1, const EventHandle & h2) {
+	inline bool operator < (const EventHandle & h1, const EventHandle & h2) {
 		return h1.value < h2.value;
 	}
 
-	bool operator > (const EventHandle & h1, const EventHandle & h2) {
+	inline bool operator > (const EventHandle & h1, const EventHandle & h2) {
 		return h1.value > h2.value;
 	}
 
-	bool operator == (const EventHandle & h1, const EventHandle & h2) {
+	inline bool operator == (const EventHandle & h1, const EventHandle & h2) {
 		return h1.value == h2.value;
 	}
 
-	bool operator != (const EventHandle & h1, const EventHandle & h2) {
+	inline bool operator != (const EventHandle & h1, const EventHandle & h2) {
 		return h1.value != h2.value;
 	}
 
@@ -63,39 +63,39 @@ namespace Model::Data::Detail {
 		}*/
 	};
 
-	bool operator < (const Event & e1, const EventHandle & h1) {
+	inline bool operator < (const Event & e1, const EventHandle & h1) {
 		return e1.handle < h1;
 	}
 
-	bool operator < (const Event & e1, const Event & e2) {
+	inline bool operator < (const Event & e1, const Event & e2) {
 		return e1.handle < e2.handle;
 	}
 
-	bool operator < (const EventHandle & h1, const Event & e1 ) {
+	inline bool operator < (const EventHandle & h1, const Event & e1 ) {
 		return h1 < e1.handle;
 	}
 
-	bool operator == (const Event & e1, const EventHandle &h1) {
+	inline bool operator == (const Event & e1, const EventHandle &h1) {
 		return e1.handle == h1;
 	}
 
-	bool operator == (const EventHandle &h1, const Event & e1) {
+	inline bool operator == (const EventHandle &h1, const Event & e1) {
 		return e1.handle == h1;
 	}
 
-	bool operator != (const Event & e1, const EventHandle &h1) {
+	inline bool operator != (const Event & e1, const EventHandle &h1) {
 		return e1.handle != h1;
 	}
 
-	bool operator < (const Event & e1, const date::year_month_day & h1) {
+	inline bool operator < (const Event & e1, const date::year_month_day & h1) {
 		return e1.handle < h1;
 	}
 
-	bool operator < (const date::year_month_day & h1, const Event & e1 ) {
+	inline bool operator < (const date::year_month_day & h1, const Event & e1 ) {
 		return  h1 < e1.handle;
 	}
 
-	bool operator == (const Event & e1, const date::year_month_day & h1) {
+	inline bool operator == (const Event & e1, const date::year_month_day & h1) {
 		return e1.handle == h1;
 	}
 
