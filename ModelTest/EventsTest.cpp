@@ -10,7 +10,9 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<Model::Time::HourMinute>(const Model::Time::HourMinute & t) { return L"FuckOff"; }
+template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<Model::Time::HourMinute>(const Model::Time::HourMinute & t) {
+	return std::to_wstring(t.hour) + std::wstring{ ':' } +std::to_wstring(t.minute);
+}
 
 namespace ModelTest
 {
@@ -52,9 +54,129 @@ namespace ModelTest
 			ed.create(d, Model::Time::HourMinute{ 14,00 }, Model::Time::Duration{ 30 }, nullptr);
 
 			ed.commit_changes_only_memory();
-			Assert::AreSame(evt.begin()->start, Model::Time::HourMinute { 12, 20 });
-			
+			Assert::AreEqual(evt.begin()->start, Model::Time::HourMinute { 12, 20 });
 		}
 
+		TEST_METHOD(Add4EventItemsSortedCheck) {
+			Model::Data::Detail::Events evt;
+			auto ed = evt.edit();
+			auto d = date::year{ 2017 } / 11 / 1;
+			ed.create(d, Model::Time::HourMinute{ 12,20 }, Model::Time::Duration{ 30 }, nullptr);
+			ed.create(d, Model::Time::HourMinute{ 14,00 }, Model::Time::Duration{ 30 }, nullptr);
+			ed.create(d, Model::Time::HourMinute{ 8,00 }, Model::Time::Duration{ 30 }, nullptr);
+			ed.create(d, Model::Time::HourMinute{ 7,00 }, Model::Time::Duration{ 30 }, nullptr);
+
+			ed.commit_changes_only_memory();
+			Assert::AreEqual(evt.begin()->start, Model::Time::HourMinute { 7, 0 });
+			
+			auto last = evt.end() - 1;
+			Assert::AreEqual(last->start, Model::Time::HourMinute{ 14,0 });
+		}
+
+		TEST_METHOD(CheckFind) {
+			Model::Data::Detail::Events evt;
+			auto ed = evt.edit();
+			auto d = date::year{ 2017 } / 11 / 1;
+			auto handle1 = ed.create(d, Model::Time::HourMinute{ 12,20 }, Model::Time::Duration{ 30 }, nullptr);
+			ed.create(d, Model::Time::HourMinute{ 14,00 }, Model::Time::Duration{ 30 }, nullptr);
+			ed.create(d, Model::Time::HourMinute{ 8,00 }, Model::Time::Duration{ 30 }, nullptr);
+			ed.create(d, Model::Time::HourMinute{ 7,00 }, Model::Time::Duration{ 30 }, nullptr);
+
+			ed.commit_changes_only_memory();
+			
+			auto foundItem = evt.find(handle1);
+
+			Assert::IsTrue(foundItem != nullptr);
+			Assert::AreEqual(foundItem->start, Model::Time::HourMinute { 12, 20 });
+			Assert::IsTrue(evt.has(handle1));
+		}
+
+		TEST_METHOD(CheckFind_CannotFind) {
+			Model::Data::Detail::Events evt;
+			auto ed = evt.edit();
+			auto d = date::year{ 2017 } / 11 / 1;
+			auto handle1 = ed.create(d, Model::Time::HourMinute{ 12,20 }, Model::Time::Duration{ 30 }, nullptr);
+			ed.create(d, Model::Time::HourMinute{ 14,00 }, Model::Time::Duration{ 30 }, nullptr);
+			ed.create(d, Model::Time::HourMinute{ 8,00 }, Model::Time::Duration{ 30 }, nullptr);
+			ed.create(d, Model::Time::HourMinute{ 7,00 }, Model::Time::Duration{ 30 }, nullptr);
+
+			ed.commit_changes_only_memory();
+
+			// handle1 to impossible value
+			handle1.value = 34;
+			auto foundItem = evt.find(handle1);
+			Assert::IsTrue(foundItem == nullptr);
+		}
+
+		TEST_METHOD(begin_date__end_date) {
+			Model::Data::Detail::Events evt;
+			auto ed = evt.edit();
+			for (unsigned int monthValue = 1; monthValue < 11; ++monthValue) {
+				for (unsigned int dayValue = 1; dayValue < 10; ++dayValue) {
+					auto d = date::year{ 2017 } / date::month{ monthValue } / date::day{ dayValue };
+					auto handle1 = ed.create(d, Model::Time::HourMinute{ (unsigned char)monthValue, (unsigned char)dayValue }, Model::Time::Duration{ 30 }, nullptr);
+				}
+			}
+
+			ed.commit_changes_only_memory();
+
+			auto start = evt.begin_date(date::year{ 2017 } / 3 / 3);
+			auto end = evt.end_date(date::year{ 2017 } / 9 / 9);
+
+			Assert::AreEqual(start->start, Model::Time::HourMinute{ 3,3 });
+			Assert::AreEqual(end->start, Model::Time::HourMinute{ 10,1 });
+		}
+
+		TEST_METHOD(remove) {
+			Model::Data::Detail::Events evt;
+			std::vector<Model::Data::Detail::EventHandle> handles;
+			handles.reserve(81);
+			{
+				auto ed = evt.edit();
+				for (unsigned int monthValue = 1; monthValue < 11; ++monthValue) {
+					for (unsigned int dayValue = 1; dayValue < 10; ++dayValue) {
+						auto d = date::year{ 2017 } / date::month{ monthValue } / date::day{ dayValue };
+						auto handle1 = ed.create(d, Model::Time::HourMinute{ (unsigned char)monthValue, (unsigned char)dayValue }, Model::Time::Duration{ 30 }, nullptr);
+						handles.push_back(handle1);
+					}
+				}
+
+				ed.commit_changes_only_memory();
+			}
+
+			auto ed = evt.edit(); 
+			ed.remove(handles[0]);
+			ed.remove(handles[1]);
+
+			ed.commit_changes_only_memory();
+			
+			Assert::AreEqual(handles.size() - 2, evt.size());
+			Assert::AreEqual(evt.begin()->start, Model::Time::HourMinute { 1, 3 });
+		}
+
+		TEST_METHOD(remove_day) {
+			Model::Data::Detail::Events evt;
+			std::vector<Model::Data::Detail::EventHandle> handles;
+			handles.reserve(81);
+			{
+				auto ed = evt.edit();
+				for (unsigned int dayValue = 1; dayValue < 11; ++dayValue) {
+					for (unsigned int hourValue = 1; hourValue < 10; ++hourValue) {
+						auto d = date::year{ 2017 } / date::month{ 1 } / date::day{ dayValue };
+						auto handle1 = ed.create(d, Model::Time::HourMinute{ (unsigned char)dayValue, (unsigned char)hourValue }, Model::Time::Duration{ 30 }, nullptr);
+						handles.push_back(handle1);
+					}
+				}
+
+				ed.commit_changes_only_memory();
+			}
+
+			auto ed = evt.edit();
+			ed.remove_day(date::year{ 2017 } / 1 / 3);
+
+			ed.commit_changes_only_memory();
+
+			Assert::AreEqual(handles.size() - 9, evt.size());
+		}
     };
 }
