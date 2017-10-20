@@ -20,10 +20,30 @@ void Model::Data::Detail::Events::sort()
 }
 
 
+Events::const_iterator Events::find_iterator(EventHandle evt) const
+{
+	auto ret_iterator = std::lower_bound(mData.begin(), mData.end(), evt);
+	if (ret_iterator != mData.end() && ret_iterator->handle == evt) {
+		return ret_iterator;
+	}
+
+	return mData.end();
+}
+
+Events::iterator Events::find_iterator(EventHandle evt)
+{
+	auto ret_iterator = std::lower_bound(mData.begin(), mData.end(), evt);
+	if (ret_iterator != mData.end() && ret_iterator->handle == evt) {
+		return ret_iterator;
+	}
+
+	return mData.end();
+}
+
 const Event * Model::Data::Detail::Events::find(EventHandle evt) const
 {
 	auto ret_iterator = std::lower_bound(mData.begin(), mData.end(), evt);
-	if (ret_iterator->handle == evt) {
+	if (ret_iterator != mData.end() && ret_iterator->handle == evt) {
 		return &(*ret_iterator);
 	}
 
@@ -33,7 +53,7 @@ const Event * Model::Data::Detail::Events::find(EventHandle evt) const
 Event * Model::Data::Detail::Events::find(EventHandle evt) 
 {
 	auto ret_iterator = std::lower_bound(mData.begin(), mData.end(), evt);
-	if (ret_iterator->handle == evt) {
+	if (ret_iterator != mData.end()  && ret_iterator->handle == evt) {
 		return &(*ret_iterator);
 	}
 

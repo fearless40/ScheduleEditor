@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Data.DataModel.cpp" />
+    <ClCompile Include="Properties.PropertyMap.cpp" />
+    <ClCompile Include="Properties.PropertyTemplate.cpp" />
+    <ClCompile Include="Range.Range.cpp" />
+    <ClCompile Include="Resources.cpp" />
+    <ClCompile Include="Resources.Resource.cpp" />
+    <ClCompile Include="Resources.ResourceGroup.cpp" />
+    <ClCompile Include="Resources.ResourceType.cpp" />
+    <ClCompile Include="Slots.Slot.cpp" />
+    <ClCompile Include="Slots.SlotGroup.cpp" />
+    <ClCompile Include="Data.Detail\Events.cpp" />
+    <ClCompile Include="Data.Detail\EventsEditor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Data.DataModel.h" />
+    <ClInclude Include="Data.Event.h" />
+    <ClInclude Include="Data.Range.SlotView.h" />
+    <ClInclude Include="Data.RawEvents.h" />
+    <ClInclude Include="ModelIndex.h" />
+    <ClInclude Include="Properties.h" />
+    <ClInclude Include="Properties.HasProperties.h" />
+    <ClInclude Include="Properties.PropertyMap.h" />
+    <ClInclude Include="Properties.PropertyTemplate.h" />
+    <ClInclude Include="Range.Range.h" />
+    <ClInclude Include="Resources.h" />
+    <ClInclude Include="Resources.Resource.h" />
+    <ClInclude Include="Resources.ResourceGroup.h" />
+    <ClInclude Include="Resources.ResourceHandle.h" />
+    <ClInclude Include="Resources.ResourceType.h" />
+    <ClInclude Include="Slots.h" />
+    <ClInclude Include="Slots.Slot.h" />
+    <ClInclude Include="Slots.SlotGroup.h" />
+    <ClInclude Include="TimeDuration.h" />
+    <ClInclude Include="Data.Detail\Events.h" />
+    <ClInclude Include="Data.Detail\EventsEditor.h" />
+    <ClInclude Include="Data.Detail\Helpers.h" />
+  </ItemGroup>
+</Project>

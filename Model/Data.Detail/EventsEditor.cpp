@@ -211,7 +211,7 @@ void Model::Data::Detail::EventsEditor::commit_changes_only_memory()
 	
 	
 	{ // Creation block
-		std::move(mToBeAdded.begin(), mToBeAdded.end(), mEvents.end());
+		std::move(mToBeAdded.begin(), mToBeAdded.end(), std::back_inserter(mEvents.get()));
 	}
 	
 	mClearAll = false;

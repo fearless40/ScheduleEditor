@@ -32,6 +32,7 @@ namespace Model::Data::Detail {
 		// Non const version
 		Event * find(EventHandle evt);
 		iterator begin_date(date::year_month_day day);
+		iterator find_iterator(EventHandle evt);
 		// Works like a standard iterator (1 beyond the requested value)
 		iterator end_date(date::year_month_day day);
 

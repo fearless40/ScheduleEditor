@@ -35,6 +35,10 @@ namespace Model::Time {
 	inline Model::Time::Duration operator + (Model::Time::Duration dur, Model::Time::HourMinute hm) {
 		return static_cast<Model::Time::Duration>(hm) + dur;
 	}
+
+	inline bool operator == (HourMinute lhs, HourMinute rhs) {
+		return (lhs.hour == rhs.hour) && (lhs.minute == rhs.minute);
+	}
 	
 	struct DateRange {
 		date::year_month_day start;
