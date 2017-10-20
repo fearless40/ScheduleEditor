@@ -13,8 +13,6 @@ public:
 
 	static const T & Find(Model::Index name)
 	{
-
-		// TODO: insert return statement here
 		auto it = templates.find(name);
 
 		if (it == templates.end())
@@ -37,14 +35,14 @@ public:
 		}
 	}
 
-	static void Save(T & pt)
+	static void Save(T && pt)
 	{
 		auto item = templates.find(pt.index());
 		if (item == templates.end()) {
-			templates.insert(pt);
+			templates.insert(std::move(pt));
 		}
 		else {
-			templates.replace(item, pt);
+			templates.replace(item, std::move(pt));
 		}
 	}
 

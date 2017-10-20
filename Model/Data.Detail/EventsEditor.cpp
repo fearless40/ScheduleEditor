@@ -140,7 +140,7 @@ EventHandle Model::Data::Detail::EventsEditor::move_impl(const Event * mPrior, d
 	}
 
 	remove(mPrior->handle);
-	return NullHandle;
+	return nHandle;
 }
 
 EventHandle Model::Data::Detail::EventsEditor::move(EventHandle oldEvent, date::year_month_day day, Model::Time::HourMinute starttime, Model::Time::Duration length)

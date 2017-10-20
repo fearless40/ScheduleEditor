@@ -16,6 +16,7 @@
     <ClCompile Include="UnitTestApp.xaml.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="EventsTest.cpp" />
+    <ClCompile Include="Resources.ResourceTypeTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

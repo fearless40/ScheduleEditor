@@ -37,7 +37,7 @@ namespace Model::Resources  {
 		void remove(const Resource & r);
 		
 		
-		const Model::Properties::PropertyTemplate & propertyTemplate() const;
+		const Model::Properties::PropertyTemplate * propertyTemplate() const;
 
 
 		/// Set a new PropertyTemplate to the class.
@@ -50,7 +50,11 @@ namespace Model::Resources  {
 		//auto & properties() { return mProperties; }
 
 		ResourceType();
-		ResourceType( const Model::Index & index,  Properties::PropertyTemplate & pTemplate ) : mIndex(index) , mPropTemp(&pTemplate) { }
+		~ResourceType();
+		ResourceType(const Model::Index & index);
+		ResourceType(const Model::Index & index, Properties::PropertyTemplate & pTemplate); 
+		ResourceType(ResourceType &&) = default;
+		ResourceType & operator = (ResourceType &&) = default;
 
 	private:
 		Model::Index mIndex{ Model::NullIndex };
@@ -70,5 +74,6 @@ namespace Model::Resources  {
 		ResourceID getNextID();
 	};
 
-	static ModelIndex<ResourceType> ResourceTypeOwner;
+	//static ModelIndex<ResourceType> ResourceTypeOwner;
+	using ResourceTypeOwner = ModelIndex<ResourceType>;
 }

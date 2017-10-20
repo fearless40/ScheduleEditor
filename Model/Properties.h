@@ -33,6 +33,14 @@ namespace Model::Properties {
 		PropertyDefinition & operator = (const PropertyDefinition & pd) = default;
 	};
 
+	inline bool operator == (const PropertyDefinition & pd, const PropertyIndex & pi) {
+		return pd.name == pi;
+	}
+
+	inline bool operator == (const PropertyIndex & pi, const PropertyDefinition & pd) {
+		return pd.name == pi;
+	}
+
 	class PropertyMap; 
 	class ProperyTemplate;
 

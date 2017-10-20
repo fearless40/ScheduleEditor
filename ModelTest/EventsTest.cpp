@@ -14,8 +14,23 @@ template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::To
 	return std::to_wstring(t.hour) + std::wstring{ ':' } +std::to_wstring(t.minute);
 }
 
-namespace ModelTest
+namespace Events_Details
 {
+	auto GenerateEvents(Model::Data::Detail::Events & evt) {
+		std::vector<Model::Data::Detail::EventHandle> handles;
+		handles.reserve(90);
+		auto ed = evt.edit();
+		for (unsigned int dayValue = 1; dayValue < 11; ++dayValue) {
+			for (unsigned int hourValue = 1; hourValue < 10; ++hourValue) {
+				auto d = date::year{ 2017 } / date::month{ 1 } / date::day{ dayValue };
+				auto handle1 = ed.create(d, Model::Time::HourMinute{ (unsigned char)dayValue, (unsigned char)hourValue }, Model::Time::Duration{ 30 }, nullptr);
+				handles.push_back(handle1);
+			}
+		}
+
+		ed.commit_changes_only_memory();
+		return handles;
+	}
 	
 
     TEST_CLASS(EventsTest)
@@ -129,20 +144,7 @@ namespace ModelTest
 
 		TEST_METHOD(remove) {
 			Model::Data::Detail::Events evt;
-			std::vector<Model::Data::Detail::EventHandle> handles;
-			handles.reserve(81);
-			{
-				auto ed = evt.edit();
-				for (unsigned int monthValue = 1; monthValue < 11; ++monthValue) {
-					for (unsigned int dayValue = 1; dayValue < 10; ++dayValue) {
-						auto d = date::year{ 2017 } / date::month{ monthValue } / date::day{ dayValue };
-						auto handle1 = ed.create(d, Model::Time::HourMinute{ (unsigned char)monthValue, (unsigned char)dayValue }, Model::Time::Duration{ 30 }, nullptr);
-						handles.push_back(handle1);
-					}
-				}
-
-				ed.commit_changes_only_memory();
-			}
+			auto handles = GenerateEvents(evt);
 
 			auto ed = evt.edit(); 
 			ed.remove(handles[0]);
@@ -156,20 +158,7 @@ namespace ModelTest
 
 		TEST_METHOD(remove_day) {
 			Model::Data::Detail::Events evt;
-			std::vector<Model::Data::Detail::EventHandle> handles;
-			handles.reserve(81);
-			{
-				auto ed = evt.edit();
-				for (unsigned int dayValue = 1; dayValue < 11; ++dayValue) {
-					for (unsigned int hourValue = 1; hourValue < 10; ++hourValue) {
-						auto d = date::year{ 2017 } / date::month{ 1 } / date::day{ dayValue };
-						auto handle1 = ed.create(d, Model::Time::HourMinute{ (unsigned char)dayValue, (unsigned char)hourValue }, Model::Time::Duration{ 30 }, nullptr);
-						handles.push_back(handle1);
-					}
-				}
-
-				ed.commit_changes_only_memory();
-			}
+			auto handles = GenerateEvents(evt);
 
 			auto ed = evt.edit();
 			ed.remove_day(date::year{ 2017 } / 1 / 3);
@@ -178,5 +167,61 @@ namespace ModelTest
 
 			Assert::AreEqual(handles.size() - 9, evt.size());
 		}
+
+		TEST_METHOD(change) {
+			Model::Data::Detail::Events evt;
+			auto handles = GenerateEvents(evt);
+
+			auto ed = evt.edit();
+			
+			ed.change(*handles.begin(), (Model::Resources::Resource*) 1);
+			ed.change(handles[25], (Model::Resources::Resource*) 25);
+
+			ed.commit_changes_only_memory();
+
+			Assert::AreEqual((int)evt.begin()->value, 1);
+			Assert::AreEqual((int)evt.find(handles[25])->value, 25);
+		}
+
+		TEST_METHOD(move) {
+			Model::Data::Detail::Events evt;
+			auto handles = GenerateEvents(evt);
+
+			auto ed = evt.edit();
+
+			auto handle = ed.move(handles[0], date::year(2017) / 12 / 1);
+			
+			ed.commit_changes_only_memory();
+
+			Assert::IsNull(evt.find(handles[0]));
+			Assert::AreEqual(evt.find(handle)->start, Model::Time::HourMinute { 1, 1 });
+		}
+
+		TEST_METHOD(all_changes_at_once) {
+			Model::Data::Detail::Events evt;
+			auto handles = GenerateEvents(evt);
+
+			auto ed = evt.edit();
+
+			auto handle0 = ed.move(handles[0], date::year(2017) / 12 / 1);
+			ed.remove(handles[1]);
+			ed.remove(handles[2]);
+
+			ed.change(handles[3], (Model::Resources::Resource*) 1);
+			
+			auto d = date::year{ 2017 } / 11 / 1;
+			auto handle1 = ed.create(d, Model::Time::HourMinute{ 12,20 }, Model::Time::Duration{ 30 }, nullptr);
+
+			ed.commit_changes_only_memory();
+
+			Assert::IsNull(evt.find(handles[0]));
+			Assert::IsNull(evt.find(handles[1]));
+			Assert::IsNull(evt.find(handles[2]));
+			Assert::AreEqual(evt.find(handle0)->start, Model::Time::HourMinute { 1, 1 });
+			Assert::AreEqual(evt.find(handle1)->start, Model::Time::HourMinute { 12, 20 });
+			Assert::AreEqual((int)evt.find(handles[3])->value, 1);
+
+		}
+
     };
 }
