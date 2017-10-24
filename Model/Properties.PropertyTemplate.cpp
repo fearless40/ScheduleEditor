@@ -18,9 +18,9 @@ PropertyTemplate::PropertyTemplate() : mIndex(NullIndex)
 
 }
 
-void PropertyTemplate::string_add(PropertyIndex name, std::string defaultvalue, bool mandatory)
+void PropertyTemplate::string_add(PropertyIndex name, Model::string defaultvalue, bool mandatory)
 {
-	auto f = find(name);
+	auto f = this->find(name);
 	if (f != mDefs.end())
 	{
 		// Overwrite the existing definition
@@ -34,7 +34,7 @@ void PropertyTemplate::string_add(PropertyIndex name, std::string defaultvalue, 
 
 void Model::Properties::PropertyTemplate::long_add(PropertyIndex name, long defaultvalue, long min, long max, bool mandatory)
 {
-	auto f = find(name);
+	auto f = this->find(name);
 	if ( f != mDefs.end())
 	{
 		(*f).defvalue = defaultvalue;

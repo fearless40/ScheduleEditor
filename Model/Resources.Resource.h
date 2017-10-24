@@ -12,6 +12,8 @@ namespace Model::Resources {
 		bool mIsDeleted{ false };
 		ResourceID mId{ 0 };
 		
+		Properties::Property mValue;
+		
 	public:
 
 		Resource(const ResourceType & owner, ResourceID id) :
@@ -41,17 +43,27 @@ namespace Model::Resources {
 		/// Checks to see if the resouce has been deleted. Deleted resource are still kept around unless all references to them have been removed
 		/// <remarks> Resource are not deleted right away as parts of the schedule will still rely on them. The data will still
 		/// exist in the file however it will no longer be editable. The resource will not be selected for new data entry. </remarks>
-		bool isDeleted() const { return mIsDeleted; }
+		bool isDeleted() const noexcept { return mIsDeleted; }
 		
 		/// ID is used only internally as there is no way to identify unique resource without looking at 
 		/// mMap and scanning it for its values
-		ResourceID getId() const{ return mId; }
+		ResourceID id() const noexcept { return mId; }
 		
-		void markAsDeleted() { mIsDeleted = true; }
+		void markAsDeleted() noexcept { mIsDeleted = true; }
 
-		const ResourceType & getType() const { return mType; }
+		const ResourceType & resource_type() const noexcept { return mType; }
 
+		template <typename type> 
+		type get_typed_value() const noexcept {
+			return std::get<type>(mValue);
+		}
 		
+		template <typename T> 
+		void set(T value) noexcept {
+			mValue = value;
+		}
+
+		std::wstring get() const noexcept;
 	};
 
 }

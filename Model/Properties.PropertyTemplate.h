@@ -26,7 +26,7 @@ namespace Model::Properties {
 		auto begin() { return mIndex.begin(); }
 		auto end() { return mIndex.end(); }
 
-		void string_add(PropertyIndex name, std::string defaultvalue, bool mandatory = false);
+		void string_add(PropertyIndex name, Model::string defaultvalue, bool mandatory = false);
 		void long_add(PropertyIndex name, long defaultvalue, long min, long max, bool mandatory = false);
 		void double_add(PropertyIndex name, double defaultvalue, double min, double max, bool mandatory = false);
 		void bool_add(PropertyIndex name, bool defaultvalue, bool mandatory = false);

@@ -37,12 +37,12 @@ namespace Model::Resources {
 
 	void Model::Resources::ResourceType::remove(const Resource & r)
 	{
-		if (&(r.getType()) != this) {
+		if (&(r.resource_type()) != this) {
 			return;
 		}
 
 		auto res = std::find_if(mItems.begin(), mItems.end(), [&](const auto & v) {
-			if (v->getId() == r.getId()) {
+			if (v->id() == r.id()) {
 				return true;
 			}
 			else {

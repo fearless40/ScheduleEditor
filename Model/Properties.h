@@ -3,7 +3,7 @@
 #include <variant>
 
 namespace Model::Properties {
-	using Property = std::variant<long, double, bool, std::string>;
+	using Property = std::variant<long, double, bool, std::wstring>;
 	using RangeProperty = std::variant<long, double>;
 	using PropertyIndex = std::string;
 
