@@ -12,6 +12,9 @@ namespace Model::Properties {
 			Key key;
 			Property value;
 
+			KeyValue(Key k, Property v) : key{ k }, value{ v } {}
+			//KeyValue(Key k, Property && v) : key{ k }, value{ std::move(v) } {}
+
 			template< typename PropertyIndexType >
 			friend bool operator == (const KeyValue & kv, PropertyIndexType pi) {
 				return kv.key == pi;
@@ -77,7 +80,7 @@ namespace Model::Properties {
 		template<typename Value> 
 		Value as(KeyConst key) {
 			if (auto found = find(key); found != mMap.end()) {
-				return std::get<Value>(*found);
+				return std::get<Value>(found->value);
 			}
 			return {};
 		}
@@ -101,6 +104,11 @@ namespace Model::Properties {
 
 		template <typename ValueType> 
 		void insert(KeyConst key, ValueType vt) {
+			insert(key, Property{ vt });
+		}
+		
+		template <>
+		void insert(KeyConst key, const wchar_t * vt) {
 			insert(key, Property{ vt });
 		}
 		

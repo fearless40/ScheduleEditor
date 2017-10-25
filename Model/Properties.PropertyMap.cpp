@@ -13,10 +13,10 @@ using namespace Model::Properties;
 void Model::Properties::PropertyMap::insert(KeyConst key, Property prop)
 {
 	if (auto item = find(key); item != mMap.end()) {
-		item->value = prop;
+		item->value = std::move(prop);
 	}
 	else {
-		mMap.push_back({ Key{key}, prop });
+		mMap.emplace_back( Key{key}, std::move(prop) );
 	}
 }
 
