@@ -28,9 +28,20 @@ namespace Model::Resources {
 		return *mItems.back();
 	}
 
-	Resource & Model::Resources::ResourceType::create(const Model::Properties::PropertyMap & map)
+	Resource & Model::Resources::ResourceType::create(Model::Properties::PropertyMap && map)
 	{
-		auto res = std::make_unique<Resource>(*this, getNextID(), map);
+		auto res = std::make_unique<Resource>(*this, getNextID(), std::move(map));
+		mItems.push_back(std::move(res));
+		return *mItems.back();
+	}
+
+	Resource & ResourceType::load(ResourceID id, bool isDeleted, Model::Properties::PropertyMap && map)
+	{
+		auto res = std::make_unique<Resource>(*this, id, std::move(map));
+		if (id >= mNextID) {
+			mNextID = id + 1;
+		}
+		if (isDeleted) res->markAsDeleted();
 		mItems.push_back(std::move(res));
 		return *mItems.back();
 	}

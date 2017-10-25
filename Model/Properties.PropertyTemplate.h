@@ -26,12 +26,12 @@ namespace Model::Properties {
 		auto begin() { return mIndex.begin(); }
 		auto end() { return mIndex.end(); }
 
-		void string_add(PropertyIndex name, Model::string defaultvalue, bool mandatory = false);
-		void long_add(PropertyIndex name, long defaultvalue, long min, long max, bool mandatory = false);
-		void double_add(PropertyIndex name, double defaultvalue, double min, double max, bool mandatory = false);
-		void bool_add(PropertyIndex name, bool defaultvalue, bool mandatory = false);
+		void string_add(Key name, Model::string defaultvalue, bool mandatory = false);
+		void long_add(Key name, long defaultvalue, long min, long max, bool mandatory = false);
+		void double_add(Key name, double defaultvalue, double min, double max, bool mandatory = false);
+		void bool_add(Key name, bool defaultvalue, bool mandatory = false);
 		
-		void remove(PropertyIndex name);
+		void remove(Key name);
 
 		/// Validates a propertymap and returns true if the propertymap matches the definition in the template
 		bool validate(const PropertyMap & map) const;
@@ -43,7 +43,7 @@ namespace Model::Properties {
 
 	private:
 
-		PropertyDefinitions::iterator find(PropertyIndex index);
+		PropertyDefinitions::iterator find(Key index);
 
 		PropertyDefinitions mDefs;
 

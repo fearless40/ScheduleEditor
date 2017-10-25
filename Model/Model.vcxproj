@@ -233,6 +233,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Properties.cpp" />
     <ClCompile Include="Properties.PropertyMap.cpp" />
     <ClCompile Include="Properties.PropertyTemplate.cpp" />
     <ClCompile Include="Range.Range.cpp" />

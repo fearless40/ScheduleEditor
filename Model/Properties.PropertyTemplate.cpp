@@ -18,7 +18,7 @@ PropertyTemplate::PropertyTemplate() : mIndex(NullIndex)
 
 }
 
-void PropertyTemplate::string_add(PropertyIndex name, Model::string defaultvalue, bool mandatory)
+void PropertyTemplate::string_add(Key name, Model::string defaultvalue, bool mandatory)
 {
 	auto f = this->find(name);
 	if (f != mDefs.end())
@@ -32,7 +32,7 @@ void PropertyTemplate::string_add(PropertyIndex name, Model::string defaultvalue
 	}
 }
 
-void Model::Properties::PropertyTemplate::long_add(PropertyIndex name, long defaultvalue, long min, long max, bool mandatory)
+void Model::Properties::PropertyTemplate::long_add(Key name, long defaultvalue, long min, long max, bool mandatory)
 {
 	auto f = this->find(name);
 	if ( f != mDefs.end())
@@ -47,7 +47,7 @@ void Model::Properties::PropertyTemplate::long_add(PropertyIndex name, long defa
 	}
 }
 
-void Model::Properties::PropertyTemplate::double_add(PropertyIndex name, double defaultvalue, double min, double max, bool mandatory)
+void Model::Properties::PropertyTemplate::double_add(Key name, double defaultvalue, double min, double max, bool mandatory)
 {
 	auto f = find(name);
 	if ( f != mDefs.end())
@@ -62,7 +62,7 @@ void Model::Properties::PropertyTemplate::double_add(PropertyIndex name, double 
 	}
 }
 
-void Model::Properties::PropertyTemplate::bool_add(PropertyIndex name, bool defaultvalue, bool mandatory)
+void Model::Properties::PropertyTemplate::bool_add(Key name, bool defaultvalue, bool mandatory)
 {
 	auto f = find(name);
 	if (f != mDefs.end())
@@ -84,7 +84,7 @@ void Model::Properties::PropertyTemplate::make_valid(PropertyMap & map) const
 {
 }
 
-Model::Properties::PropertyTemplate::PropertyDefinitions::iterator Model::Properties::PropertyTemplate::find(PropertyIndex index)
+Model::Properties::PropertyTemplate::PropertyDefinitions::iterator Model::Properties::PropertyTemplate::find(Key index)
 {
 	return std::find_if(mDefs.begin(), mDefs.end(), [&index](auto const & item) { return item.name == index; });
 }

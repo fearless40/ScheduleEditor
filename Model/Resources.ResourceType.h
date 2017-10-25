@@ -33,7 +33,8 @@ namespace Model::Resources  {
 		size_t size() const { return mItems.size(); }
 
 		Resource & create();
-		Resource & create(const Model::Properties::PropertyMap & map);
+		Resource & create(Model::Properties::PropertyMap && map);
+		Resource & load(ResourceID id, bool isDeleted, Model::Properties::PropertyMap && map);
 		void remove(const Resource & r);
 		
 		

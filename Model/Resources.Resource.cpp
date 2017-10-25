@@ -3,18 +3,18 @@
 #include <variant>
 #include "Resources.Resource.h"
 
-std::wstring Model::Resources::Resource::get() const noexcept
-{
-	return std::visit([](auto && x) -> std::wstring {
-		using T = std::decay_t<decltype(x)>;
-		if constexpr (std::is_same_v<T, std::wstring>) {
-			return x;
-		}
-		else {
-			std::wostringstream ss;
-			ss << x;
-			return ss.str();
-		}
+using namespace Model::Resources;
 
-	}, mValue);
+Resource::Resource(const ResourceType & owner, ResourceID id) :
+	mType{ owner },
+	mId{id},
+	PropertyMap(default_key, default_value_value )
+{
+}
+
+Model::Resources::Resource::Resource(const ResourceType & owner, ResourceID id, PropertyMap && pmap) :
+	mType{ owner },
+	mId{ id },
+	PropertyMap{std::move(pmap)}
+{
 }

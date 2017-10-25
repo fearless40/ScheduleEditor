@@ -21,6 +21,7 @@
     <ClCompile Include="Slots.SlotGroup.cpp" />
     <ClCompile Include="Data.Detail\Events.cpp" />
     <ClCompile Include="Data.Detail\EventsEditor.cpp" />
+    <ClCompile Include="Properties.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model.h" />
