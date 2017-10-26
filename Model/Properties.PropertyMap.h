@@ -107,10 +107,10 @@ namespace Model::Properties {
 			insert(key, Property{ vt });
 		}
 		
-		template <>
+		/*template <>
 		void insert(KeyConst key, const wchar_t * vt) {
-			insert(key, Property{ vt });
-		}
+			insert(key, Property{ std::move(Model::string{vt}) });
+		}*/
 		
 		void erase(KeyConst key);
 

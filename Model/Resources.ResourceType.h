@@ -1,6 +1,5 @@
 #pragma once
-#include "boost\iterator\indirect_iterator.hpp"
-
+#include <boost\iterator\indirect_iterator.hpp>
 #include "Model.h"
 #include "ModelIndex.h"
 //#include "Resources.Resource.h"

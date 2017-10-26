@@ -1,6 +1,6 @@
 
 #pragma once
-
+#include <utility>
 #include "Utils/FixedList.h"
 using namespace boost::multi_index;
 
@@ -10,33 +10,33 @@ class ModelIndex {
 public:
 
 
-
-	static const T & Find(Model::Index name)
+	// first == true if the item is in the collection
+	[[nodiscard]] static std::pair<bool,const T &> Find(Model::Index name)
 	{
 		auto it = templates.find(name);
 
 		if (it == templates.end())
 		{
-			throw "Could not find the item specified";
+			return { false, T{Model::NullIndex} };
 		}
-		return *it;
-
+		return { true,*it };
 	}
 
-	
-	static T Create(Model::Index name)
+	// first == true if the item does not exist in the collection
+	[[nodiscard]] static std::pair<bool,T> Create(Model::Index name)
 	{
 		// TODO: insert return statement here
 		if (templates.find(name) == templates.end()) {
-			return T(name);
-		}
-		else {
-			throw "Item already exists in the collection.";
-		}
+			return { true,T{name } };
+		};
+		return { false, T{Model::NullIndex} };
 	}
 
-	static void Save(T && pt)
+	// False if the item was not inserted. True otherwise
+	static bool Save(T && pt)
 	{
+		if (pt.index() == Model::NullIndex)
+			return false;
 		auto item = templates.find(pt.index());
 		if (item == templates.end()) {
 			templates.insert(std::move(pt));
@@ -44,9 +44,10 @@ public:
 		else {
 			templates.replace(item, std::move(pt));
 		}
+		return true;
 	}
 
-	static T Edit(const T & pt)
+	[[nodiscard]] static T Edit(const T & pt)
 	{
 		T ret(pt);
 		return ret;

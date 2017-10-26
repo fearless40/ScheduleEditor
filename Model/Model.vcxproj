@@ -201,6 +201,7 @@
     <ClInclude Include="Data.Event.h" />
     <ClInclude Include="Data.Range.SlotView.h" />
     <ClInclude Include="Data.RawEvents.h" />
+    <ClInclude Include="Document.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelIndex.h" />
     <ClInclude Include="pch.h" />

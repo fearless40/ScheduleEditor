@@ -67,11 +67,11 @@ void Model::Properties::PropertyTemplate::bool_add(Key name, bool defaultvalue, 
 	auto f = find(name);
 	if (f != mDefs.end())
 	{
-		(*f).defvalue = defaultvalue;
+		(*f).defvalue = static_cast<long>(defaultvalue);
 		(*f).mandatory = mandatory;
 	}
 	else {
-		mDefs.emplace_back(name, mandatory, ValueTypes::vtBOOL, defaultvalue);
+		mDefs.emplace_back(name, mandatory, ValueTypes::vtBOOL, static_cast<long>(defaultvalue));
 	}
 }
 

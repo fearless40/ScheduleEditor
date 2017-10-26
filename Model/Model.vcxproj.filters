@@ -49,5 +49,6 @@
     <ClInclude Include="Data.Detail\Events.h" />
     <ClInclude Include="Data.Detail\EventsEditor.h" />
     <ClInclude Include="Data.Detail\Helpers.h" />
+    <ClInclude Include="Document.h" />
   </ItemGroup>
 </Project>

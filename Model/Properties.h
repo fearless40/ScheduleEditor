@@ -4,10 +4,11 @@
 #include "Model.h"
 
 namespace Model::Properties {
-	using Property = std::variant<long, double, bool, std::wstring>;
+	using Property = std::variant<long, double, std::wstring>;
 	using RangeProperty = std::variant<long, double>;
 	using Key = std::string;
 	using KeyConst = std::string_view;
+
 
 	Model::string PropertyAsString(const Property & prop);
 

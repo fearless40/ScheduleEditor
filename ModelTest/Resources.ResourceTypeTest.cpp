@@ -20,19 +20,19 @@ namespace Resources_ResourceTypeOwner {
 	{
 	public:
 		TEST_METHOD(create_and_retrieve) {
-			auto r = MR::ResourceTypeOwner::Create("yomama");
+			auto [ok,r] = MR::ResourceTypeOwner::Create("yomama");
 			MR::ResourceTypeOwner::Save(std::move(r));
-			auto & r1 = MR::ResourceTypeOwner::Find("yomama");
+			auto [ok2,r1] = MR::ResourceTypeOwner::Find("yomama");
 			Assert::AreEqual(r1.index(), Model::Index("yomama"));
 		}
 
 		TEST_METHOD(create_and_retrieve_resources) {
-			auto r = MR::ResourceTypeOwner::Create("yomama");
+			auto [ok,r] = MR::ResourceTypeOwner::Create("yomama");
 			r.create();
 			r.create();
 			r.create();
 			MR::ResourceTypeOwner::Save(std::move(r));
-			auto & r1 = MR::ResourceTypeOwner::Find("yomama");
+			auto [ok2,r1] = MR::ResourceTypeOwner::Find("yomama");
 			Assert::AreEqual(r1.index(), Model::Index("yomama"));
 			Assert::AreEqual(r1.size(), (std::size_t)3);
 		}
