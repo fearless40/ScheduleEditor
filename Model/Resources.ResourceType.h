@@ -17,7 +17,7 @@ namespace Model::Resources  {
 		using IndirectAdaptor = boost::indirect_iterator<std::vector<std::unique_ptr<Resource>>::iterator, Resource &>;
 		using ConstIndirectAdaptor = boost::indirect_iterator<std::vector<std::unique_ptr<Resource>>::const_iterator, const Resource &>;
 
-		Model::Index index() const { return mIndex;  }
+		Model::IndexConst index() const { return mIndex;  }
 
 
 		auto cbegin() const { return ConstIndirectAdaptor(mItems.cbegin()); }
@@ -51,8 +51,8 @@ namespace Model::Resources  {
 
 		ResourceType();
 		~ResourceType();
-		ResourceType(const Model::Index & index);
-		ResourceType(const Model::Index & index, Properties::PropertyTemplate & pTemplate); 
+		ResourceType(const Model::IndexConst index);
+		ResourceType(const Model::IndexConst index, Properties::PropertyTemplate & pTemplate); 
 		ResourceType(ResourceType &&) = default;
 		ResourceType & operator = (ResourceType &&) = default;
 

@@ -1,15 +1,52 @@
 
 #pragma once
 #include <utility>
-#include "Utils/FixedList.h"
-using namespace boost::multi_index;
+#include <boost\container\flat_map.hpp>
+//using namespace boost::multi_index;
 
 template <class T>
 class ModelIndex {
+	template<typename T>
+	struct less {
+		bool operator () (const T & lhs, const T & rhs) {
+			return lhs.index() < rhs.index();
+		}
+	};
 
+	using Set = boost::container::flat_map<Model::Index,std::unique_ptr<T>>;
+
+	Set mItems;
 public:
+	const T * find(Model::IndexConst idx) {
+		if (auto it = mItems.find(idx); it != mItems.end()) {
+			return it->second->get();
+		}
+		else {
+			return nullptr;
+		}
+	}
 
+	bool save(T && value) {
+		auto new_value = std::make_unique<T>(std::move(value));
+		mItems[new_value->index()] = std::move(new_value);
+	}
 
+	bool save(std::vector<T> && values) {
+		mItems.reserve(values.size() + mItems.size());
+		for (auto & x : values) {
+			save(std::move(x));
+		}
+	}
+
+	const std::vector<Model::IndexConst> enumerate_indexs() {
+		std::vector<Model::IndexConst> values{ mItems.size() };
+		std::transform(mItems.begin(), mItems.end(), std::back_inserter{ values },
+			[](auto & x) { return x->get()->index(); });
+		return values;
+	}
+
+};
+	/*
 	// first == true if the item is in the collection
 	[[nodiscard]] static std::pair<bool,const T &> Find(Model::Index name)
 	{
@@ -68,3 +105,4 @@ private:
 
 template <class T>
 Utility::FixedList<T> ModelIndex<T>::templates;
+*/

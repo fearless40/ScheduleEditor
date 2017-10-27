@@ -17,8 +17,8 @@ namespace Model::Resources {
 
 	// Kept for uniqueptr
 	ResourceType::ResourceType() {};
-	ResourceType::ResourceType(const Model::Index & index) : mIndex(index) {};
-	ResourceType::ResourceType(const Model::Index & index, Properties::PropertyTemplate & pTemplate) : mIndex(index), mPropTemp(&pTemplate) { }
+	ResourceType::ResourceType(const Model::IndexConst index) : mIndex(index) {};
+	ResourceType::ResourceType(const Model::IndexConst index, Properties::PropertyTemplate & pTemplate) : mIndex(index), mPropTemp(&pTemplate) { }
 	ResourceType::~ResourceType() {};
 
 	Resource & Model::Resources::ResourceType::create()

@@ -99,6 +99,22 @@ namespace Properties_PropertiesMap {
 			Assert::AreEqual(pmap.as<long>("YoDog", 150L), 150L);
 		}
 
+		TEST_METHOD(erase) {
+			PMap pmap;
+			pmap.insert("YoMama", 120L);
+			pmap.insert("YoMama_Joke", L"Your moma so fat she wears high heels and comes back with flip flops");
+			pmap.erase("YoMama_Joke");
+			Assert::AreEqual(pmap.has("YoMama_Joke"), false);
+		}
+
+		TEST_METHOD(erase_advanced) {
+			PMap pmap;
+			pmap.insert("YoMama", 120L);
+			pmap.insert("YoMama_Joke", L"Your moma so fat she wears high heels and comes back with flip flops");
+			pmap.insert("YoMama2", 120.8);
+			pmap.erase("YoMama_Joke");
+			Assert::AreEqual(pmap.has("YoMama_Joke"), false);
+		}
 	};
 }
 
