@@ -3,7 +3,6 @@
 #include <algorithm>
 
 #include "Model.h"
-#include "ModelIndex.h"
 #include "Properties.PropertyTemplate.h"
 #include "Resources.Resource.h"
 #include "Resources.ResourceType.h"

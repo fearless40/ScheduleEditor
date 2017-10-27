@@ -31,7 +31,6 @@
     <ClInclude Include="Data.Event.h" />
     <ClInclude Include="Data.Range.SlotView.h" />
     <ClInclude Include="Data.RawEvents.h" />
-    <ClInclude Include="ModelIndex.h" />
     <ClInclude Include="Properties.h" />
     <ClInclude Include="Properties.HasProperties.h" />
     <ClInclude Include="Properties.PropertyMap.h" />
@@ -50,5 +49,6 @@
     <ClInclude Include="Data.Detail\EventsEditor.h" />
     <ClInclude Include="Data.Detail\Helpers.h" />
     <ClInclude Include="Document.h" />
+    <ClInclude Include="ModelCollection.h" />
   </ItemGroup>
 </Project>

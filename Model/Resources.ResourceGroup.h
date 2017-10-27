@@ -3,7 +3,6 @@
 
 #include "Resources.h"
 #include "Model.h"
-#include "ModelIndex.h"
 #include "Properties.HasProperties.h"
 
 namespace Model::Resources {
@@ -43,5 +42,5 @@ namespace Model::Resources {
 
 	};
 
-	static ModelIndex<ResourceGroup> ResourceGroupOwner;
+	
 }

@@ -203,7 +203,7 @@
     <ClInclude Include="Data.RawEvents.h" />
     <ClInclude Include="Document.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="ModelIndex.h" />
+    <ClInclude Include="ModelCollection.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Properties.h" />
     <ClInclude Include="Properties.HasProperties.h" />

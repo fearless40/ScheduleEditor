@@ -1,7 +1,6 @@
 #pragma once
 #include <boost\iterator\indirect_iterator.hpp>
 #include "Model.h"
-#include "ModelIndex.h"
 //#include "Resources.Resource.h"
 #include "Properties.PropertyTemplate.h"
 #include "Properties.HasProperties.h"
@@ -75,5 +74,5 @@ namespace Model::Resources  {
 	};
 
 	//static ModelIndex<ResourceType> ResourceTypeOwner;
-	using ResourceTypeOwner = ModelIndex<ResourceType>;
+	//using ResourceTypeOwner = ModelIndex<ResourceType>;
 }

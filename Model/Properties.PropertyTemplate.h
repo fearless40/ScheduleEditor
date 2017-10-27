@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-//#include "ModelIndex.h"
 #include "Properties.h"
 
 namespace Model::Properties {
@@ -53,6 +52,5 @@ namespace Model::Properties {
 			
 	};
 
-	static ModelIndex<PropertyTemplate> PropertyTemplateOwner;
 
 }

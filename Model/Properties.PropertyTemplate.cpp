@@ -3,14 +3,11 @@
 #include <algorithm>
 
 #include "Model.h"
-#include "ModelIndex.h"
 #include "Properties.PropertyTemplate.h"
 #include "Properties.PropertyMap.h"
 
 using namespace  Model;
 using namespace  Model::Properties;
-
-ModelIndex<PropertyTemplate> PropertyTemplateOwner;
 
 
 PropertyTemplate::PropertyTemplate() : mIndex(NullIndex)
