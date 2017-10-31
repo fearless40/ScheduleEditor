@@ -1,5 +1,6 @@
 #pragma once
 #include <boost\iterator\indirect_iterator.hpp>
+#include <boost\signals2.hpp>
 #include "Model.h"
 //#include "Resources.Resource.h"
 #include "Properties.PropertyTemplate.h"
@@ -15,6 +16,10 @@ namespace Model::Resources  {
 	public:
 		using IndirectAdaptor = boost::indirect_iterator<std::vector<std::unique_ptr<Resource>>::iterator, Resource &>;
 		using ConstIndirectAdaptor = boost::indirect_iterator<std::vector<std::unique_ptr<Resource>>::const_iterator, const Resource &>;
+		using OnChangeSignal = boost::signals2::signal< void(std::shared_ptr<Resource> oldValue, const Resource const * changedValue) >;
+		using OnAddSignal = boost::signals2::signal< void(const Resource const * newResource) >;
+		using OnRemoveSignal = boost::signals2::signal< void(std::shared_ptr<Resource> removedResource)>;
+
 
 		Model::IndexConst index() const { return mIndex;  }
 
@@ -34,6 +39,7 @@ namespace Model::Resources  {
 		Resource & create(Model::Properties::PropertyMap && map);
 		Resource & load(ResourceID id, bool isDeleted, Model::Properties::PropertyMap && map);
 		void remove(const Resource & r);
+		void change(const Resource & r);
 		
 		
 		const Model::Properties::PropertyTemplate * propertyTemplate() const;
@@ -55,7 +61,35 @@ namespace Model::Resources  {
 		ResourceType(ResourceType &&) = default;
 		ResourceType & operator = (ResourceType &&) = default;
 
+		auto onChange(OnChangeSignal::slot_type slot) {
+			return _onChange.connect(slot);
+		}
+
+		void onChangeDisconnect(boost::signals2::connection c) {
+			_onChange.disconnect(c);
+		}
+
+		auto onAdd(OnAddSignal::slot_type slot) {
+			return _onAdd.connect(slot);
+		}
+
+		void onAddDisconnect(boost::signals2::connection c) {
+			_onAdd.disconnect(c);
+		}
+		auto onRemove(OnRemoveSignal::slot_type slot) {
+			return _onRemove.connect(slot);
+		}
+
+		void onRemoveDisconnect(boost::signals2::connection c) {
+			_onRemove.disconnect(c);
+		}
+
+
 	private:
+
+		std::vector<std::unique_ptr<Resource>>::iterator _find(const Resource & r);
+		//std::vector<std::unique_ptr<Resource>>::iterator _find(const Resource & r);
+
 		Model::Index mIndex{ Model::NullIndex };
 		
 		// Todo: determine if having a vector here is better or a list. A list allows direct memory access without having to worry about a resource being moved.
@@ -71,6 +105,10 @@ namespace Model::Resources  {
 		ResourceID mNextID{ 1 };
 
 		ResourceID getNextID();
+
+		OnChangeSignal _onChange;
+		OnAddSignal _onAdd;
+		OnRemoveSignal _onRemove;
 	};
 
 	//static ModelIndex<ResourceType> ResourceTypeOwner;

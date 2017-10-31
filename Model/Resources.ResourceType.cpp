@@ -24,6 +24,7 @@ namespace Model::Resources {
 	{
 		auto res = std::make_unique<Resource>(*this, getNextID());
 		mItems.push_back(std::move(res));
+		_onAdd(mItems.back().get());
 		return *mItems.back();
 	}
 
@@ -31,6 +32,7 @@ namespace Model::Resources {
 	{
 		auto res = std::make_unique<Resource>(*this, getNextID(), std::move(map));
 		mItems.push_back(std::move(res));
+		_onAdd(mItems.back().get());
 		return *mItems.back();
 	}
 
@@ -42,16 +44,42 @@ namespace Model::Resources {
 		}
 		if (isDeleted) res->markAsDeleted();
 		mItems.push_back(std::move(res));
+		_onAdd(mItems.back().get());
 		return *mItems.back();
 	}
 
 	void Model::Resources::ResourceType::remove(const Resource & r)
 	{
-		if (&(r.resource_type()) != this) {
-			return;
+		if (auto it = _find(r); it != mItems.end()) {
+			std::shared_ptr<Resource> old = std::move(*it);
+			mItems.erase(it);
+			_onRemove(old);
 		}
 
-		auto res = std::find_if(mItems.begin(), mItems.end(), [&](const auto & v) {
+	}
+
+	void ResourceType::change(const Resource & r)
+	{
+		auto item = _find(r);
+		if (item == mItems.end()) return;
+		std::shared_ptr<Resource> oldValue = std::make_shared<Resource>( *item->get());
+		(*item)->copy_values(r);
+		_onChange(oldValue, item->get());
+	}
+
+	const Model::Properties::PropertyTemplate * Model::Resources::ResourceType::propertyTemplate() const
+	{
+		return mPropTemp;
+	}
+
+
+	std::vector<std::unique_ptr<Resource>>::iterator ResourceType::_find(const Resource & r)
+	{
+		if (&(r.resource_type()) != this) {
+			return mItems.end();
+		}
+
+		return std::find_if(mItems.begin(), mItems.end(), [&](const auto & v) {
 			if (v->id() == r.id()) {
 				return true;
 			}
@@ -60,16 +88,8 @@ namespace Model::Resources {
 			}
 		});
 
-		if (res != mItems.end()) {
-			mItems.erase(res);
-		}
+		
 	}
-
-	const Model::Properties::PropertyTemplate * Model::Resources::ResourceType::propertyTemplate() const
-	{
-		return mPropTemp;
-	}
-
 
 	ResourceID Model::Resources::ResourceType::getNextID()
 	{

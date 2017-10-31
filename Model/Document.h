@@ -1,10 +1,9 @@
 #pragma once
 /*
-#include "ModelIndex.h"
-#include <boost\signals2.hpp>
+#include "ModelCollection.h"
 #include "Resources.ResourceType.h"
 
-namespace sig = boost::signals2;
+
 
 namespace Model {
 	class Document {
@@ -16,12 +15,6 @@ namespace Model {
 		ModelIndex<ResourceGroup> mGroups;
 		ModelIndex<DataModels> mDataModels;
 
-		
-
-		sig::signal< void(Model::Resources::ResourceType *)> ResourceTypeChanged;
-		//sig::signal< void(Model::Resources::Resource *)> ResourceChanged;
-
-		//sig::signal< void(PropertyTemplate *)> PropertyTemplateChanged;
 	};
 }
 */

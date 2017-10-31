@@ -20,7 +20,7 @@ namespace Model_ModelCollection {
 	template <typename T>
 	void insert_values(int start, int end, T & t) {
 		for (int i = start; i < end; ++i) {
-			t.save(Test{ i });
+			t.insert(Test{ i });
 		}
 	}
 
@@ -34,27 +34,27 @@ namespace Model_ModelCollection {
 			
 			{
 				Test t{ "1" };
-				values.save(t);
+				values.insert(t);
 			}
 
 			{
 				Test t{ "2" };
-				values.save(t);
+				values.insert(t);
 			}
 
 			{
 				Test t{ "3" };
-				values.save(t);
+				values.insert(t);
 			}
 
 			{
 				Test t{ "4" };
-				values.save(t);
+				values.insert(t);
 			}
 
 			{
 				Test t{ "5" };
-				values.save(std::move(t));
+				values.insert(std::move(t));
 			}
 
 			Assert::AreEqual(values.find("4")->mIndex, std::string { "4" });
@@ -74,7 +74,7 @@ namespace Model_ModelCollection {
 			for (int i = 0; i < 20; ++i) {
 				add_many.emplace_back(i);
 			}
-			values.save(std::move(add_many));
+			values.insert(std::move(add_many));
 
 			Assert::IsNotNull(values.find("19"));
 		}
@@ -95,14 +95,6 @@ namespace Model_ModelCollection {
 		}
 		
 
-		TEST_METHOD(Create_Vector) {
-
-			Model::ModelCollection<Test, Model::ModelCollection_TagVector > values;
-
-			insert_values(1, 5, values);
-
-			Assert::AreEqual(values.find("4")->mIndex, std::string { "4" });
-			Assert::IsNull(values.find("10"));
-		}
+		
 	};
 }

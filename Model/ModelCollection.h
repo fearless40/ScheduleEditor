@@ -4,8 +4,10 @@
 #include "Model.h"
 #include <utility>
 #include <unordered_map>
+#include <boost\signals2.hpp>
 //#include <boost\container\flat_map.hpp>
 //using namespace boost::multi_index;
+
 
 namespace Model {
 
@@ -34,6 +36,13 @@ namespace Model {
 		Set mItems;
 
 	public:
+		using OnAddSignal = boost::signals2::signal<void(T*)>;
+		using OnRemoveSignal = boost::signals2::signal<void(std::shared_ptr<T> oldValue)>;
+
+		auto begin() const { return mItems.begin(); }
+		auto end() const { return mItems.end(); }
+		auto size() const { return mItems.size(); }
+
 		const T * find(Model::IndexConst idx) const {
 			auto item = mItems.find(Model::Index{ idx });
 			if (item != mItems.end()) {
@@ -42,23 +51,34 @@ namespace Model {
 			return nullptr;
 		}
 
-		bool save(T && value) {
-			[[maybe_unused]] auto[where, inserted] = mItems.insert(
+		bool insert(T && value) {
+			auto[it, inserted] = mItems.insert(
 			std::pair<Model::IndexConst, T &&>{ Model::getIndex(value), std::move(value) });
+			if (inserted) {
+				_onAdd(&it->second);
+			}
 			return inserted;
 		}
 
-		bool save(const T & value) {
-			[[maybe_unused]]auto[where, inserted] = mItems.insert(
+		bool insert(const T & value) {
+			auto[it, inserted] = mItems.insert(
 			std::pair<Model::IndexConst, const T &>{ Model::getIndex(value), value });
+			if (inserted) {
+				_onAdd(&it->second);
+			}
 			return inserted;
 		}
 
 		void erase(Model::IndexConst idx) {
-			mItems.erase(Model::Index{ idx });
+			auto it = mItems.find(Model::Index{ idx });
+			if ( it != mItems.end()) {
+				std::shared_ptr<T> old = std::make_shared<T>(it->second);
+				mItems.erase(it);
+				_onRemove(old);
+			}
 		}
 
-		void save(std::vector<T> && values) {
+		void insert(std::vector<T> && values) {
 			mItems.reserve(values.size() + mItems.size());
 			for (auto && x : values) {
 				mItems.insert(
@@ -72,6 +92,27 @@ namespace Model {
 				[](auto & x) { return getIndex(x.second); });
 			return values;
 		}
+
+		auto onAdd(typename OnAddSignal::slot_type t) {
+			return _onAdd.connect(t);
+		}
+
+		void onAddDisconnect(boost::signals2::connection c) {
+			_onAdd.disconnect(c);
+		}
+
+		auto onRemove(typename OnAddSignal::slot_type t) {
+			return _onRemove.connect(t);
+		}
+
+		void onRemoveDisconnect(boost::signals2::connection c) {
+			_onRemove.disconnect(c);
+		}
+
+
+	protected:
+		OnAddSignal _onAdd;
+		OnRemoveSignal _onRemove;
 	};
 
 	template <class T>
@@ -140,64 +181,4 @@ namespace Model {
 		}
 
 	};
-	/*
-	// first == true if the item is in the collection
-	[[nodiscard]] static std::pair<bool,const T &> Find(Model::Index name)
-	{
-		auto it = templates.find(name);
-
-		if (it == templates.end())
-		{
-			return { false, T{Model::NullIndex} };
-		}
-		return { true,*it };
-	}
-
-	// first == true if the item does not exist in the collection
-	[[nodiscard]] static std::pair<bool,T> Create(Model::Index name)
-	{
-		// TODO: insert return statement here
-		if (templates.find(name) == templates.end()) {
-			return { true,T{name } };
-		};
-		return { false, T{Model::NullIndex} };
-	}
-
-	// False if the item was not inserted. True otherwise
-	static bool Save(T && pt)
-	{
-		if (pt.index() == Model::NullIndex)
-			return false;
-		auto item = templates.find(pt.index());
-		if (item == templates.end()) {
-			templates.insert(std::move(pt));
-		}
-		else {
-			templates.replace(item, std::move(pt));
-		}
-		return true;
-	}
-
-	[[nodiscard]] static T Edit(const T & pt)
-	{
-		T ret(pt);
-		return ret;
-	}
-
-	static std::vector<Model::Index> Indexs_GetAll()
-	{
-		std::vector<Model::Index> ret;
-		std::for_each(templates.begin(), templates.end(), [&ret](auto & k) { ret.push_back(k.index()); });
-		return ret;
-	}
-private:
-
-
-	static Utility::FixedList<T> templates;
-
-};
-
-template <class T>
-Utility::FixedList<T> ModelIndex<T>::templates;
-*/
 }

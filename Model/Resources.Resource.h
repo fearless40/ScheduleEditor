@@ -28,7 +28,10 @@ namespace Model::Resources {
 		Resource(const ResourceType & owner, ResourceID id);
 		Resource(const ResourceType & owner, ResourceID id, PropertyMap && pmap);
 		Resource(Resource &&) = default;
+		Resource & operator = (Resource && r) = default;
 		Resource() = delete; 		/// Cannot create a resource without an owner or an id
+		Resource(const Resource & r) = default;
+		Resource & operator = (const Resource & r) = default;
 
 		/// Checks to see if the resouce has been deleted. Deleted resource are still kept around unless all references to them have been removed
 		/// <remarks> Resource are not deleted right away as parts of the schedule will still rely on them. The data will still
@@ -57,6 +60,11 @@ namespace Model::Resources {
 
 		std::wstring value_asString() const noexcept {
 			return Properties::PropertyAsString(default_value());
+		}
+
+		void copy_values(const Resource & r) {
+			mMap.clear();
+			std::copy(r.begin(), r.end(), std::back_inserter(mMap));
 		}
 
 		
