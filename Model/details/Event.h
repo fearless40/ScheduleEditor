@@ -2,10 +2,10 @@
 
 #include "../TimeDuration.h"
 
-class Model::Resources::Resource;
-class Model::Properties::PropertyMap;
+class model::Resources::Resource;
+class model::Properties::PropertyMap;
 
-namespace Model::Data::Detail {
+namespace model::details {
 	
 
 	union EventHandle {
@@ -26,7 +26,7 @@ namespace Model::Data::Detail {
 	constexpr EventHandle NullHandle{ 0 };
 	
 
-	inline EventHandle make_handle(date::year_month_day day, Time::HourMinute start) {
+	inline EventHandle make_handle(date::year_month_day day, model::time::HourMinute start) {
 		EventHandle hand;
 		hand.fields.year = (uint32_t)(int)day.year();
 		hand.fields.month = (uint32_t)day.month();
@@ -53,10 +53,10 @@ namespace Model::Data::Detail {
 
 	struct Event {
 		EventHandle handle;
-		Model::Time::HourMinute start;
-		Model::Time::Duration minutes;
-		Model::Resources::Resource * value; // non owner
-		Model::Properties::PropertyMapUniquePtr properties; //owner
+		model::time::HourMinute start;
+		model::time::Duration minutes;
+		model::Resources::Resource * value; // non owner
+		model::Properties::PropertyMapUniquePtr properties; //owner
 
 	/*	operator Model::Data::Event () const {
 			return Model::Data::Event(handle, start, minutes, value, properties.get());
@@ -102,9 +102,9 @@ namespace Model::Data::Detail {
 }
 
 namespace std {
-	template<> struct hash<Model::Data::Detail::EventHandle>
+	template<> struct hash<model::details::EventHandle>
 	{
-		typedef Model::Data::Detail::EventHandle argument_type;
+		typedef model::details::EventHandle argument_type;
 		typedef std::size_t result_type;
 		result_type operator()(argument_type const& s) const
 		{

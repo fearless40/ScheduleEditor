@@ -2,7 +2,7 @@
 #include "Event.h"
 
 
-namespace Model::Data::Detail {
+namespace model::details {
 
 	class EventsEditor;
 
@@ -44,7 +44,7 @@ namespace Model::Data::Detail {
 		date::year_month_day date_start() const { return mData.front().handle; }
 		date::year_month_day date_last() const { return mData.back().handle; }
 		std::size_t size() const { return mData.size(); }
-		int NbrDays() const; 
+		int count_days() const; 
 
 		// Iteration
 		auto begin() const { return mData.cbegin(); }
@@ -59,7 +59,7 @@ namespace Model::Data::Detail {
 		bool lock_write();
 		void unlock_write(bool dataChanged = false);
 
-		EventHandle make_unique_handle(date::year_month_day day, Time::HourMinute start) const;
+		EventHandle make_unique_handle(date::year_month_day day, time::HourMinute start) const;
 		
 		// Use the view classes to find stuff
 		EventsEditor edit() const; 

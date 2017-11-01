@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "Model.h"
+#include "model.h"
 #include <utility>
 #include <unordered_map>
 #include <boost\signals2.hpp>
@@ -9,29 +9,29 @@
 //using namespace boost::multi_index;
 
 
-namespace Model {
+namespace model {
 
 	template<typename T>
-	Model::IndexConst getIndex(const T & t) {
+	model::IndexConst getIndex(const T & t) {
 		return t.index();
 	}
 
 	template<typename T>
-	Model::IndexConst getIndex(const std::unique_ptr<T> & t) {
+	model::IndexConst getIndex(const std::unique_ptr<T> & t) {
 		return t->index();
 	}
 	
 	
-	Model::IndexConst getIndex(Model::IndexConst idx) {
+	model::IndexConst getIndex(model::IndexConst idx) {
 		return idx;
 	}
 
-	struct ModelCollection_TagVector {};
-	struct ModelCollection_TagUnordered {};
+	struct modelCollection_TagVector {};
+	struct modelCollection_TagUnordered {};
 
-	template <class T, class tag = ModelCollection_TagUnordered >
-	class ModelCollection {
-		using Set = std::unordered_map<Model::Index, T>;
+	template <class T, class tag = modelCollection_TagUnordered >
+	class IndexedCollection {
+		using Set = std::unordered_map<model::Index, T>;
 
 		Set mItems;
 
@@ -43,8 +43,8 @@ namespace Model {
 		auto end() const { return mItems.end(); }
 		auto size() const { return mItems.size(); }
 
-		const T * find(Model::IndexConst idx) const {
-			auto item = mItems.find(Model::Index{ idx });
+		const T * find(model::IndexConst idx) const {
+			auto item = mItems.find(model::Index{ idx });
 			if (item != mItems.end()) {
 				return &item->second;
 			}
@@ -53,7 +53,7 @@ namespace Model {
 
 		bool insert(T && value) {
 			auto[it, inserted] = mItems.insert(
-			std::pair<Model::IndexConst, T &&>{ Model::getIndex(value), std::move(value) });
+			std::pair<model::IndexConst, T &&>{ model::getIndex(value), std::move(value) });
 			if (inserted) {
 				_onAdd(&it->second);
 			}
@@ -62,15 +62,15 @@ namespace Model {
 
 		bool insert(const T & value) {
 			auto[it, inserted] = mItems.insert(
-			std::pair<Model::IndexConst, const T &>{ Model::getIndex(value), value });
+			std::pair<model::IndexConst, const T &>{ model::getIndex(value), value });
 			if (inserted) {
 				_onAdd(&it->second);
 			}
 			return inserted;
 		}
 
-		void erase(Model::IndexConst idx) {
-			auto it = mItems.find(Model::Index{ idx });
+		void erase(model::IndexConst idx) {
+			auto it = mItems.find(model::Index{ idx });
 			if ( it != mItems.end()) {
 				std::shared_ptr<T> old = std::make_shared<T>(it->second);
 				mItems.erase(it);
@@ -82,12 +82,12 @@ namespace Model {
 			mItems.reserve(values.size() + mItems.size());
 			for (auto && x : values) {
 				mItems.insert(
-					std::pair<Model::IndexConst, T &&>{ Model::getIndex(x), std::move(x) });
+					std::pair<model::IndexConst, T &&>{ model::getIndex(x), std::move(x) });
 			}
 		}
 
-		const std::vector<Model::IndexConst> enumerate_indexs() const {
-			std::vector<Model::IndexConst> values{ mItems.size() };
+		const std::vector<model::IndexConst> enumerate_indexs() const {
+			std::vector<model::IndexConst> values{ mItems.size() };
 			std::transform(mItems.begin(), mItems.end(), std::back_inserter(values),
 				[](auto & x) { return getIndex(x.second); });
 			return values;
@@ -116,9 +116,9 @@ namespace Model {
 	};
 
 	template <class T>
-	class ModelCollection<T, ModelCollection_TagVector>{
+	class modelCollection<T, modelCollection_TagVector>{
 
-		//using Set = boost::container::flat_map<Model::Index,std::unique_ptr<T>>;
+		//using Set = boost::container::flat_map<model::Index,std::unique_ptr<T>>;
 		using Set = std::vector<std::unique_ptr<T>>;
 
 		Set mItems;
@@ -127,7 +127,7 @@ namespace Model {
 			mItems.push_back(std::move(std::make_unique<T>(item)));
 		}
 
-		auto _find(Model::IndexConst idx) const {
+		auto _find(model::IndexConst idx) const {
 			return std::lower_bound(mItems.begin(), mItems.end(), idx,
 				[](auto && a, auto && b) {
 				return getIndex(a) < getIndex(b);
@@ -140,7 +140,7 @@ namespace Model {
 
 
 	public:
-		const T * find(Model::IndexConst idx) const {
+		const T * find(model::IndexConst idx) const {
 			
 			if (const auto it = _find(idx); it != mItems.end() && getIndex(*it) == idx) {
 				return it->get();
@@ -160,7 +160,7 @@ namespace Model {
 			return true;
 		}
 
-		void erase(Model::IndexConst idx) {
+		void erase(model::IndexConst idx) {
 			mItems.erase(_find(idx));
 			_sort();
 		}
@@ -173,8 +173,8 @@ namespace Model {
 			_sort();
 		}
 
-		const std::vector<Model::IndexConst> enumerate_indexs() const {
-			std::vector<Model::IndexConst> values{ mItems.size() };
+		const std::vector<model::IndexConst> enumerate_indexs() const {
+			std::vector<model::IndexConst> values{ mItems.size() };
 			std::transform(mItems.begin(), mItems.end(), std::back_inserter{ values },
 				[](auto & x) { return x->get()->index(); });
 			return values;

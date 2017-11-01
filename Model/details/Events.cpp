@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "../pch.h"
 #include <memory>
 #include <algorithm>
 #include <numeric>
@@ -12,9 +12,9 @@
 #include "../Data.Event.h"
 
 
-using namespace Model::Data::Detail;
+using namespace model::details;
 
-void Model::Data::Detail::Events::sort()
+void Events::sort()
 {
 	std::sort(mData.begin(), mData.end());
 }
@@ -40,7 +40,7 @@ Events::iterator Events::find_iterator(EventHandle evt)
 	return mData.end();
 }
 
-const Event * Model::Data::Detail::Events::find(EventHandle evt) const
+const Event * Events::find(EventHandle evt) const
 {
 	auto ret_iterator = std::lower_bound(mData.begin(), mData.end(), evt);
 	if (ret_iterator != mData.end() && ret_iterator->handle == evt) {
@@ -50,7 +50,7 @@ const Event * Model::Data::Detail::Events::find(EventHandle evt) const
 	return nullptr;
 }
 
-Event * Model::Data::Detail::Events::find(EventHandle evt) 
+Event * Events::find(EventHandle evt) 
 {
 	auto ret_iterator = std::lower_bound(mData.begin(), mData.end(), evt);
 	if (ret_iterator != mData.end()  && ret_iterator->handle == evt) {
@@ -61,7 +61,7 @@ Event * Model::Data::Detail::Events::find(EventHandle evt)
 }
 
 
-const bool Model::Data::Detail::Events::has(EventHandle evt) const
+const bool Events::has(EventHandle evt) const
 {
 	return find(evt) == nullptr ? false : true;
 }
@@ -87,7 +87,7 @@ Events::iterator Events::end_date(date::year_month_day day)
 }
 
 
-int Model::Data::Detail::Events::NbrDays() const
+int Events::count_days() const
 {
 	date::year_month_day first = mData.front().handle;
 	return std::accumulate(mData.cbegin(), mData.cend(), 0, [&first](const int v, const Event & e) {
@@ -101,27 +101,27 @@ int Model::Data::Detail::Events::NbrDays() const
 	});
 }
 
-bool Model::Data::Detail::Events::lock_read() const
+bool Events::lock_read() const
 {
 	return false;
 }
 
-void Model::Data::Detail::Events::unlock_read() const
+void Events::unlock_read() const
 {
 }
 
-bool Model::Data::Detail::Events::lock_write()
+bool Events::lock_write()
 {
 	return false;
 }
 
-void Model::Data::Detail::Events::unlock_write(bool dataChanged)
+void Events::unlock_write(bool dataChanged)
 {
 	if (dataChanged)
 		sort();
 }
 
-EventHandle Model::Data::Detail::Events::make_unique_handle(date::year_month_day day, Time::HourMinute start) const
+EventHandle Events::make_unique_handle(date::year_month_day day, time::HourMinute start) const
 {
 	EventHandle ret = make_handle(day, start);
 	while (has(ret) == true) {

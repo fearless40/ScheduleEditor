@@ -5,18 +5,18 @@
 #include "Events.h"
 #include <unordered_set>
 
-class Model::Data::Event;
-class Model::Resources::Resource;
-class Model::Data::Detail::Events;
+class model::Event;
+class model::Resources::Resource;
+class model::details::Events;
 
-namespace Model::Data::Detail {
+namespace model::details {
 
 	class EventsEditor {
 		std::vector<EventHandle> mToBeDeleted;
 		std::vector<Event>		 mToBeAdded;
 		
-		std::vector<std::pair<EventHandle, Model::Resources::Resource *> >		 mToBeChangedResource;
-		std::vector<std::pair<EventHandle, Model::Properties::PropertyMapUniquePtr> >		 mToBeChangedProperties;
+		std::vector<std::pair<EventHandle, model::Resources::Resource *> >		 mToBeChangedResource;
+		std::vector<std::pair<EventHandle, model::Properties::PropertyMapUniquePtr> >		 mToBeChangedProperties;
 		
 		std::unordered_set<EventHandle> mExistingHandles;
 		
@@ -24,8 +24,8 @@ namespace Model::Data::Detail {
 
 		bool mClearAll{ false };
 
-		EventHandle new_handle(date::year_month_day day, Model::Time::HourMinute starttime);
-		EventHandle move_impl(const Event * mPrior, date::year_month_day day, Model::Time::HourMinute starttime, Model::Time::Duration length);
+		EventHandle new_handle(date::year_month_day day, model::time::HourMinute starttime);
+		EventHandle move_impl(const Event * mPrior, date::year_month_day day, model::time::HourMinute starttime, model::time::Duration length);
 
 
 	public:
@@ -41,9 +41,9 @@ namespace Model::Data::Detail {
 		EventsEditor(const EventsEditor & evt) = delete;
 		EventsEditor operator = (const EventsEditor & evt) = delete;
 
-		EventHandle create(date::year_month_day day, Model::Time::HourMinute starttime, Model::Time::Duration length, Model::Resources::Resource * resource);
-		EventHandle create(date::year_month_day day, Model::Time::HourMinute starttime, Model::Time::Duration length, Model::Resources::Resource * resource, Model::Properties::PropertyMapUniquePtr pmap);
-		EventHandle create(const Model::Data::Event & evt);
+		EventHandle create(date::year_month_day day, model::time::HourMinute starttime, model::time::Duration length, model::Resources::Resource * resource);
+		EventHandle create(date::year_month_day day, model::time::HourMinute starttime, model::time::Duration length, model::Resources::Resource * resource, model::Properties::PropertyMapUniquePtr pmap);
+		EventHandle create(const model::Event & evt);
 		
 		template< typename iterator >
 		void create(const iterator & start, const iterator & end) {
@@ -73,13 +73,13 @@ namespace Model::Data::Detail {
 		void		remove_period(date::year_month_day start, date::year_month_day end);
 		void		clear();
 
-		void change(EventHandle oldEvent, Model::Resources::Resource * resource);
-		void change(EventHandle oldEvent, const Model::Properties::PropertyMap & pmap);
-		void change(EventHandle oldEvent, Model::Resources::Resource * resource, const Model::Properties::PropertyMap & pmap);
+		void change(EventHandle oldEvent, model::Resources::Resource * resource);
+		void change(EventHandle oldEvent, const model::Properties::PropertyMap & pmap);
+		void change(EventHandle oldEvent, model::Resources::Resource * resource, const model::Properties::PropertyMap & pmap);
 		
-		EventHandle move(EventHandle oldEvent, date::year_month_day day, Model::Time::HourMinute starttime, Model::Time::Duration length);
+		EventHandle move(EventHandle oldEvent, date::year_month_day day, model::time::HourMinute starttime, model::time::Duration length);
 		EventHandle move(EventHandle oldEvent, date::year_month_day day);
-		EventHandle move(EventHandle oldEvent, Model::Time::HourMinute starttime, Model::Time::Duration length);
+		EventHandle move(EventHandle oldEvent, model::time::HourMinute starttime, model::time::Duration length);
 
 		void commit_changes_only_memory();
 		//bool commit_changes_to_filesystem();

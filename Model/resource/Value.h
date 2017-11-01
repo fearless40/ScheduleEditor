@@ -1,37 +1,37 @@
 #pragma once
 
 #include "Resources.h"
-#include "Properties.PropertyMap.h"
+#include "property\Map.h"
 
-namespace Model::Resources {
+namespace model::resource {
 	
 	/// Holds the data for each event/person/place. Flexible and owned by ResourceType
-	class Resource : public Properties::PropertyMap
+	class Value : public model::property::Map
 	{
-		const ResourceType & mType;
+		const Type & mType;
 		bool mIsDeleted{ false };
 		ResourceID mId{ 0 };
 						
-		Properties::Property & default_value() noexcept {
+		property::Property & default_value() noexcept {
 			return mMap[0].value;
 		}
 
-		const Properties::Property & default_value() const noexcept {
+		const property::Property & default_value() const noexcept {
 			return mMap[0].value;
 		}
 
-		static constexpr Properties::Key::value_type * default_key = "__default" ;
+		static constexpr property::Key::value_type * default_key = "__default" ;
 		static constexpr long				    default_value_value = 0;
 		
 	public:
 
-		Resource(const ResourceType & owner, ResourceID id);
-		Resource(const ResourceType & owner, ResourceID id, PropertyMap && pmap);
-		Resource(Resource &&) = default;
-		Resource & operator = (Resource && r) = default;
-		Resource() = delete; 		/// Cannot create a resource without an owner or an id
-		Resource(const Resource & r) = default;
-		Resource & operator = (const Resource & r) = default;
+		Value(const Type & owner, ResourceID id);
+		Value(const Type & owner, ResourceID id, model::property::Map && pmap);
+		Value(Value &&) = default;
+		Value & operator = (Value && r) = default;
+		Value() = delete; 		/// Cannot create a resource without an owner or an id
+		Value(const Value & r) = default;
+		Value & operator = (const Value & r) = default;
 
 		/// Checks to see if the resouce has been deleted. Deleted resource are still kept around unless all references to them have been removed
 		/// <remarks> Resource are not deleted right away as parts of the schedule will still rely on them. The data will still
@@ -44,7 +44,7 @@ namespace Model::Resources {
 		
 		void markAsDeleted() noexcept { mIsDeleted = true; }
 
-		const ResourceType & resource_type() const noexcept { return mType; }
+		const Type & resource_type() const noexcept { return mType; }
 
 		bool onlyHasDefaultValue() { return mMap.size() == 1; }
 
@@ -59,10 +59,10 @@ namespace Model::Resources {
 		}
 
 		std::wstring value_asString() const noexcept {
-			return Properties::PropertyAsString(default_value());
+			return model::property::PropertyAsString(default_value());
 		}
 
-		void copy_values(const Resource & r) {
+		void copy_values(const Value & r) {
 			mMap.clear();
 			std::copy(r.begin(), r.end(), std::back_inserter(mMap));
 		}

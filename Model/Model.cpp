@@ -1,4 +1,4 @@
 #include "pch.h"
-#include "Model.h"
+#include "model.h"
 
-const Model::Index NullIndex = "__NULL__";
+const model::Index NullIndex = "__NULL__";

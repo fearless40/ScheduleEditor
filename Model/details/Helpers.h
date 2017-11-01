@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Model::Data::Detail {
+namespace model::Data::Detail {
 	enum class LockType {
 		Read,
 		Write

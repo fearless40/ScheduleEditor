@@ -5,50 +5,99 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="details">
+      <UniqueIdentifier>{2abd0090-3f45-4b9f-b10e-0956fea0068d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="property">
+      <UniqueIdentifier>{133f4749-b6a5-4893-a95a-d386252e547a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{964259bf-317e-48a8-b60e-f834beb3f93e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Data.DataModel.cpp" />
-    <ClCompile Include="Properties.PropertyMap.cpp" />
-    <ClCompile Include="Properties.PropertyTemplate.cpp" />
     <ClCompile Include="Range.Range.cpp" />
-    <ClCompile Include="Resources.cpp" />
-    <ClCompile Include="Resources.Resource.cpp" />
-    <ClCompile Include="Resources.ResourceGroup.cpp" />
-    <ClCompile Include="Resources.ResourceType.cpp" />
     <ClCompile Include="Slots.Slot.cpp" />
     <ClCompile Include="Slots.SlotGroup.cpp" />
-    <ClCompile Include="Data.Detail\Events.cpp" />
-    <ClCompile Include="Data.Detail\EventsEditor.cpp" />
-    <ClCompile Include="Properties.cpp" />
+    <ClCompile Include="details\Events.cpp">
+      <Filter>details</Filter>
+    </ClCompile>
+    <ClCompile Include="details\EventsEditor.cpp">
+      <Filter>details</Filter>
+    </ClCompile>
+    <ClCompile Include="property\Property.cpp">
+      <Filter>property</Filter>
+    </ClCompile>
+    <ClCompile Include="property\Map.cpp">
+      <Filter>property</Filter>
+    </ClCompile>
+    <ClCompile Include="property\MapConstraint.cpp">
+      <Filter>property</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\Value.cpp">
+      <Filter>resource</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\Resource.cpp">
+      <Filter>resource</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\Type.cpp">
+      <Filter>resource</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\Collection.cpp">
+      <Filter>resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Data.DataModel.h" />
-    <ClInclude Include="Data.Event.h" />
-    <ClInclude Include="Data.Range.SlotView.h" />
-    <ClInclude Include="Data.RawEvents.h" />
-    <ClInclude Include="Properties.h" />
-    <ClInclude Include="Properties.HasProperties.h" />
-    <ClInclude Include="Properties.PropertyMap.h" />
-    <ClInclude Include="Properties.PropertyTemplate.h" />
     <ClInclude Include="Range.Range.h" />
-    <ClInclude Include="Resources.h" />
-    <ClInclude Include="Resources.Resource.h" />
-    <ClInclude Include="Resources.ResourceGroup.h" />
-    <ClInclude Include="Resources.ResourceHandle.h" />
-    <ClInclude Include="Resources.ResourceType.h" />
     <ClInclude Include="Slots.h" />
     <ClInclude Include="Slots.Slot.h" />
     <ClInclude Include="Slots.SlotGroup.h" />
     <ClInclude Include="TimeDuration.h" />
-    <ClInclude Include="Data.Detail\Events.h" />
-    <ClInclude Include="Data.Detail\EventsEditor.h" />
-    <ClInclude Include="Data.Detail\Helpers.h" />
     <ClInclude Include="Document.h" />
     <ClInclude Include="ModelCollection.h" />
+    <ClInclude Include="details\Event.h">
+      <Filter>details</Filter>
+    </ClInclude>
+    <ClInclude Include="details\Events.h">
+      <Filter>details</Filter>
+    </ClInclude>
+    <ClInclude Include="details\EventsEditor.h">
+      <Filter>details</Filter>
+    </ClInclude>
+    <ClInclude Include="details\Helpers.h">
+      <Filter>details</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="property\Property.h">
+      <Filter>property</Filter>
+    </ClInclude>
+    <ClInclude Include="property\Map.h">
+      <Filter>property</Filter>
+    </ClInclude>
+    <ClInclude Include="property\InheritPropertyMap.h">
+      <Filter>property</Filter>
+    </ClInclude>
+    <ClInclude Include="property\MapConstraint.h">
+      <Filter>property</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\Value.h">
+      <Filter>resource</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\Resource.h">
+      <Filter>resource</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\Type.h">
+      <Filter>resource</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\Collection.h">
+      <Filter>resource</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

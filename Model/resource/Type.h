@@ -2,26 +2,27 @@
 #include <boost\iterator\indirect_iterator.hpp>
 #include <boost\signals2.hpp>
 #include "Model.h"
-//#include "Resources.Resource.h"
-#include "Properties.PropertyTemplate.h"
-#include "Properties.HasProperties.h"
+#include "Resource.h"
+#include "property\MapConstraint.h"
+#include "property\InheritPropertyMap.h"
 
 
-namespace Model::Resources  {
+
+namespace model::resource  {
 	
 	/// Owns a group of resources and defines the type of resource
 	/// Owned by: self, obtain by using static functions
-	class ResourceType : public Properties::HasProperties
+	class Type : public model::property::InheritPropertyMap
 	{
 	public:
-		using IndirectAdaptor = boost::indirect_iterator<std::vector<std::unique_ptr<Resource>>::iterator, Resource &>;
-		using ConstIndirectAdaptor = boost::indirect_iterator<std::vector<std::unique_ptr<Resource>>::const_iterator, const Resource &>;
-		using OnChangeSignal = boost::signals2::signal< void(std::shared_ptr<Resource> oldValue, const Resource const * changedValue) >;
-		using OnAddSignal = boost::signals2::signal< void(const Resource const * newResource) >;
-		using OnRemoveSignal = boost::signals2::signal< void(std::shared_ptr<Resource> removedResource)>;
+		using IndirectAdaptor = boost::indirect_iterator<std::vector<std::unique_ptr<Value>>::iterator, Value &>;
+		using ConstIndirectAdaptor = boost::indirect_iterator<std::vector<std::unique_ptr<Value>>::const_iterator, const Value &>;
+		using OnChangeSignal = boost::signals2::signal< void(std::shared_ptr<Value> oldValue, const Value const * changedValue) >;
+		using OnAddSignal = boost::signals2::signal< void(const Value const * newResource) >;
+		using OnRemoveSignal = boost::signals2::signal< void(std::shared_ptr<Value> removedResource)>;
 
 
-		Model::IndexConst index() const { return mIndex;  }
+		model::IndexConst index() const { return mIndex;  }
 
 
 		auto cbegin() const { return ConstIndirectAdaptor(mItems.cbegin()); }
@@ -35,31 +36,31 @@ namespace Model::Resources  {
 
 		size_t size() const { return mItems.size(); }
 
-		Resource & create();
-		Resource & create(Model::Properties::PropertyMap && map);
-		Resource & load(ResourceID id, bool isDeleted, Model::Properties::PropertyMap && map);
-		void remove(const Resource & r);
-		void change(const Resource & r);
+		Value & create();
+		Value & create(model::property::Map && map);
+		Value & load(ResourceID id, bool isDeleted, model::property::Map && map);
+		void remove(const Value & r);
+		void change(const Value & r);
 		
-		
-		const Model::Properties::PropertyTemplate * propertyTemplate() const;
-
 
 		/// Set a new PropertyTemplate to the class.
-		void propertyTemplate_set(const Properties::PropertyTemplate & propt) {
+		void mapconstraint(const model::property::MapConstraint & propt) {
 			mPropTemp = &propt;
 		}
 		
+		const model::property::MapConstraint * mapconstraint() const {
+			return mPropTemp;
+		}
 
 		//const auto & properties() const { return mProperties; }
 		//auto & properties() { return mProperties; }
 
-		ResourceType();
-		~ResourceType();
-		ResourceType(const Model::IndexConst index);
-		ResourceType(const Model::IndexConst index, Properties::PropertyTemplate & pTemplate); 
-		ResourceType(ResourceType &&) = default;
-		ResourceType & operator = (ResourceType &&) = default;
+		Type();
+		~Type();
+		Type(const model::IndexConst index);
+		Type(const model::IndexConst index, model::property::MapConstraint& pTemplate); 
+		Type(Type &&) = default;
+		Type & operator = (Type &&) = default;
 
 		auto onChange(OnChangeSignal::slot_type slot) {
 			return _onChange.connect(slot);
@@ -87,21 +88,20 @@ namespace Model::Resources  {
 
 	private:
 
-		std::vector<std::unique_ptr<Resource>>::iterator _find(const Resource & r);
+		std::vector<std::unique_ptr<Value>>::iterator _find(const Value & r);
 		//std::vector<std::unique_ptr<Resource>>::iterator _find(const Resource & r);
 
-		Model::Index mIndex{ Model::NullIndex };
+		model::Index mIndex{ model::NullIndex };
 		
 		// Todo: determine if having a vector here is better or a list. A list allows direct memory access without having to worry about a resource being moved.
 		// The vector is much faster iteration at the cost of greater difficluty coding as it is safe for reading at the same time but not editing. It would therefore
 		// require mutexs and such to get it to work.
-		std::vector<std::unique_ptr<Resource>> mItems;
+		std::vector<std::unique_ptr<Value>> mItems;
 
 		/// Optional holds a pointer to a PropertyTemplate. Allows one to apply a template to each of the sub resource
 		/// included in the group
-		const Properties::PropertyTemplate * mPropTemp{ nullptr };
-		//Model::Properties::PropertyMap mProperties;
-
+		const model::property::MapConstraint * mPropTemp{ nullptr };
+		
 		ResourceID mNextID{ 1 };
 
 		ResourceID getNextID();
@@ -111,6 +111,5 @@ namespace Model::Resources  {
 		OnRemoveSignal _onRemove;
 	};
 
-	//static ModelIndex<ResourceType> ResourceTypeOwner;
-	//using ResourceTypeOwner = ModelIndex<ResourceType>;
+	
 }

@@ -11,8 +11,6 @@ namespace Model {
 		void * Loader;
 		
 		ModelIndex<Model::Resources::ResourceType> mResources;
-		ModelIndex<PropertyTemplate> mPropertyTemplates;
-		ModelIndex<ResourceGroup> mGroups;
 		ModelIndex<DataModels> mDataModels;
 
 	};

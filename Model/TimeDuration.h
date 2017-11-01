@@ -5,7 +5,7 @@
 #undef max
 #include "../../Lib/date/date.h"
 
-namespace Model::Time {
+namespace model::time {
 
 	using Duration = std::chrono::minutes;
 
@@ -19,7 +19,7 @@ namespace Model::Time {
 		unsigned char hour;
 		unsigned char minute;
 
-		operator Model::Time::Duration () {
+		operator model::time::Duration () {
 			return std::chrono::hours(hour) + std::chrono::minutes(minute);
 		}
 
@@ -28,12 +28,12 @@ namespace Model::Time {
 		}
 	};
 
-	inline Model::Time::Duration operator + (Model::Time::HourMinute hm, Model::Time::Duration dur) {
-		return static_cast<Model::Time::Duration>(hm) + dur;
+	inline model::time::Duration operator + (model::time::HourMinute hm, model::time::Duration dur) {
+		return static_cast<model::time::Duration>(hm) + dur;
 	}
 
-	inline Model::Time::Duration operator + (Model::Time::Duration dur, Model::Time::HourMinute hm) {
-		return static_cast<Model::Time::Duration>(hm) + dur;
+	inline model::time::Duration operator + (model::time::Duration dur, model::time::HourMinute hm) {
+		return static_cast<model::time::Duration>(hm) + dur;
 	}
 
 	inline bool operator == (HourMinute lhs, HourMinute rhs) {

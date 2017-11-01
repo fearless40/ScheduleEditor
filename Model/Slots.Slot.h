@@ -1,8 +1,8 @@
 #pragma once
 
-#include "TimeDuration.h"
+#include "timeDuration.h"
 
-namespace Model::Slots {
+namespace model::Slots {
 
 
 	/// Public helper struct used in SlotGroup
@@ -10,22 +10,22 @@ namespace Model::Slots {
 	{
 		using SlotID = uint32_t;
 		std::string name_display;
-		Time::HourMinute start_time;
-		Time::Duration duration;
+		time::HourMinute start_time;
+		time::Duration duration;
 	
 		Slot() = default;
 		Slot(Slot &&) = default;
 		Slot(const Slot &) = default;
 		Slot(uint32_t id) : mID(id) {}
-		Slot(uint32_t id, Time::HourMinute hm, Time::Duration d) : mID(id), start_time(hm), duration(d) {}
-		Slot(uint32_t id, Time::HourMinute hm, Time::Duration d, std::string_view name) : mID(id), start_time(hm), duration(d), name_display(name) {}
+		Slot(uint32_t id, time::HourMinute hm, time::Duration d) : mID(id), start_time(hm), duration(d) {}
+		Slot(uint32_t id, time::HourMinute hm, time::Duration d, std::string_view name) : mID(id), start_time(hm), duration(d), name_display(name) {}
 
 		
-	/*	Time::HourMinute start() const;
-		void start(Time::HourMinute tm);
+	/*	time::HourMinute start() const;
+		void start(time::HourMinute tm);
 
-		Model::Time::Duration duration() const;
-		void duraton(Time::Duration length);
+		model::time::Duration duration() const;
+		void duraton(time::Duration length);
 
 		std::string_view name() const { return mDisplayName;  }
 		void name_set(std::string_view newname) {

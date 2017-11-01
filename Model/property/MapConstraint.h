@@ -1,23 +1,23 @@
 #pragma once
 
 #include <vector>
-#include "Properties.h"
+#include "Property.h"
 
-namespace Model::Properties {
+namespace model::property {
 	
 	
 
-	class PropertyTemplate {
+	class MapConstraint {
 	public:
-		using PropertyDefinitions = std::vector<PropertyDefinition>;
+		using PropertyDefinitions = std::vector<Definition>;
 
-		PropertyTemplate();
-		PropertyTemplate(const PropertyTemplate & pt) = default;
-		PropertyTemplate(PropertyTemplate && pt) = default;
-		PropertyTemplate(Index index) : mIndex(index) {}
-		PropertyTemplate & operator = (const PropertyTemplate & pt) = default;
+		MapConstraint();
+		MapConstraint(const MapConstraint & pt) = default;
+		MapConstraint(MapConstraint && pt) = default;
+		MapConstraint(Index index) : mIndex(index) {}
+		MapConstraint & operator = (const MapConstraint & pt) = default;
 
-		Model::Index index() const { return mIndex; }
+		model::Index index() const { return mIndex; }
 
 		auto cbegin() const { return mIndex.cbegin(); }
 		auto cend() const { return mIndex.cend(); }
@@ -25,7 +25,7 @@ namespace Model::Properties {
 		auto begin() { return mIndex.begin(); }
 		auto end() { return mIndex.end(); }
 
-		void string_add(Key name, Model::string defaultvalue, bool mandatory = false);
+		void string_add(Key name, model::string defaultvalue, bool mandatory = false);
 		void long_add(Key name, long defaultvalue, long min, long max, bool mandatory = false);
 		void double_add(Key name, double defaultvalue, double min, double max, bool mandatory = false);
 		void bool_add(Key name, bool defaultvalue, bool mandatory = false);
@@ -33,10 +33,10 @@ namespace Model::Properties {
 		void remove(Key name);
 
 		/// Validates a propertymap and returns true if the propertymap matches the definition in the template
-		bool validate(const PropertyMap & map) const;
+		bool validate(const Map & map) const;
 
 		/// Makes the PropertyMap valid by adding memebers and changing values if out of range
-		void make_valid(PropertyMap & map) const;
+		void make_valid(Map & map) const;
 
 	
 
@@ -47,7 +47,7 @@ namespace Model::Properties {
 		PropertyDefinitions mDefs;
 
 		// Used to look it up 
-		Model::Index mIndex;
+		model::Index mIndex;
 
 			
 	};

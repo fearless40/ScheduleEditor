@@ -1,8 +1,8 @@
 #pragma once
 
-#include "TimeDuration.h"
+#include "timeDuration.h"
 
-namespace Model::Slots {
+namespace model::Slots {
 	class Slot;
 	class SlotGroup;
 

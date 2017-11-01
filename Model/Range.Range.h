@@ -4,30 +4,30 @@
 #include "Data.Detail\Event.h"
 #include "Data.Detail\Events.h"
 #include "Data.Event.h"
-#include "Data.DataModel.h"
+#include "Data.Datamodel.h"
 
-namespace Model::Data::Range {
+namespace model {
 
 	
 	/// A view into a Data. Lightweight class pass by value. 
 	/// Always const cannot edit data.
 	class Range {
-		Model::Data::Detail::EventHandle mStart{ 0 };
-		Model::Data::Detail::EventHandle mEnd{ 0 };
-		const Model::Data::Detail::Events & mEvents;
-		const Model::Data::DataModel & mModel;
+		model::Data::Detail::EventHandle mStart{ 0 };
+		model::Data::Detail::EventHandle mEnd{ 0 };
+		const model::Data::Detail::Events & mEvents;
+		const model::Data::Datamodel & mmodel;
 		
 		struct TransFormer {
-			const Model::Data::Event operator ()(Model::Data::Detail::Events::const_iterator &it) {
+			const model::Data::Event operator ()(model::Data::Detail::Events::const_iterator &it) {
 				return *it;
 			}
 		};
 
 	public:
 
-		using const_iterator = boost::transform_iterator<TransFormer, Model::Data::Detail::Events::const_iterator>;
+		using const_iterator = boost::transform_iterator<TransFormer, model::Data::Detail::Events::const_iterator>;
 
-		const Model::Data::DataModel & model() const noexcept { return mModel; }
+		const model::Data::Datamodel & model() const noexcept { return mmodel; }
 
 		bool empty() const noexcept { return mStart.value == 0 || mEnd.value == 0; }
 

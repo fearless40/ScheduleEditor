@@ -5,11 +5,11 @@
 
 #include "pch.h"
 
-using namespace ModelTest;
+using namespace modelTest;
 
 using namespace Platform;
-using namespace Windows::ApplicationModel;
-using namespace Windows::ApplicationModel::Activation;
+using namespace Windows::Applicationmodel;
+using namespace Windows::Applicationmodel::Activation;
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
 using namespace Windows::UI::Xaml;
@@ -38,7 +38,7 @@ App::App()
 /// will be used such as when the application is launched to open a specific file.
 /// </summary>
 /// <param name="e">Details about the launch request and process.</param>
-void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEventArgs^ e)
+void App::OnLaunched(Windows::Applicationmodel::Activation::LaunchActivatedEventArgs^ e)
 {
 	auto rootFrame = dynamic_cast<Frame^>(Window::Current->Content);
 

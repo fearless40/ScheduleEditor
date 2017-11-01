@@ -14,7 +14,7 @@
   <mp:PhoneIdentity PhoneProductId="48ad3a1e-2273-4909-8933-ec2e5ace48a9" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>ModelTest</DisplayName>
+    <DisplayName>modelTest</DisplayName>
     <PublisherDisplayName>spiva</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -30,12 +30,12 @@
   <Applications>
     <Application Id="vstest.executionengine.universal.App"
         Executable="$targetnametoken$.exe"
-        EntryPoint="ModelTest.App">
+        EntryPoint="modelTest.App">
       <uap:VisualElements
-        DisplayName="ModelTest"
+        DisplayName="modelTest"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="ModelTest"
+        Description="modelTest"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />

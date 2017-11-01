@@ -1,9 +1,9 @@
 #pragma once
 
-namespace Model::Resources {
+namespace model::resource {
 		
-	class ResourceType;
-	class Resource;
+	class Type;
+	class Value;
 	class ResourceGroup;
 
 	using ResourceID = uint32_t;

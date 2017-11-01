@@ -2,15 +2,15 @@
 #include <locale>
 #include "CppUnitTest.h"
 
-#include "../Model/Properties.PropertyMap.h"
+#include "../model/Properties.PropertyMap.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace Properties_PropertiesMap {
 
-	namespace P = Model::Properties;
-	using PMap = Model::Properties::PropertyMap;
-	using Prop = Model::Properties::Property;
+	namespace P = model::Properties;
+	using PMap = model::Properties::PropertyMap;
+	using Prop = model::Properties::Property;
 
 	TEST_CLASS(PropertiesMap)
 	{
@@ -52,7 +52,7 @@ namespace Properties_PropertiesMap {
 			PMap pmap;
 			pmap.insert("YoMama", 120L);
 			pmap.insert("YoMama_Joke", L"Your moma so fat she wears high heels and comes back with flip flops");
-			Assert::AreEqual(pmap.asString("YoMama"), Model::string{ L"120" });
+			Assert::AreEqual(pmap.asString("YoMama"), model::string{ L"120" });
 		}
 
 		TEST_METHOD(operator_get_fail) {
@@ -73,7 +73,7 @@ namespace Properties_PropertiesMap {
 			pmap.insert("YoMama_Joke", L"Your moma so fat she wears high heels and comes back with flip flops");
 			pmap.insert("YoMama_Joke",  L"NotFunny" );
 			//pmap["YoMama_Joke"] = L"NotFunny";
-			Assert::AreEqual(std::get<Model::string>(pmap["YoMama_Joke"]), Model::string{ L"NotFunny" });
+			Assert::AreEqual(std::get<model::string>(pmap["YoMama_Joke"]), model::string{ L"NotFunny" });
 		}
 
 		TEST_METHOD(operator_get_change) {
@@ -82,7 +82,7 @@ namespace Properties_PropertiesMap {
 			pmap.insert("YoMama_Joke", L"Your moma so fat she wears high heels and comes back with flip flops");
 			//pmap.insert("YoMama_Joke", L"NotFunny");
 			pmap["YoMama_Joke"] =  L"NotFunny" ;
-			Assert::AreEqual(std::get<Model::string>(pmap["YoMama_Joke"]), Model::string{ L"NotFunny" });
+			Assert::AreEqual(std::get<model::string>(pmap["YoMama_Joke"]), model::string{ L"NotFunny" });
 		}
 
 		TEST_METHOD(as_value) {

@@ -1,11 +1,11 @@
 #pragma once
 
 #include <memory>
-#include "Properties.h"
-#include "Model.h"
+#include "Property.h"
+#include "model.h"
 
-namespace Model::Properties {
-	class PropertyMap {
+namespace model::property {
+	class Map {
 	public:
 
 		struct KeyValue {
@@ -73,8 +73,8 @@ namespace Model::Properties {
 		const Property & operator [] (KeyConst key) const;
 
 		// Converts it
-		Model::string asString(KeyConst key) const;
-		Model::string asString(KeyConst key, Model::string_view default_value) const;
+		model::string asString(KeyConst key) const;
+		model::string asString(KeyConst key, model::string_view default_value) const;
 
 
 		template<typename Value> 
@@ -93,11 +93,11 @@ namespace Model::Properties {
 			return default_value;
 		}
 
-		Model::string as(KeyConst key, Model::string_view default_value) {
+		model::string as(KeyConst key, model::string_view default_value) {
 			if (auto found = find(key); found != mMap.end()) {
-				return std::get<Model::string>(found->value);
+				return std::get<model::string>(found->value);
 			}
-			return Model::string{ default_value };
+			return model::string{ default_value };
 		}
 
 		void insert(KeyConst key, Property prop);
@@ -109,7 +109,7 @@ namespace Model::Properties {
 		
 		/*template <>
 		void insert(KeyConst key, const wchar_t * vt) {
-			insert(key, Property{ std::move(Model::string{vt}) });
+			insert(key, Property{ std::move(model::string{vt}) });
 		}*/
 		
 		void erase(KeyConst key);

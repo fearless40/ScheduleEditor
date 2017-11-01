@@ -3,14 +3,14 @@
 #include <memory>
 #include <algorithm>
 #include <sstream>
-#include "Model.h"
+#include "model.h"
 #include "Properties.h"
 #include "Properties.PropertyMap.h"
 
-using namespace Model::Properties;
+using namespace model::Properties;
 
 
-void Model::Properties::PropertyMap::insert(KeyConst key, Property prop)
+void model::Properties::PropertyMap::insert(KeyConst key, Property prop)
 {
 	if (auto item = find(key); item != mMap.end()) {
 		item->value = std::move(prop);
@@ -20,14 +20,14 @@ void Model::Properties::PropertyMap::insert(KeyConst key, Property prop)
 	}
 }
 
-void Model::Properties::PropertyMap::erase(KeyConst key)
+void model::Properties::PropertyMap::erase(KeyConst key)
 {
 	if (auto item = find(key); item != mMap.end()) {
 		mMap.erase(item);
 	}
 }
 
-bool Model::Properties::PropertyMap::has(KeyConst key) const noexcept
+bool model::Properties::PropertyMap::has(KeyConst key) const noexcept
 {
 	return find(key) != mMap.end();
 }
@@ -42,7 +42,7 @@ PropertyMap::const_iterator PropertyMap::find(KeyConst key) const noexcept
 	return std::find(mMap.begin(), mMap.end(), key);
 }
 
-Property & Model::Properties::PropertyMap::operator[](KeyConst key) 
+Property & model::Properties::PropertyMap::operator[](KeyConst key) 
 {
 	if (auto item = find(key); item != mMap.end()) {
 		return item->value;
@@ -50,7 +50,7 @@ Property & Model::Properties::PropertyMap::operator[](KeyConst key)
 	throw "Unable to find key";
 }
 
-const Property & Model::Properties::PropertyMap::operator[](KeyConst key) const
+const Property & model::Properties::PropertyMap::operator[](KeyConst key) const
 {
 	if (auto item = find(key); item != mMap.end()) {
 		return item->value;
@@ -58,7 +58,7 @@ const Property & Model::Properties::PropertyMap::operator[](KeyConst key) const
 	throw "Unable to find key";
 }
 
-Model::string Model::Properties::PropertyMap::asString(KeyConst key) const
+model::string model::Properties::PropertyMap::asString(KeyConst key) const
 {
 	if (auto item = find(key); item != mMap.end()) {
 		return PropertyAsString(item->value);
@@ -66,12 +66,12 @@ Model::string Model::Properties::PropertyMap::asString(KeyConst key) const
 	return {};
 }
 
-Model::string Model::Properties::PropertyMap::asString(KeyConst key, Model::string_view default_value) const
+model::string model::Properties::PropertyMap::asString(KeyConst key, model::string_view default_value) const
 {
 	if (auto item = find(key); item != mMap.end()) {
 		return PropertyAsString(item->value);
 	}
 	else {
-		return Model::string{ default_value };
+		return model::string{ default_value };
 	}
 }

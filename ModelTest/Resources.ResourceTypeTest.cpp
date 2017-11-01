@@ -2,11 +2,11 @@
 #include <locale>
 #include <codecvt>
 #include "CppUnitTest.h"
-#include "../Model/Resources.Resource.h"
-#include "../Model/Resources.ResourceType.h"
+#include "../model/Resources.Resource.h"
+#include "../model/Resources.ResourceType.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-namespace MR = Model::Resources;
+namespace MR = model::Resources;
 
 
 

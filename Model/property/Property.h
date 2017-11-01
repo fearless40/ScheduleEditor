@@ -1,16 +1,16 @@
 #pragma once
 
 #include <variant>
-#include "Model.h"
+#include "model.h"
 
-namespace Model::Properties {
+namespace model::property {
 	using Property = std::variant<long, double, std::wstring>;
 	using RangeProperty = std::variant<long, double>;
 	using Key = std::string;
 	using KeyConst = std::string_view;
 
 
-	Model::string PropertyAsString(const Property & prop);
+	model::string PropertyAsString(const Property & prop);
 
 	enum class ValueTypes {
 		vtLONG,
@@ -20,7 +20,7 @@ namespace Model::Properties {
 	};
 
 
-	struct PropertyDefinition {
+	struct Definition {
 		Key				name;
 		bool			mandatory;
 		ValueTypes		type;
@@ -29,25 +29,25 @@ namespace Model::Properties {
 		RangeProperty	maxvalue;
 		const Key & index() { return name;  }
 
-		PropertyDefinition(Key tname, bool tMandatory, ValueTypes ttype, Property tdefvalue, RangeProperty tmin, RangeProperty tmax) :
+		Definition(Key tname, bool tMandatory, ValueTypes ttype, Property tdefvalue, RangeProperty tmin, RangeProperty tmax) :
 			name(tname), mandatory(tMandatory), type(ttype), defvalue(tdefvalue), minvalue(tmin), maxvalue(tmax) {};
-		PropertyDefinition(Key tname, bool tMandatory, ValueTypes ttype, Property tdefvalue) :
+		Definition(Key tname, bool tMandatory, ValueTypes ttype, Property tdefvalue) :
 			name(tname), mandatory(tMandatory), type(ttype), defvalue(tdefvalue) {};
-		PropertyDefinition(PropertyDefinition && pd) = default;
-		PropertyDefinition(const PropertyDefinition & pd) = default;
-		PropertyDefinition & operator = (const PropertyDefinition & pd) = default;
+		Definition(Definition && pd) = default;
+		Definition(const Definition & pd) = default;
+		Definition & operator = (const Definition & pd) = default;
 	};
 
-	inline bool operator == (const PropertyDefinition & pd, const Key & pi) {
+	inline bool operator == (const Definition & pd, const Key & pi) {
 		return pd.name == pi;
 	}
 
-	inline bool operator == (const Key & pi, const PropertyDefinition & pd) {
+	inline bool operator == (const Key & pi, const Definition & pd) {
 		return pd.name == pi;
 	}
 
-	class PropertyMap; 
-	class ProperyTemplate;
+	class Collection; 
+	class Template;
 
 	// PropertyMap are owned by the class that contains it. 
 

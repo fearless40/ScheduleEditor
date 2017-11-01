@@ -1,14 +1,11 @@
 #include "pch.h"
 #include <vector>
 #include <algorithm>
-#include "Properties.PropertyMap.h"
-#include "Resources.ResourceGroup.h"
+#include "Collection.h"
 
-namespace Model::Resources {
+namespace model::resource {
 
-	//ModelIndex<ResourceGroup> ResourceGroupOwner;
-
-	void ResourceGroup::insert(const Resource & resource)
+	void Collection::insert(const Value & resource)
 	{
 		auto finder = std::find(mMembers.begin(), mMembers.end(), &resource);
 		if (finder != mMembers.end()) {
@@ -16,7 +13,7 @@ namespace Model::Resources {
 		}
 	}
 
-	void ResourceGroup::remove(const Resource & resource)
+	void Collection::remove(const Value & resource)
 	{
 		auto finder = std::find(mMembers.begin(), mMembers.end(), &resource);
 		if (finder != mMembers.end()) {

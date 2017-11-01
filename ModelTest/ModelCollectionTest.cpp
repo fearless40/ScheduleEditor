@@ -1,20 +1,20 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "../Model/ModelCollection.h"
+#include "../model/modelCollection.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
-namespace Model_ModelCollection {
+namespace model_modelCollection {
 
 	struct Test {
-		Model::Index mIndex;
-		Model::IndexConst index() const noexcept { return mIndex; }
+		model::Index mIndex;
+		model::IndexConst index() const noexcept { return mIndex; }
 		Test(int index) {
 			mIndex = std::to_string(index);
 		}
 
-		Test(Model::IndexConst idx) : mIndex(idx) {};
+		Test(model::IndexConst idx) : mIndex(idx) {};
 	};
 
 	template <typename T>
@@ -30,7 +30,7 @@ namespace Model_ModelCollection {
 	public:
 		TEST_METHOD(Create_Unordered) {
 			
-			Model::ModelCollection<Test> values;
+			model::modelCollection<Test> values;
 			
 			{
 				Test t{ "1" };
@@ -62,14 +62,14 @@ namespace Model_ModelCollection {
 		}
 
 		TEST_METHOD(Erase) {
-			Model::ModelCollection<Test> values;
+			model::modelCollection<Test> values;
 			insert_values(1, 10, values);
 			values.erase("5");
 			Assert::IsNull(values.find("5"));
 		}
 
 		TEST_METHOD(Insert_Many) {
-			Model::ModelCollection<Test> values;
+			model::modelCollection<Test> values;
 			std::vector<Test> add_many;
 			for (int i = 0; i < 20; ++i) {
 				add_many.emplace_back(i);
@@ -80,7 +80,7 @@ namespace Model_ModelCollection {
 		}
 
 		TEST_METHOD(Enumerte) {
-			Model::ModelCollection<Test> values;
+			model::modelCollection<Test> values;
 			insert_values(1, 10, values);
 			const auto k = values.enumerate_indexs();
 			bool ok = false;

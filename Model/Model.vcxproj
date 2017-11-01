@@ -197,26 +197,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Data.DataModel.h" />
-    <ClInclude Include="Data.Detail\Events.h" />
-    <ClInclude Include="Data.Detail\EventsEditor.h" />
-    <ClInclude Include="Data.Detail\Helpers.h" />
-    <ClInclude Include="Data.Event.h" />
-    <ClInclude Include="Data.Range.SlotView.h" />
-    <ClInclude Include="Data.RawEvents.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="details\Event.h" />
+    <ClInclude Include="details\Events.h" />
+    <ClInclude Include="details\EventsEditor.h" />
+    <ClInclude Include="details\Helpers.h" />
     <ClInclude Include="Document.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelCollection.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Properties.h" />
-    <ClInclude Include="Properties.HasProperties.h" />
-    <ClInclude Include="Properties.PropertyMap.h" />
-    <ClInclude Include="Properties.PropertyTemplate.h" />
+    <ClInclude Include="property\Property.h" />
+    <ClInclude Include="property\InheritPropertyMap.h" />
+    <ClInclude Include="property\Map.h" />
+    <ClInclude Include="property\MapConstraint.h" />
     <ClInclude Include="Range.Range.h" />
-    <ClInclude Include="Resources.h" />
-    <ClInclude Include="Resources.Resource.h" />
-    <ClInclude Include="Resources.ResourceGroup.h" />
-    <ClInclude Include="Resources.ResourceHandle.h" />
-    <ClInclude Include="Resources.ResourceType.h" />
+    <ClInclude Include="resource\Resource.h" />
+    <ClInclude Include="resource\Value.h" />
+    <ClInclude Include="resource\Collection.h" />
+    <ClInclude Include="resource\Type.h" />
     <ClInclude Include="Slots.h" />
     <ClInclude Include="Slots.Slot.h" />
     <ClInclude Include="Slots.SlotGroup.h" />
@@ -225,8 +223,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Data.DataModel.cpp" />
-    <ClCompile Include="Data.Detail\Events.cpp" />
-    <ClCompile Include="Data.Detail\EventsEditor.cpp" />
+    <ClCompile Include="details\Events.cpp" />
+    <ClCompile Include="details\EventsEditor.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -236,14 +234,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Properties.cpp" />
-    <ClCompile Include="Properties.PropertyMap.cpp" />
-    <ClCompile Include="Properties.PropertyTemplate.cpp" />
+    <ClCompile Include="property\Property.cpp" />
+    <ClCompile Include="property\Map.cpp" />
+    <ClCompile Include="property\MapConstraint.cpp" />
     <ClCompile Include="Range.Range.cpp" />
-    <ClCompile Include="Resources.cpp" />
-    <ClCompile Include="Resources.Resource.cpp" />
-    <ClCompile Include="Resources.ResourceGroup.cpp" />
-    <ClCompile Include="Resources.ResourceType.cpp" />
+    <ClCompile Include="resource\Resource.cpp" />
+    <ClCompile Include="resource\Value.cpp" />
+    <ClCompile Include="resource\Collection.cpp" />
+    <ClCompile Include="resource\Type.cpp" />
     <ClCompile Include="Slots.Slot.cpp" />
     <ClCompile Include="Slots.SlotGroup.cpp" />
   </ItemGroup>

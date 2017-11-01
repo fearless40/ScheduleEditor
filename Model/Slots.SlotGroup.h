@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Model.h"
+#include "model.h"
 #include "Slots.h"
 #include "Slots.Slot.h"
 #include "Properties.HasProperties.h"
 
-namespace Model::Slots {
+namespace model::Slots {
 	
 	/// A collection of Slot. Items within are strongly ordered
 	// The items in the vector can be passed by value. They are pretty light weight objects, this allows
@@ -14,7 +14,7 @@ namespace Model::Slots {
 	// The ID would need to be synced across the network though. The ID is mostly for find and remove features. 
 	
 	class SlotGroup : public Properties::HasProperties {
-		Model::Index mIndex;
+		model::Index mIndex;
 		using Slots = std::vector<Slot>;
 
 		Slots mSlots;
@@ -23,7 +23,7 @@ namespace Model::Slots {
 		using const_iterator = Slots::const_iterator;
 		using iterator = Slots::iterator;
 
-		Model::Index index() const { return mIndex; }
+		model::Index index() const { return mIndex; }
 
 		std::size_t count() const { return mSlots.size(); }
 
@@ -39,8 +39,8 @@ namespace Model::Slots {
 		void remove(const Slot & slot);
 		void remove(Slots::iterator it);
 		void remove(Slot::SlotID id);
-		const Slot & create(Time::HourMinute start, Time::Duration duration);
-		const Slot & create(std::string_view name, Time::HourMinute start, Time::Duration duration);
+		const Slot & create(time::HourMinute start, time::Duration duration);
+		const Slot & create(std::string_view name, time::HourMinute start, time::Duration duration);
 		
 	};
 }

@@ -4,19 +4,19 @@
 #include "../Data.Event.h"
 #include "EventsEditor.h"
 
-using namespace Model::Data::Detail;
-using Resource = Model::Resources::Resource;
+using namespace model::details;
+using Resource = model::Resources::Resource;
 
-Model::Data::Detail::EventsEditor::EventsEditor(Events & evt) : mEvents(evt)
+EventsEditor::EventsEditor(Events & evt) : mEvents(evt)
 {
 }
 
-Model::Data::Detail::EventsEditor::~EventsEditor()
+EventsEditor::~EventsEditor()
 {
 	// Do nothing for now
 }
 
-EventHandle EventsEditor::new_handle(date::year_month_day day, Model::Time::HourMinute starttime) 
+EventHandle EventsEditor::new_handle(date::year_month_day day, model::time::HourMinute starttime) 
 {
 	EventHandle handle = mEvents.make_unique_handle(day, starttime);
 
@@ -29,7 +29,7 @@ EventHandle EventsEditor::new_handle(date::year_month_day day, Model::Time::Hour
 	return handle;
 }
 
-EventHandle Model::Data::Detail::EventsEditor::create(date::year_month_day day, Model::Time::HourMinute starttime, Model::Time::Duration length, Resource * resource)
+EventHandle EventsEditor::create(date::year_month_day day, model::time::HourMinute starttime, model::time::Duration length, Resource * resource)
 {
 	Event evt;
 	evt.handle = new_handle(day, starttime);
@@ -42,7 +42,7 @@ EventHandle Model::Data::Detail::EventsEditor::create(date::year_month_day day, 
 	return mToBeAdded.back().handle;
 }
 
-EventHandle Model::Data::Detail::EventsEditor::create(date::year_month_day day, Model::Time::HourMinute starttime, Model::Time::Duration length, Resource * resource, Model::Properties::PropertyMapUniquePtr pmap)
+EventHandle EventsEditor::create(date::year_month_day day, model::time::HourMinute starttime, model::time::Duration length, Resource * resource, model::Properties::PropertyMapUniquePtr pmap)
 {
 	Event evt;
 	evt.handle = new_handle(day, starttime);
@@ -56,7 +56,7 @@ EventHandle Model::Data::Detail::EventsEditor::create(date::year_month_day day, 
 	return mToBeAdded.back().handle;
 }
 
-EventHandle Model::Data::Detail::EventsEditor::create(const Model::Data::Event & evt)
+EventHandle EventsEditor::create(const model::Data::Event & evt)
 {
 	Event nevt;
 	nevt.handle = new_handle(evt.date(), evt.start_time());
@@ -65,7 +65,7 @@ EventHandle Model::Data::Detail::EventsEditor::create(const Model::Data::Event &
 	nevt.minutes = evt.duration();
 	
 	if (evt.properties()) {
-		Model::Properties::PropertyMapUniquePtr pmu{ new Model::Properties::PropertyMap(*evt.properties()) };
+		model::Properties::PropertyMapUniquePtr pmu{ new model::Properties::PropertyMap(*evt.properties()) };
 		nevt.properties = std::move(pmu);
 	}
 
@@ -74,13 +74,13 @@ EventHandle Model::Data::Detail::EventsEditor::create(const Model::Data::Event &
 	return mToBeAdded.back().handle;
 }
 
-void Model::Data::Detail::EventsEditor::remove(EventHandle handle)
+void EventsEditor::remove(EventHandle handle)
 {
 	// We don't bother to check if we actually have the event just store the handle for later
 	mToBeDeleted.push_back(handle);
 }
 
-void Model::Data::Detail::EventsEditor::remove(Events::const_iterator start, Events::const_iterator end)
+void EventsEditor::remove(Events::const_iterator start, Events::const_iterator end)
 {
 	auto newsize = std::distance(start, end) + mToBeDeleted.size();
 	mToBeDeleted.reserve(newsize);
@@ -89,50 +89,50 @@ void Model::Data::Detail::EventsEditor::remove(Events::const_iterator start, Eve
 	});
 }
 
-void Model::Data::Detail::EventsEditor::remove_day(date::year_month_day day)
+void EventsEditor::remove_day(date::year_month_day day)
 {
 	auto day_it_start = mEvents.begin_date(day);
 	auto day_it_end = mEvents.end_date(day);
 	remove(day_it_start, day_it_end);
 }
 
-void Model::Data::Detail::EventsEditor::remove_period(date::year_month_day start, date::year_month_day end)
+void EventsEditor::remove_period(date::year_month_day start, date::year_month_day end)
 {
 	auto day_it_start = mEvents.begin_date(start);
 	auto day_it_end = mEvents.end_date(end);
 	remove(day_it_start, day_it_end);
 }
 
-void Model::Data::Detail::EventsEditor::clear()
+void EventsEditor::clear()
 {
 	mClearAll = true;
 }
 
-void Model::Data::Detail::EventsEditor::change(EventHandle oldEvent, Resource * resource)
+void EventsEditor::change(EventHandle oldEvent, Resource * resource)
 {
 	mToBeChangedResource.emplace_back(oldEvent, resource);
 }
 
-void Model::Data::Detail::EventsEditor::change(EventHandle oldEvent, const Model::Properties::PropertyMap &pmap)
+void EventsEditor::change(EventHandle oldEvent, const model::Properties::PropertyMap &pmap)
 {
-	Model::Properties::PropertyMapUniquePtr pmu{ new Model::Properties::PropertyMap(pmap) };
+	model::Properties::PropertyMapUniquePtr pmu{ new model::Properties::PropertyMap(pmap) };
 	mToBeChangedProperties.emplace_back(oldEvent, std::move(pmu));
 }
 
-void Model::Data::Detail::EventsEditor::change(EventHandle oldEvent, Resource * resource, const Model::Properties::PropertyMap & pmap)
+void EventsEditor::change(EventHandle oldEvent, Resource * resource, const model::Properties::PropertyMap & pmap)
 {
 	change(oldEvent, resource);
 	change(oldEvent, pmap);
 }
 
-EventHandle Model::Data::Detail::EventsEditor::move_impl(const Event * mPrior, date::year_month_day day, Model::Time::HourMinute starttime, Model::Time::Duration length) {
+EventHandle EventsEditor::move_impl(const Event * mPrior, date::year_month_day day, model::time::HourMinute starttime, model::time::Duration length) {
 	EventHandle nHandle;
 
 	if (!mPrior)
 		return NullHandle;
 
 	if (mPrior->properties) {
-		Model::Properties::PropertyMapUniquePtr pmu{ new Model::Properties::PropertyMap(*mPrior->properties.get()) };
+		model::Properties::PropertyMapUniquePtr pmu{ new model::Properties::PropertyMap(*mPrior->properties.get()) };
 		nHandle = create(day, starttime, length, mPrior->value, std::move(pmu));
 	}
 	else {
@@ -143,14 +143,14 @@ EventHandle Model::Data::Detail::EventsEditor::move_impl(const Event * mPrior, d
 	return nHandle;
 }
 
-EventHandle Model::Data::Detail::EventsEditor::move(EventHandle oldEvent, date::year_month_day day, Model::Time::HourMinute starttime, Model::Time::Duration length)
+EventHandle EventsEditor::move(EventHandle oldEvent, date::year_month_day day, model::time::HourMinute starttime, model::time::Duration length)
 {
 	auto oldevt = mEvents.find(oldEvent);
 	return move_impl(oldevt, day, starttime, length);
 
 }
 
-EventHandle Model::Data::Detail::EventsEditor::move(EventHandle oldEvent, date::year_month_day day)
+EventHandle EventsEditor::move(EventHandle oldEvent, date::year_month_day day)
 {
 	auto oldevt = mEvents.find(oldEvent);
 	if (!oldevt)
@@ -158,7 +158,7 @@ EventHandle Model::Data::Detail::EventsEditor::move(EventHandle oldEvent, date::
 	return move_impl(oldevt, day, oldevt->start, oldevt->minutes);
 }
 
-EventHandle Model::Data::Detail::EventsEditor::move(EventHandle oldEvent, Model::Time::HourMinute starttime, Model::Time::Duration length)
+EventHandle EventsEditor::move(EventHandle oldEvent, model::time::HourMinute starttime, model::time::Duration length)
 {
 	auto oldevt = mEvents.find(oldEvent);
 	if (!oldevt)
@@ -166,7 +166,7 @@ EventHandle Model::Data::Detail::EventsEditor::move(EventHandle oldEvent, Model:
 	return move_impl(oldevt, oldevt->handle, starttime, length);
 }
 
-void Model::Data::Detail::EventsEditor::commit_changes_only_memory()
+void EventsEditor::commit_changes_only_memory()
 {
 	// The order of operations is very important. 
 	// First do the change operations (as they require reads from the data)

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Model {
+namespace model {
 	using Index = std::string;
 	using IndexConst = std::string_view;
 	
@@ -10,6 +10,6 @@ namespace Model {
 
 	static const Index NullIndex;
 
-
+	class Event;
 
 }
