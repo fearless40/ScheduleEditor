@@ -7,15 +7,15 @@ namespace model::property {
 	
 	
 
-	class MapConstraint {
+	class Schema {
 	public:
 		using PropertyDefinitions = std::vector<Definition>;
 
-		MapConstraint();
-		MapConstraint(const MapConstraint & pt) = default;
-		MapConstraint(MapConstraint && pt) = default;
-		MapConstraint(Index index) : mIndex(index) {}
-		MapConstraint & operator = (const MapConstraint & pt) = default;
+		Schema();
+		Schema(const Schema & pt) = default;
+		Schema(Schema && pt) = default;
+		Schema(Index index) : mIndex(index) {}
+		Schema & operator = (const Schema & pt) = default;
 
 		model::Index index() const { return mIndex; }
 

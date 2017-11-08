@@ -44,11 +44,11 @@ namespace model::resource  {
 		
 
 		/// Set a new PropertyTemplate to the class.
-		void mapconstraint(const model::property::MapConstraint & propt) {
+		void mapconstraint(const model::property::Schema & propt) {
 			mPropTemp = &propt;
 		}
 		
-		const model::property::MapConstraint * mapconstraint() const {
+		const model::property::Schema * mapconstraint() const {
 			return mPropTemp;
 		}
 
@@ -58,7 +58,7 @@ namespace model::resource  {
 		Type();
 		~Type();
 		Type(const model::IndexConst index);
-		Type(const model::IndexConst index, model::property::MapConstraint& pTemplate); 
+		Type(const model::IndexConst index, model::property::Schema& pTemplate); 
 		Type(Type &&) = default;
 		Type & operator = (Type &&) = default;
 
@@ -100,7 +100,7 @@ namespace model::resource  {
 
 		/// Optional holds a pointer to a PropertyTemplate. Allows one to apply a template to each of the sub resource
 		/// included in the group
-		const model::property::MapConstraint * mPropTemp{ nullptr };
+		const model::property::Schema * mPropTemp{ nullptr };
 		
 		ResourceID mNextID{ 1 };
 

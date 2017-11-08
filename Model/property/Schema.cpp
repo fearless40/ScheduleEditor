@@ -4,19 +4,19 @@
 
 #include "model.h"
 #include "Map.h"
-#include "MapConstraint.h"
+#include "Schema.h"
 
 
 
 using namespace  model::property;
 
 
-MapConstraint::MapConstraint() : mIndex(NullIndex)
+Schema::Schema() : mIndex(NullIndex)
 {
 
 }
 
-void MapConstraint::string_add(Key name, model::string defaultvalue, bool mandatory)
+void Schema::string_add(Key name, model::string defaultvalue, bool mandatory)
 {
 	auto f = this->find(name);
 	if (f != mDefs.end())
@@ -30,7 +30,7 @@ void MapConstraint::string_add(Key name, model::string defaultvalue, bool mandat
 	}
 }
 
-void MapConstraint::long_add(Key name, long defaultvalue, long min, long max, bool mandatory)
+void Schema::long_add(Key name, long defaultvalue, long min, long max, bool mandatory)
 {
 	auto f = this->find(name);
 	if ( f != mDefs.end())
@@ -45,7 +45,7 @@ void MapConstraint::long_add(Key name, long defaultvalue, long min, long max, bo
 	}
 }
 
-void MapConstraint::double_add(Key name, double defaultvalue, double min, double max, bool mandatory)
+void Schema::double_add(Key name, double defaultvalue, double min, double max, bool mandatory)
 {
 	auto f = find(name);
 	if ( f != mDefs.end())
@@ -60,7 +60,7 @@ void MapConstraint::double_add(Key name, double defaultvalue, double min, double
 	}
 }
 
-void MapConstraint::bool_add(Key name, bool defaultvalue, bool mandatory)
+void Schema::bool_add(Key name, bool defaultvalue, bool mandatory)
 {
 	auto f = find(name);
 	if (f != mDefs.end())
@@ -73,16 +73,16 @@ void MapConstraint::bool_add(Key name, bool defaultvalue, bool mandatory)
 	}
 }
 
-bool MapConstraint::validate(const Map & map) const
+bool Schema::validate(const Map & map) const
 {
 	return false;
 }
 
-void MapConstraint::make_valid(Map & map) const
+void Schema::make_valid(Map & map) const
 {
 }
 
-MapConstraint::PropertyDefinitions::iterator MapConstraint::find(Key index)
+Schema::PropertyDefinitions::iterator Schema::find(Key index)
 {
 	return std::find_if(mDefs.begin(), mDefs.end(), [&index](auto const & item) { return item.name == index; });
 }

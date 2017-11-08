@@ -18,7 +18,6 @@
   <ItemGroup>
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Data.DataModel.cpp" />
     <ClCompile Include="Range.Range.cpp" />
     <ClCompile Include="Slots.Slot.cpp" />
     <ClCompile Include="Slots.SlotGroup.cpp" />
@@ -34,9 +33,6 @@
     <ClCompile Include="property\Map.cpp">
       <Filter>property</Filter>
     </ClCompile>
-    <ClCompile Include="property\MapConstraint.cpp">
-      <Filter>property</Filter>
-    </ClCompile>
     <ClCompile Include="resource\Value.cpp">
       <Filter>resource</Filter>
     </ClCompile>
@@ -49,12 +45,15 @@
     <ClCompile Include="resource\Collection.cpp">
       <Filter>resource</Filter>
     </ClCompile>
+    <ClCompile Include="property\Schema.cpp">
+      <Filter>property</Filter>
+    </ClCompile>
+    <ClCompile Include="Schedule.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Data.DataModel.h" />
     <ClInclude Include="Range.Range.h" />
     <ClInclude Include="Slots.h" />
     <ClInclude Include="Slots.Slot.h" />
@@ -84,9 +83,6 @@
     <ClInclude Include="property\InheritPropertyMap.h">
       <Filter>property</Filter>
     </ClInclude>
-    <ClInclude Include="property\MapConstraint.h">
-      <Filter>property</Filter>
-    </ClInclude>
     <ClInclude Include="resource\Value.h">
       <Filter>resource</Filter>
     </ClInclude>
@@ -99,5 +95,9 @@
     <ClInclude Include="resource\Collection.h">
       <Filter>resource</Filter>
     </ClInclude>
+    <ClInclude Include="property\Schema.h">
+      <Filter>property</Filter>
+    </ClInclude>
+    <ClInclude Include="Schedule.h" />
   </ItemGroup>
 </Project>

@@ -15,7 +15,7 @@ namespace model::resource {
 	// Kept for uniqueptr
 	Type::Type() {};
 	Type::Type(const model::IndexConst index) : mIndex(index) {};
-	Type::Type(const model::IndexConst index, model::property::MapConstraint & pTemplate) : mIndex(index), mPropTemp(&pTemplate) { }
+	Type::Type(const model::IndexConst index, model::property::Schema & pTemplate) : mIndex(index), mPropTemp(&pTemplate) { }
 	Type::~Type() {};
 
 	Value & Type::create()

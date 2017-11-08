@@ -196,7 +196,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Data.DataModel.h" />
+    <ClInclude Include="Schedule.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="details\Event.h" />
     <ClInclude Include="details\Events.h" />
@@ -209,7 +209,7 @@
     <ClInclude Include="property\Property.h" />
     <ClInclude Include="property\InheritPropertyMap.h" />
     <ClInclude Include="property\Map.h" />
-    <ClInclude Include="property\MapConstraint.h" />
+    <ClInclude Include="property\Schema.h" />
     <ClInclude Include="Range.Range.h" />
     <ClInclude Include="resource\Resource.h" />
     <ClInclude Include="resource\Value.h" />
@@ -222,7 +222,7 @@
     <ClInclude Include="TimeDuration.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Data.DataModel.cpp" />
+    <ClCompile Include="Schedule.cpp" />
     <ClCompile Include="details\Events.cpp" />
     <ClCompile Include="details\EventsEditor.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -236,7 +236,7 @@
     </ClCompile>
     <ClCompile Include="property\Property.cpp" />
     <ClCompile Include="property\Map.cpp" />
-    <ClCompile Include="property\MapConstraint.cpp" />
+    <ClCompile Include="property\Schema.cpp" />
     <ClCompile Include="Range.Range.cpp" />
     <ClCompile Include="resource\Resource.cpp" />
     <ClCompile Include="resource\Value.cpp" />
