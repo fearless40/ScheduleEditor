@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Resources.h"
+#include "resource\Resource.h"
 #include "property\Map.h"
 
 namespace model::resource {

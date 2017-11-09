@@ -1,10 +1,11 @@
 #include "pch.h"
 #include <algorithm>
 
-#include "Event.h"
+#include "property\Map.h"
 #include "EventsEditor.h"
 #include "Events.h"
-#include "../resource/Value.h"
+#include "resource\Value.h"
+#include "Event.h"
 
 using namespace model::event;
 
@@ -197,7 +198,7 @@ void EventsEditor::changes_commit()
 		for (auto it = mToBeChangedProperties.begin(), end = mToBeChangedProperties.end(); it != end; ++it) {
 			auto evt = mEvents.find(it->first);
 			if (evt) {
-				evt->properties = std::move(it->second);
+				evt->properties = std::make_shared<model::property::Map>(it->second);
 			}
 		}
 	}

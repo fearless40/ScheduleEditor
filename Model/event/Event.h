@@ -2,9 +2,11 @@
 
 #include "../TimeDuration.h"
 #include <memory>
+#include "../resource/Resource.h"
+#include "../property/Property.h"
 
 class model::resource::Value;
-class model::property::Map;
+//class model::property::Map;
 
 namespace model::event {
 	
