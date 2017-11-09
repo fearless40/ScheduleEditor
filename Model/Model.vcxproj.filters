@@ -5,14 +5,14 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="details">
-      <UniqueIdentifier>{2abd0090-3f45-4b9f-b10e-0956fea0068d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="property">
       <UniqueIdentifier>{133f4749-b6a5-4893-a95a-d386252e547a}</UniqueIdentifier>
     </Filter>
     <Filter Include="resource">
       <UniqueIdentifier>{964259bf-317e-48a8-b60e-f834beb3f93e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="event">
+      <UniqueIdentifier>{2abd0090-3f45-4b9f-b10e-0956fea0068d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -21,12 +21,6 @@
     <ClCompile Include="Range.Range.cpp" />
     <ClCompile Include="Slots.Slot.cpp" />
     <ClCompile Include="Slots.SlotGroup.cpp" />
-    <ClCompile Include="details\Events.cpp">
-      <Filter>details</Filter>
-    </ClCompile>
-    <ClCompile Include="details\EventsEditor.cpp">
-      <Filter>details</Filter>
-    </ClCompile>
     <ClCompile Include="property\Property.cpp">
       <Filter>property</Filter>
     </ClCompile>
@@ -49,6 +43,15 @@
       <Filter>property</Filter>
     </ClCompile>
     <ClCompile Include="Schedule.cpp" />
+    <ClCompile Include="event\Events.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="event\EventsEditor.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="event\Event.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model.h" />
@@ -61,19 +64,6 @@
     <ClInclude Include="TimeDuration.h" />
     <ClInclude Include="Document.h" />
     <ClInclude Include="ModelCollection.h" />
-    <ClInclude Include="details\Event.h">
-      <Filter>details</Filter>
-    </ClInclude>
-    <ClInclude Include="details\Events.h">
-      <Filter>details</Filter>
-    </ClInclude>
-    <ClInclude Include="details\EventsEditor.h">
-      <Filter>details</Filter>
-    </ClInclude>
-    <ClInclude Include="details\Helpers.h">
-      <Filter>details</Filter>
-    </ClInclude>
-    <ClInclude Include="Event.h" />
     <ClInclude Include="property\Property.h">
       <Filter>property</Filter>
     </ClInclude>
@@ -99,5 +89,17 @@
       <Filter>property</Filter>
     </ClInclude>
     <ClInclude Include="Schedule.h" />
+    <ClInclude Include="event\Event.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="event\Events.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="event\EventsEditor.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="event\Helpers.h">
+      <Filter>event</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

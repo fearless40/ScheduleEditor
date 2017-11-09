@@ -2,7 +2,7 @@
 #include "Event.h"
 
 
-namespace model::details {
+namespace model::event {
 
 	class EventsEditor;
 

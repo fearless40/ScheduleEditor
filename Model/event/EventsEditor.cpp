@@ -1,11 +1,14 @@
 #include "pch.h"
 #include <algorithm>
-#include "../Resources.Resource.h"
-#include "../Data.Event.h"
-#include "EventsEditor.h"
 
-using namespace model::details;
-using Resource = model::Resources::Resource;
+#include "Event.h"
+#include "EventsEditor.h"
+#include "Events.h"
+#include "../resource/Value.h"
+
+using namespace model::event;
+
+using Resource = model::resource::Value;
 
 EventsEditor::EventsEditor(Events & evt) : mEvents(evt)
 {
@@ -13,7 +16,9 @@ EventsEditor::EventsEditor(Events & evt) : mEvents(evt)
 
 EventsEditor::~EventsEditor()
 {
-	// Do nothing for now
+	if (AutoCommit) {
+		changes_commit();
+	}
 }
 
 EventHandle EventsEditor::new_handle(date::year_month_day day, model::time::HourMinute starttime) 
@@ -29,7 +34,7 @@ EventHandle EventsEditor::new_handle(date::year_month_day day, model::time::Hour
 	return handle;
 }
 
-EventHandle EventsEditor::create(date::year_month_day day, model::time::HourMinute starttime, model::time::Duration length, Resource * resource)
+EventHandle EventsEditor::create(date::year_month_day day, model::time::HourMinute starttime, model::time::Duration length, const Resource * resource)
 {
 	Event evt;
 	evt.handle = new_handle(day, starttime);
@@ -42,35 +47,41 @@ EventHandle EventsEditor::create(date::year_month_day day, model::time::HourMinu
 	return mToBeAdded.back().handle;
 }
 
-EventHandle EventsEditor::create(date::year_month_day day, model::time::HourMinute starttime, model::time::Duration length, Resource * resource, model::Properties::PropertyMapUniquePtr pmap)
+EventHandle EventsEditor::create(date::year_month_day day, model::time::HourMinute starttime, model::time::Duration length, const Resource * resource, const model::property::Map & pmap)
 {
 	Event evt;
 	evt.handle = new_handle(day, starttime);
 	evt.start = starttime;
 	evt.minutes = length;
 	evt.value = resource;
-	evt.properties = std::move(pmap);
+	evt.properties = std::make_shared<model::property::Map>(pmap);
 
 	mToBeAdded.push_back(std::move(evt));
 
 	return mToBeAdded.back().handle;
 }
 
-EventHandle EventsEditor::create(const model::Data::Event & evt)
+EventHandle model::event::EventsEditor::create(date::year_month_day day, model::time::HourMinute starttime, model::time::Duration length, const model::resource::Value * resource, std::shared_ptr<const model::property::Map> pmap)
 {
-	Event nevt;
-	nevt.handle = new_handle(evt.date(), evt.start_time());
-	nevt.start = evt.start_time();
-	nevt.value = evt.resource();
-	nevt.minutes = evt.duration();
-	
-	if (evt.properties()) {
-		model::Properties::PropertyMapUniquePtr pmu{ new model::Properties::PropertyMap(*evt.properties()) };
-		nevt.properties = std::move(pmu);
-	}
+	Event evt;
+	evt.handle = new_handle(day, starttime);
+	evt.start = starttime;
+	evt.minutes = length;
+	evt.value = resource;
+	evt.properties = pmap;
 
+	mToBeAdded.push_back(std::move(evt));
+
+	return mToBeAdded.back().handle;
+}
+
+
+
+EventHandle EventsEditor::create(const Event & evt)
+{
+	Event nevt{ evt };
+	nevt.handle = new_handle(evt.date(), evt.start);
 	mToBeAdded.push_back(std::move(nevt));
-
 	return mToBeAdded.back().handle;
 }
 
@@ -108,21 +119,20 @@ void EventsEditor::clear()
 	mClearAll = true;
 }
 
-void EventsEditor::change(EventHandle oldEvent, Resource * resource)
+void EventsEditor::change(EventHandle oldEvent, const Resource * resource)
 {
 	mToBeChangedResource.emplace_back(oldEvent, resource);
 }
 
-void EventsEditor::change(EventHandle oldEvent, const model::Properties::PropertyMap &pmap)
+void EventsEditor::change(EventHandle oldEvent, model::property::Map pmap)
 {
-	model::Properties::PropertyMapUniquePtr pmu{ new model::Properties::PropertyMap(pmap) };
-	mToBeChangedProperties.emplace_back(oldEvent, std::move(pmu));
+	mToBeChangedProperties.emplace_back(oldEvent, std::move(pmap));
 }
 
-void EventsEditor::change(EventHandle oldEvent, Resource * resource, const model::Properties::PropertyMap & pmap)
+void EventsEditor::change(EventHandle oldEvent, const Resource * resource, model::property::Map pmap)
 {
 	change(oldEvent, resource);
-	change(oldEvent, pmap);
+	change(oldEvent, std::move(pmap));
 }
 
 EventHandle EventsEditor::move_impl(const Event * mPrior, date::year_month_day day, model::time::HourMinute starttime, model::time::Duration length) {
@@ -132,8 +142,7 @@ EventHandle EventsEditor::move_impl(const Event * mPrior, date::year_month_day d
 		return NullHandle;
 
 	if (mPrior->properties) {
-		model::Properties::PropertyMapUniquePtr pmu{ new model::Properties::PropertyMap(*mPrior->properties.get()) };
-		nHandle = create(day, starttime, length, mPrior->value, std::move(pmu));
+		nHandle = create(day, starttime, length, mPrior->value, mPrior->properties);
 	}
 	else {
 		nHandle = create(day, starttime, length, mPrior->value);
@@ -142,6 +151,8 @@ EventHandle EventsEditor::move_impl(const Event * mPrior, date::year_month_day d
 	remove(mPrior->handle);
 	return nHandle;
 }
+
+
 
 EventHandle EventsEditor::move(EventHandle oldEvent, date::year_month_day day, model::time::HourMinute starttime, model::time::Duration length)
 {
@@ -166,7 +177,7 @@ EventHandle EventsEditor::move(EventHandle oldEvent, model::time::HourMinute sta
 	return move_impl(oldevt, oldevt->handle, starttime, length);
 }
 
-void EventsEditor::commit_changes_only_memory()
+void EventsEditor::changes_commit()
 {
 	// The order of operations is very important. 
 	// First do the change operations (as they require reads from the data)

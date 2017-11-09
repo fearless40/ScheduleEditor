@@ -47,17 +47,17 @@ namespace model::property {
 		// Needed for efficent construction of Resources.
 		// Otherwise not used
 		template <typename ValueType>
-		PropertyMap(KeyConst key, ValueType value) {
+		Map(KeyConst key, ValueType value) {
 			mMap.push_back({ Key{key}, Property{value} });
 		}
 
-		PropertyMap() = default;
-		PropertyMap(const PropertyMap & map) = default;
-		PropertyMap(PropertyMap && map) = default;
-		~PropertyMap() = default;
+		Map() = default;
+		Map(const Map & map) = default;
+		Map(Map && map) = default;
+		~Map() = default;
 		
-		PropertyMap & operator = (const PropertyMap & map) = default;
-		PropertyMap & operator = (PropertyMap && map) = default;
+		Map & operator = (const Map & map) = default;
+		Map & operator = (Map && map) = default;
 
 		auto begin() const noexcept { return mMap.cbegin(); }
 		auto end() const noexcept { return mMap.cend(); }
@@ -120,6 +120,5 @@ namespace model::property {
 
 	};
 
-	using PropertyMapUniquePtr = std::unique_ptr<PropertyMap>;
 
 }

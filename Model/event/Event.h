@@ -1,11 +1,12 @@
 #pragma once
 
 #include "../TimeDuration.h"
+#include <memory>
 
-class model::Resources::Resource;
-class model::Properties::PropertyMap;
+class model::resource::Value;
+class model::property::Map;
 
-namespace model::details {
+namespace model::event {
 	
 
 	union EventHandle {
@@ -52,16 +53,18 @@ namespace model::details {
 	}
 
 	struct Event {
-		EventHandle handle;
+		EventHandle handle{ 0 };
 		model::time::HourMinute start;
 		model::time::Duration minutes;
-		model::Resources::Resource * value; // non owner
-		model::Properties::PropertyMapUniquePtr properties; //owner
+		const model::resource::Value * value{ nullptr };
+		std::shared_ptr<const model::property::Map> properties{ nullptr };
 
-	/*	operator Model::Data::Event () const {
-			return Model::Data::Event(handle, start, minutes, value, properties.get());
-		}*/
+		date::year_month_day date() const noexcept { return handle; }
+
+		model::property::Property default_value() const;
 	};
+
+	
 
 	inline bool operator < (const Event & e1, const EventHandle & h1) {
 		return e1.handle < h1;
@@ -102,9 +105,9 @@ namespace model::details {
 }
 
 namespace std {
-	template<> struct hash<model::details::EventHandle>
+	template<> struct hash<model::event::EventHandle>
 	{
-		typedef model::details::EventHandle argument_type;
+		typedef model::event::EventHandle argument_type;
 		typedef std::size_t result_type;
 		result_type operator()(argument_type const& s) const
 		{

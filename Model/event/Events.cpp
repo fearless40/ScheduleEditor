@@ -2,17 +2,15 @@
 #include <memory>
 #include <algorithm>
 #include <numeric>
-#include "../Resources.Resource.h"
-#include "../Properties.PropertyMap.h"
-#include "../Data.Event.h"
-#include "EventsEditor.h"
+//#include "../resource/Value.h"
+//#include "../property/Map.h"
 
 #include "Event.h"
 #include "Events.h"
-#include "../Data.Event.h"
+#include "EventsEditor.h"
 
 
-using namespace model::details;
+using namespace model::event;
 
 void Events::sort()
 {
