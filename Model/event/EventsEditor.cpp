@@ -178,6 +178,49 @@ EventHandle EventsEditor::move(EventHandle oldEvent, model::time::HourMinute sta
 	return move_impl(oldevt, oldevt->handle, starttime, length);
 }
 
+void EventsEditor::changes_change(Events & events) {
+	for (auto it = mToBeChangedResource.begin(), end = mToBeChangedResource.end(); it != end; ++it) {
+		auto evt = events.find(it->first);
+		if (evt) {
+			evt->value = it->second;
+		}
+	}
+
+	for (auto it = mToBeChangedProperties.begin(), end = mToBeChangedProperties.end(); it != end; ++it) {
+		auto evt = events.find(it->first);
+		if (evt) {
+			evt->properties = std::make_shared<model::property::Map>(it->second);
+		}
+	}
+
+}
+
+void EventsEditor::changes_remove(Events & events) {
+	if (mClearAll) {
+		events.get().clear();
+	}
+	else {
+		std::sort(mToBeDeleted.begin(), mToBeDeleted.end());
+		auto itRemover = mToBeDeleted.begin();
+		auto itEnd = mToBeDeleted.end();
+
+		auto eraser = std::remove_if(events.begin(), events.end(), [&itRemover, &itEnd](auto & x) -> bool {
+			while ((itRemover != itEnd) && (*itRemover < x)) ++itRemover;
+			return (itRemover != itEnd) && (*itRemover == x);
+		});
+
+		events.get().erase(eraser, events.end());
+	}
+}
+void EventsEditor::changes_create_move(Events & events) {
+	std::move(mToBeAdded.begin(), mToBeAdded.end(), std::back_inserter(events.get()));
+}
+
+void EventsEditor::changes_create_copy(Events & events) {
+	std::copy(mToBeAdded.begin(), mToBeAdded.end(), std::back_inserter(events.get()));
+}
+
+
 void EventsEditor::changes_commit()
 {
 	// The order of operations is very important. 
@@ -186,48 +229,51 @@ void EventsEditor::changes_commit()
 	// Third do the creation operations (no reads required)
 	// Then re-sort the data
 	mEvents.lock_write();
-	{ // Change block
-		
-		for (auto it = mToBeChangedResource.begin(), end = mToBeChangedResource.end(); it != end; ++it) {
-			auto evt = mEvents.find(it->first);
-			if (evt) {
-				evt->value = it->second;
-			}
-		}
+	// Change block
+	changes_change(mEvents);
 
-		for (auto it = mToBeChangedProperties.begin(), end = mToBeChangedProperties.end(); it != end; ++it) {
-			auto evt = mEvents.find(it->first);
-			if (evt) {
-				evt->properties = std::make_shared<model::property::Map>(it->second);
-			}
-		}
-	}
-
-	{ // Remove Block
-		if (mClearAll) {
-			mEvents.get().clear();
-		}
-		else {
-			std::sort(mToBeDeleted.begin(), mToBeDeleted.end());
-			auto itRemover = mToBeDeleted.begin();
-			auto itEnd = mToBeDeleted.end();
-
-			auto eraser = std::remove_if(mEvents.begin(), mEvents.end(), [&itRemover, &itEnd](auto & x) -> bool {
-				while ((itRemover != itEnd) && (*itRemover < x)) ++itRemover;
-				return (itRemover != itEnd) && (*itRemover == x);
-			});
-
-			mEvents.get().erase(eraser, mEvents.end());
-		}
-	}
+	// Remove Block
+	changes_remove(mEvents);
 	
-	
-	{ // Creation block
-		std::move(mToBeAdded.begin(), mToBeAdded.end(), std::back_inserter(mEvents.get()));
-	}
+	// Creation block
+	changes_create_move(mEvents);
 	
 	mClearAll = false;
 
 	mEvents.unlock_write(true);
-	
+}
+
+
+EventsEditor::ChangeHistory EventsEditor::changes_make_history()
+{
+	// The order of operations is very important. 
+	// First do the change operations (as they require reads from the data)
+	// Second do the remove operations (no reads required)
+	// Third do the creation operations (no reads required)
+	// Then re-sort the data
+	mEvents.lock_read();
+	Events events{ mEvents };
+	mEvents.unlock_read();
+
+	// Change block
+	changes_change(events);
+
+	// Remove Block
+	changes_remove(events);
+
+	// Creation block
+	changes_create_copy(events);
+
+	bool tempClear = mClearAll;
+
+	mClearAll = false;
+
+	events.sort();
+
+	return { std::move(events),std::move(EventDiff{
+		tempClear,
+		std::move(mToBeDeleted),
+		std::move(mToBeAdded),
+		std::move(mToBeChangedResource),
+		std::move(mToBeChangedProperties)}) };
 }

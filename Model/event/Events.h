@@ -12,7 +12,7 @@ namespace model::event {
 		//Read lock
 		//Write lock
 
-		void sort();
+		
 
 	public:
 		using iterator = std::vector<Event>::iterator;
@@ -63,5 +63,7 @@ namespace model::event {
 		
 		// Use the view classes to find stuff
 		EventsEditor edit() const; 
+
+		void sort();
 	};
 }

@@ -3,6 +3,7 @@
 
 #include "Event.h"
 #include "Events.h"
+#include "EventDiff.h"
 #include <unordered_set>
 #include "../property/Map.h"
 
@@ -30,8 +31,18 @@ namespace model::event {
 		EventHandle new_handle(date::year_month_day day, model::time::HourMinute starttime);
 		EventHandle move_impl(const Event * mPrior, date::year_month_day day, model::time::HourMinute starttime, model::time::Duration length);
 
+		void changes_change(Events & );
+		void changes_remove(Events & );
+		void changes_create_move(Events & );
+		void changes_create_copy(Events &);
+
 
 	public:
+
+		struct ChangeHistory {
+			Events events;
+			EventDiff diff;
+		};
 
 		bool AutoCommit{ true };
 
@@ -87,6 +98,7 @@ namespace model::event {
 		EventHandle move(EventHandle oldEvent, model::time::HourMinute starttime, model::time::Duration length);
 
 		void changes_commit();
+		ChangeHistory changes_make_history();
 		void changes_discard();
 	};
 
