@@ -223,6 +223,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="event\Event.cpp" />
+    <ClCompile Include="event\EventDiff.cpp" />
     <ClCompile Include="event\Events.cpp" />
     <ClCompile Include="event\EventsEditor.cpp" />
     <ClCompile Include="Schedule.cpp" />

@@ -11,9 +11,14 @@ class model::event::Events;
 namespace model {
 	
 	class Schedule {
+	public:
+		using HistoryVector = std::vector<model::event::EventDiff>;
+	
+	private:
+
 		model::event::Events mBeginHistory;
 		model::event::Events mCurrent;
-		std::vector<model::event::EventDiff> mHistory;
+		HistoryVector mHistory;
 
 		model::Index mIndex;
 		model::string mUserName; 
@@ -50,5 +55,9 @@ namespace model {
 		History history() {
 			return { mHistory, mBeginHistory };
 		}
+
+		HistoryVector history_rollback(int depth);
+		HistoryVector history_rollback(HistoryVector::const_iterator pos);
+		void history_redo(HistoryVector && vec);
 	};
 }

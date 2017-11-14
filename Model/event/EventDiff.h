@@ -1,3 +1,5 @@
+#pragma once
+
 #include <variant>
 #include <memory>
 #include <vector>
@@ -39,7 +41,7 @@ namespace model::event {
 			mToBeChangedResource(mtbcr),
 			mToBeChangedProperties(mtbcp) {};
 	
-		static const Events inflate(const EventDiff & diff);
+		static const Events inflate(Events start, std::vector<EventDiff>::const_iterator hxBegin, std::vector<EventDiff>::const_iterator hxEnd);
 	};
 
 

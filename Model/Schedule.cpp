@@ -8,6 +8,7 @@
 
 using namespace model;
 
+
 event::EventsEditor Schedule::edit() const
 {
 	return mCurrent.edit();
@@ -29,4 +30,26 @@ void model::Schedule::history_clear()
 {
 	mBeginHistory = mCurrent;
 	mHistory.clear();
+}
+
+Schedule::HistoryVector Schedule::history_rollback(int depth)
+{
+	if (depth == 0) return {};
+	
+	mCurrent = event::EventDiff::inflate(mBeginHistory, mHistory.begin(), mHistory.end() - depth);
+	
+	HistoryVector hv(mHistory.end() - depth, mHistory.end());
+	mHistory.erase(mHistory.end() - depth, mHistory.end());
+	return hv;
+}
+
+Schedule::HistoryVector Schedule::history_rollback(HistoryVector::const_iterator pos)
+{
+	return history_rollback(std::distance(pos, mHistory.cend()));
+}
+
+void model::Schedule::history_redo(HistoryVector && vec)
+{
+	std::move(vec.begin(), vec.end(), std::back_inserter(mHistory));
+	mCurrent = event::EventDiff::inflate(mBeginHistory, mHistory.begin(), mHistory.end());
 }

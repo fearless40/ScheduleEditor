@@ -52,6 +52,7 @@
       <Filter>event</Filter>
     </ClCompile>
     <ClCompile Include="Range.cpp" />
+    <ClCompile Include="event\EventDiff.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model.h" />
