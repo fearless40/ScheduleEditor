@@ -25,7 +25,7 @@ namespace model::event {
 		const_iterator begin_date(date::year_month_day day) const;
 		// Works like a standard iterator (1 beyond the requested value)
 		const_iterator end_date(date::year_month_day day) const;
-
+		const std::vector<Event> & get() const noexcept { return mData; }
 		
 
 
@@ -36,14 +36,14 @@ namespace model::event {
 		// Works like a standard iterator (1 beyond the requested value)
 		iterator end_date(date::year_month_day day);
 
-		std::vector<Event> & get() { return mData; }
+		std::vector<Event> & get() noexcept { return mData; }
 
 
 
 		//Information functions
 		date::year_month_day date_start() const { return mData.front().handle; }
 		date::year_month_day date_last() const { return mData.back().handle; }
-		std::size_t size() const { return mData.size(); }
+		std::size_t size() const noexcept { return mData.size(); }
 		int count_days() const; 
 
 		// Iteration

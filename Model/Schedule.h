@@ -6,14 +6,14 @@
 #include "Range.h"
 #include "event\EventDiff.h"
 
-class model::details::Events;
+class model::event::Events;
 
 namespace model {
 	
 	class Schedule {
-		
-		std::unique_ptr< model::event::EventDiff > mHistory;
-		std::unique_ptr<model::event::Events> mCurrent;
+		model::event::Events mBeginHistory;
+		model::event::Events mCurrent;
+		std::vector<model::event::EventDiff> mHistory;
 
 		model::Index mIndex;
 		model::string mUserName; 
@@ -22,11 +22,18 @@ namespace model {
 		bool mHasUnloadedData;
 		
 	public:
-	
+		struct History {
+			const std::vector<model::event::EventDiff> & history;
+			const model::event::Events & initial;
+			auto begin() { return history.rbegin(); }
+			auto end() { return history.rend(); }
+		};
+
+
 		const model::IndexConst getIndex() const noexcept { return model::IndexConst{ mIndex }; }
 		const model::string_view getUserName() const noexcept { return model::string_view{ mUserName }; }
 
-		const model::event::Events & current() const noexcept;
+		const model::event::Events & current() const { return mCurrent; }
 
 		Range all() const noexcept; 
 		Range month(date::year year, date::month month) const noexcept;
@@ -34,21 +41,14 @@ namespace model {
 		Range between(date::year_month_day start, date::year_month_day end) const noexcept;
 		Range day(date::year_month_day day) const noexcept;
 
-		void history_add(std::unique_ptr<model::event::Events> currentEvents, std::unique_ptr<model::event::EventDiff> diff) {
-			if (mHistory) {
-				diff->prior_set(std::move(mHistory));
-			} 
-			else {
-				diff->prior_set(std::move(mCurrent));
-			}
-			mHistory = std::move(diff);
-			mCurrent = std::move(currentEvents);
-		}
+		model::event::EventsEditor edit() const;
 
-		void history_clear() {
-			if (mHistory) {
-				mHistory.release();
-			}
+		void changes_commit(model::event::EventsEditor && editor);
+		void changes_commit_no_history(model::event::EventsEditor && editor);
+
+		void history_clear();
+		History history() {
+			return { mHistory, mBeginHistory };
 		}
 	};
 }

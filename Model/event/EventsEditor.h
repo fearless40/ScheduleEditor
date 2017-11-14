@@ -31,13 +31,17 @@ namespace model::event {
 		EventHandle new_handle(date::year_month_day day, model::time::HourMinute starttime);
 		EventHandle move_impl(const Event * mPrior, date::year_month_day day, model::time::HourMinute starttime, model::time::Duration length);
 
-		void changes_change(Events & );
-		void changes_remove(Events & );
-		void changes_create_move(Events & );
-		void changes_create_copy(Events &);
-
+		
 
 	public:
+		// Actual modifying operations to Events
+		static void apply_value(Events &, const std::vector<std::pair<EventHandle, const model::resource::Value *>> & );
+		static void apply_value(Events &, const std::vector<std::pair<EventHandle, model::property::Map >> &);
+		static void apply_remove(Events &, const std::vector<EventHandle> &);
+		static void apply_clear(Events &);
+		static void apply_create(Events &, const std::vector<Event> &);
+		static void apply_create(Events &, std::vector<Event> &&);
+
 
 		struct ChangeHistory {
 			Events events;

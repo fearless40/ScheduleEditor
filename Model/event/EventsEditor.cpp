@@ -178,48 +178,6 @@ EventHandle EventsEditor::move(EventHandle oldEvent, model::time::HourMinute sta
 	return move_impl(oldevt, oldevt->handle, starttime, length);
 }
 
-void EventsEditor::changes_change(Events & events) {
-	for (auto it = mToBeChangedResource.begin(), end = mToBeChangedResource.end(); it != end; ++it) {
-		auto evt = events.find(it->first);
-		if (evt) {
-			evt->value = it->second;
-		}
-	}
-
-	for (auto it = mToBeChangedProperties.begin(), end = mToBeChangedProperties.end(); it != end; ++it) {
-		auto evt = events.find(it->first);
-		if (evt) {
-			evt->properties = std::make_shared<model::property::Map>(it->second);
-		}
-	}
-
-}
-
-void EventsEditor::changes_remove(Events & events) {
-	if (mClearAll) {
-		events.get().clear();
-	}
-	else {
-		std::sort(mToBeDeleted.begin(), mToBeDeleted.end());
-		auto itRemover = mToBeDeleted.begin();
-		auto itEnd = mToBeDeleted.end();
-
-		auto eraser = std::remove_if(events.begin(), events.end(), [&itRemover, &itEnd](auto & x) -> bool {
-			while ((itRemover != itEnd) && (*itRemover < x)) ++itRemover;
-			return (itRemover != itEnd) && (*itRemover == x);
-		});
-
-		events.get().erase(eraser, events.end());
-	}
-}
-void EventsEditor::changes_create_move(Events & events) {
-	std::move(mToBeAdded.begin(), mToBeAdded.end(), std::back_inserter(events.get()));
-}
-
-void EventsEditor::changes_create_copy(Events & events) {
-	std::copy(mToBeAdded.begin(), mToBeAdded.end(), std::back_inserter(events.get()));
-}
-
 
 void EventsEditor::changes_commit()
 {
@@ -230,13 +188,19 @@ void EventsEditor::changes_commit()
 	// Then re-sort the data
 	mEvents.lock_write();
 	// Change block
-	changes_change(mEvents);
+	apply_value(mEvents, mToBeChangedResource);
+	apply_value(mEvents, mToBeChangedProperties);
 
 	// Remove Block
-	changes_remove(mEvents);
+	if (mClearAll) {
+		apply_clear(mEvents);
+	}
+	else {
+		apply_remove(mEvents, mToBeDeleted);
+	}
 	
 	// Creation block
-	changes_create_move(mEvents);
+	apply_create(mEvents, std::move(mToBeAdded));
 	
 	mClearAll = false;
 
@@ -256,13 +220,19 @@ EventsEditor::ChangeHistory EventsEditor::changes_make_history()
 	mEvents.unlock_read();
 
 	// Change block
-	changes_change(events);
+	apply_value(events, mToBeChangedResource);
+	apply_value(events, mToBeChangedProperties);
 
 	// Remove Block
-	changes_remove(events);
+	if (mClearAll) {
+		apply_clear(events);
+	}
+	else {
+		apply_remove(events, mToBeDeleted);
+	}
 
 	// Creation block
-	changes_create_copy(events);
+	apply_create(events, mToBeAdded);
 
 	bool tempClear = mClearAll;
 
@@ -276,4 +246,55 @@ EventsEditor::ChangeHistory EventsEditor::changes_make_history()
 		std::move(mToBeAdded),
 		std::move(mToBeChangedResource),
 		std::move(mToBeChangedProperties)}) };
+}
+
+void EventsEditor::changes_discard()
+{
+	mToBeAdded.clear();
+	mToBeChangedProperties.clear();
+	mToBeDeleted.clear();
+	mToBeChangedResource.clear();
+	mClearAll = false;
+	mExistingHandles.clear();
+}
+
+void EventsEditor::apply_value(Events & events, const std::vector<std::pair<EventHandle, const model::resource::Value *>> & from) {
+	for (auto & it : from) {
+		auto evt = events.find(it.first);
+		if (evt) {
+			evt->value = it.second;
+		}
+	}
+}
+void EventsEditor::apply_value(Events & events, const std::vector<std::pair<EventHandle, model::property::Map >> & from) {
+	for (auto & it : from) {
+		auto evt = events.find(it.first);
+		if (evt) {
+			evt->properties = std::make_shared<model::property::Map>(it.second);
+		}
+	}
+}
+
+void EventsEditor::apply_clear(Events & events) {
+	events.get().clear();
+}
+
+void EventsEditor::apply_remove(Events & events, const std::vector<EventHandle> & from) {
+	std::sort(from.begin(), from.end());
+	auto itRemover = from.begin();
+	auto itEnd = from.end();
+
+	auto eraser = std::remove_if(events.begin(), events.end(), [&itRemover, &itEnd](auto & x) -> bool {
+		while ((itRemover != itEnd) && (*itRemover < x)) ++itRemover;
+		return (itRemover != itEnd) && (*itRemover == x);
+	});
+
+	events.get().erase(eraser, events.end());
+}
+
+void EventsEditor::apply_create(Events & events, const std::vector<Event> & from) {
+	std::copy(from.begin(), from.end(), std::back_inserter(events.get()));
+}
+void EventsEditor::apply_create(Events & events, std::vector<Event> && from) {
+	std::move(from.begin(), from.end(), std::back_inserter(events.get()));
 }

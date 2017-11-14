@@ -14,29 +14,27 @@ namespace model {
 		model::event::EventHandle mStart{ 0 };
 		model::event::EventHandle mEnd{ 0 };
 		//const model::event::Events & mEvents;
-		const model::Schedule & mmodel;
+		model::Schedule & mSchedule;
 
 	public:
 
 		using const_iterator =  model::event::Events::const_iterator;
 
-		//const model::Data::Datamodel & model() const noexcept { return mmodel; }
+		model::Schedule & schedule() noexcept { return mSchedule; }
 
 		bool empty() const noexcept { return mStart.value == 0 || mEnd.value == 0; }
 
-		date::year_month_day date_start() const noexcept;
-		date::year_month_day date_end() const noexcept;
+		date::year_month_day date_start() const noexcept { return begin()->date(); }
+		date::year_month_day date_end() const noexcept { return (end() - 1)->date(); }
 
-		std::size_t count() const;
+		std::size_t count() const { return std::distance(begin(), end()); }
 
 		const_iterator begin() const {
-			return ;
+			return mSchedule.current().find_iterator(mStart);
 		}
+
 		const_iterator end() const {
-			return;
+			return mSchedule.current().find_iterator(mEnd);
 		}
-
-
-
 	};
 }
