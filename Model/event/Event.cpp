@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "../Model.h"
 #include "Event.h"
 #include "../resource/Value.h"
@@ -19,4 +19,5 @@ model::property::Property Event::default_value() const
 			}
 		}
 	}
+	return {0L};
 }

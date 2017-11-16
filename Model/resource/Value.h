@@ -1,7 +1,7 @@
 #pragma once
 
-#include "resource\Resource.h"
-#include "property\Map.h"
+#include "../resource\Resource.h"
+#include "../property\Map.h"
 
 namespace model::resource {
 	
@@ -12,15 +12,15 @@ namespace model::resource {
 		bool mIsDeleted{ false };
 		ResourceID mId{ 0 };
 						
-		property::Property & default_value() noexcept {
+		model::property::Property & default_value() noexcept {
 			return mMap[0].value;
 		}
 
-		const property::Property & default_value() const noexcept {
+		const model::property::Property & default_value() const noexcept {
 			return mMap[0].value;
 		}
 
-		static constexpr property::Key::value_type * default_key = "__default" ;
+		static constexpr model::property::Key::value_type * default_key = "__default" ;
 		static constexpr long				    default_value_value = 0;
 		
 	public:
@@ -55,6 +55,10 @@ namespace model::resource {
 		}
 		
 		auto & value() noexcept {
+			return default_value();
+		}
+
+		auto & value() const noexcept {
 			return default_value();
 		}
 

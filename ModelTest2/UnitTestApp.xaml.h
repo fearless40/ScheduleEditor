@@ -7,7 +7,7 @@
 
 #include "UnitTestApp.g.h"
 
-namespace modelTest
+namespace ModelTest2
 {
 	/// <summary>
 	/// Provides application-specific behavior to supplement the default Application class.
@@ -15,13 +15,13 @@ namespace modelTest
 	ref class App sealed
 	{
 	protected:
-		virtual void OnLaunched(Windows::Applicationmodel::Activation::LaunchActivatedEventArgs^ e) override;
+		virtual void OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEventArgs^ e) override;
 
 	internal:
-		App(); 
+		App();
 
 	private:
-		void OnSuspending(Platform::Object^ sender, Windows::Applicationmodel::SuspendingEventArgs^ e);
+		void OnSuspending(Platform::Object^ sender, Windows::ApplicationModel::SuspendingEventArgs^ e);
 		void OnNavigationFailed(Platform::Object ^sender, Windows::UI::Xaml::Navigation::NavigationFailedEventArgs ^e);
 	};
 }

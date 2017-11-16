@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "Property.h"
-#include "model.h"
+#include "../model.h"
 
 namespace model::property {
 	class Map {

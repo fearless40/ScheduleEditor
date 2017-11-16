@@ -6,7 +6,7 @@
 
 #include "Event.h"
 #include "Events.h"
-#include "property\Map.h"
+#include "..\property\Map.h"
 
 namespace model::event {
 	
@@ -21,10 +21,10 @@ namespace model::event {
 
 		struct Summary {
 			bool ClearAll{ false };
-			int Removed{ 0 };
-			int Added{ 0 };
-			int ValueChanged{ 0 };
-			int PropertiesChanged{ 0 };
+			std::size_t Removed{ 0 };
+			std::size_t Added{ 0 };
+			std::size_t ValueChanged{ 0 };
+			std::size_t PropertiesChanged{ 0 };
 		};
 
 	

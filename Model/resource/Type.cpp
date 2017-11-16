@@ -3,7 +3,7 @@
 #include <algorithm>
 
 #include "model.h"
-#include "property\MapConstraint.h"
+#include "property\Schema.h"
 #include "Resource.h"
 #include "Value.h"
 #include "Type.h"

@@ -1,7 +1,8 @@
-#include "../pch.h"
+#include "pch.h"
 #include <memory>
 #include <algorithm>
 #include <numeric>
+#include "TimeDuration.h"
 //#include "../resource/Value.h"
 //#include "../property/Map.h"
 
@@ -119,7 +120,7 @@ void Events::unlock_write(bool dataChanged)
 		sort();
 }
 
-EventHandle Events::make_unique_handle(date::year_month_day day, time::HourMinute start) const
+EventHandle Events::make_unique_handle(date::year_month_day day, model::time::HourMinute start) const
 {
 	EventHandle ret = make_handle(day, start);
 	while (has(ret) == true) {

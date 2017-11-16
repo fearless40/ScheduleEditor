@@ -9,7 +9,8 @@
 class model::event::Events;
 
 namespace model {
-	
+	class Range;
+
 	class Schedule {
 	public:
 		using HistoryVector = std::vector<model::event::EventDiff>;

@@ -1,6 +1,6 @@
 #include "pch.h"
 #include <algorithm>
-
+#include <cassert>
 #include "property\Map.h"
 #include "EventsEditor.h"
 #include "Events.h"
@@ -196,6 +196,7 @@ void EventsEditor::changes_commit()
 		apply_clear(mEvents);
 	}
 	else {
+		std::sort(mToBeDeleted.begin(), mToBeDeleted.end());
 		apply_remove(mEvents, mToBeDeleted);
 	}
 	
@@ -228,6 +229,7 @@ EventsEditor::ChangeHistory EventsEditor::changes_make_history()
 		apply_clear(events);
 	}
 	else {
+		std::sort(mToBeDeleted.begin(), mToBeDeleted.end());
 		apply_remove(events, mToBeDeleted);
 	}
 
@@ -280,7 +282,7 @@ void EventsEditor::apply_clear(Events & events) {
 }
 
 void EventsEditor::apply_remove(Events & events, const std::vector<EventHandle> & from) {
-	std::sort(from.begin(), from.end());
+	assert((std::is_sorted(from.begin(), from.end())));
 	auto itRemover = from.begin();
 	auto itEnd = from.end();
 

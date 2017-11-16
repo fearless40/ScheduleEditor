@@ -13,14 +13,16 @@ namespace model {
 	class Range {
 		model::event::EventHandle mStart{ 0 };
 		model::event::EventHandle mEnd{ 0 };
-		//const model::event::Events & mEvents;
-		model::Schedule & mSchedule;
+		const model::Schedule & mSchedule;
 
 	public:
+		Range(model::event::EventHandle start, model::event::EventHandle end, const model::Schedule & schedule) :
+			mStart{ start }, mEnd(end), mSchedule{ schedule }  {}
+
 
 		using const_iterator =  model::event::Events::const_iterator;
 
-		model::Schedule & schedule() noexcept { return mSchedule; }
+		const model::Schedule & schedule() const noexcept { return mSchedule; }
 
 		bool empty() const noexcept { return mStart.value == 0 || mEnd.value == 0; }
 

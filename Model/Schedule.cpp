@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "Range.h"
 #include "event\Event.h"
 #include "event\Events.h"
 #include "event\EventDiff.h"
@@ -12,6 +13,35 @@ using namespace model;
 event::EventsEditor Schedule::edit() const
 {
 	return mCurrent.edit();
+}
+
+Range model::Schedule::all() const noexcept
+{
+	return { mCurrent.begin()->handle, event::EventHandle{0}, *this };
+}
+
+Range model::Schedule::month(date::year year, date::month month) const noexcept
+{
+	return between(year / month / 1, year / month / date::last);
+}
+
+Range model::Schedule::year(date::year year) const noexcept
+{
+	return between(year / 1 / 1, year / 12 / date::last);
+}
+
+Range model::Schedule::between(date::year_month_day start, date::year_month_day end) const noexcept
+{
+	auto sit = mCurrent.begin_date(start);
+	auto eit = mCurrent.end_date(end);
+	event::EventHandle s = sit != mCurrent.end() ? sit->handle : event::NullHandle;
+	event::EventHandle e = eit != mCurrent.end() ? eit->handle : event::NullHandle;
+	return Range(s, e, *this);
+}
+
+Range model::Schedule::day(date::year_month_day day) const noexcept
+{
+	return between(day, day);
 }
 
 void Schedule::changes_commit(event::EventsEditor && editor)

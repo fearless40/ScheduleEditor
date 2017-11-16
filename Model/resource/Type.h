@@ -3,7 +3,7 @@
 #include <boost\signals2.hpp>
 #include "Model.h"
 #include "Resource.h"
-#include "property\MapConstraint.h"
+#include "property\Schema.h"
 #include "property\InheritPropertyMap.h"
 
 

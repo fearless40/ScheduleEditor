@@ -3,7 +3,7 @@
 #include "model.h"
 #include "Slots.h"
 #include "Slots.Slot.h"
-#include "Properties.HasProperties.h"
+//#include "Properties.HasProperties.h"
 
 namespace model::Slots {
 	
@@ -13,7 +13,7 @@ namespace model::Slots {
 	// Each slot has a unique ID given by the class. It is NOT serialized and the ID is generated each time. 
 	// The ID would need to be synced across the network though. The ID is mostly for find and remove features. 
 	
-	class SlotGroup : public Properties::HasProperties {
+	class SlotGroup {// public Properties::HasProperties {
 		model::Index mIndex;
 		using Slots = std::vector<Slot>;
 

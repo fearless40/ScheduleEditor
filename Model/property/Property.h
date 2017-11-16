@@ -1,7 +1,7 @@
 #pragma once
 
 #include <variant>
-#include "model.h"
+#include "../model.h"
 
 namespace model::property {
 	using Property = std::variant<long, double, std::wstring>;
@@ -46,8 +46,8 @@ namespace model::property {
 		return pd.name == pi;
 	}
 
-	class Collection; 
-	class Template;
+	class Map; 
+	class Schema;
 
 	// PropertyMap are owned by the class that contains it. 
 

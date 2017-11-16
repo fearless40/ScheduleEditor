@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "CppUnitTest.h"
+#include <string_view>
+#include <string>
 #include "../model/model.h"
 #include "../model/resource/Value.h"
 #include "../model/property/Property.h"

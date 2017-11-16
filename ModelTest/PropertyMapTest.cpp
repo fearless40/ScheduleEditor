@@ -2,15 +2,15 @@
 #include <locale>
 #include "CppUnitTest.h"
 
-#include "../model/Properties.PropertyMap.h"
+#include "../model/property/Map.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace Properties_PropertiesMap {
 
-	namespace P = model::Properties;
-	using PMap = model::Properties::PropertyMap;
-	using Prop = model::Properties::Property;
+	namespace P = model::property;
+	using PMap = model::property::Map;
+	using Prop = model::property::Property;
 
 	TEST_CLASS(PropertiesMap)
 	{

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScheduleEditor", "ScheduleEditor\ScheduleEditor.vcxproj", "{964CD6D4-4096-4D5B-A0D5-D43C0290C8CE}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -14,6 +14,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModelTest", "ModelTest\Mode
 	ProjectSection(ProjectDependencies) = postProject
 		{9C4F4E08-04AE-48A7-A2C0-7D63ACD1BA5A} = {9C4F4E08-04AE-48A7-A2C0-7D63ACD1BA5A}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModelTest2", "ModelTest2\ModelTest2.vcxproj", "{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,33 @@ Global
 		{22CC63E2-69C8-475A-9153-F61AFD8AA450}.Test|x86.ActiveCfg = Release|Win32
 		{22CC63E2-69C8-475A-9153-F61AFD8AA450}.Test|x86.Build.0 = Release|Win32
 		{22CC63E2-69C8-475A-9153-F61AFD8AA450}.Test|x86.Deploy.0 = Release|Win32
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Debug|ARM.ActiveCfg = Debug|ARM
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Debug|ARM.Build.0 = Debug|ARM
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Debug|ARM.Deploy.0 = Debug|ARM
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Debug|x64.ActiveCfg = Debug|x64
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Debug|x64.Build.0 = Debug|x64
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Debug|x64.Deploy.0 = Debug|x64
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Debug|x86.ActiveCfg = Debug|Win32
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Debug|x86.Build.0 = Debug|Win32
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Debug|x86.Deploy.0 = Debug|Win32
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Release|ARM.ActiveCfg = Release|ARM
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Release|ARM.Build.0 = Release|ARM
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Release|ARM.Deploy.0 = Release|ARM
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Release|x64.ActiveCfg = Release|x64
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Release|x64.Build.0 = Release|x64
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Release|x64.Deploy.0 = Release|x64
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Release|x86.ActiveCfg = Release|Win32
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Release|x86.Build.0 = Release|Win32
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Release|x86.Deploy.0 = Release|Win32
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Test|ARM.ActiveCfg = Release|ARM
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Test|ARM.Build.0 = Release|ARM
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Test|ARM.Deploy.0 = Release|ARM
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Test|x64.ActiveCfg = Release|x64
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Test|x64.Build.0 = Release|x64
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Test|x64.Deploy.0 = Release|x64
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Test|x86.ActiveCfg = Release|Win32
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Test|x86.Build.0 = Release|Win32
+		{390DE48B-2DBD-4CFA-8EB4-01BD9EEC7952}.Test|x86.Deploy.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
