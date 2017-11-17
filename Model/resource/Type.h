@@ -1,10 +1,10 @@
 #pragma once
 #include <boost\iterator\indirect_iterator.hpp>
 #include <boost\signals2.hpp>
-#include "Model.h"
+#include "../Model.h"
 #include "Resource.h"
-#include "property\Schema.h"
-#include "property\InheritPropertyMap.h"
+#include "..\property\Schema.h"
+#include "..\property\InheritPropertyMap.h"
 
 
 
@@ -93,9 +93,8 @@ namespace model::resource  {
 
 		model::Index mIndex{ model::NullIndex };
 		
-		// Todo: determine if having a vector here is better or a list. A list allows direct memory access without having to worry about a resource being moved.
-		// The vector is much faster iteration at the cost of greater difficluty coding as it is safe for reading at the same time but not editing. It would therefore
-		// require mutexs and such to get it to work.
+		// Using a vector, value iteration is going to be slower due to the unique ptr. But the use case is such
+		// that not worried about iteration. More important to keep the value in same spot in memory.
 		std::vector<std::unique_ptr<Value>> mItems;
 
 		/// Optional holds a pointer to a PropertyTemplate. Allows one to apply a template to each of the sub resource

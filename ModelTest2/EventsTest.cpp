@@ -147,6 +147,7 @@ namespace Events_Details
 		TEST_METHOD(remove) {
 			model::event::Events evt;
 			auto handles = GenerateEvents(evt);
+			Assert::AreEqual(handles.size(), evt.size());
 
 			auto ed = evt.edit(); 
 			ed.remove(handles[0]);

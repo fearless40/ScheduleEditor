@@ -167,6 +167,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EventsTest.cpp" />
+    <ClCompile Include="Property.MapTest.cpp" />
+    <ClCompile Include="Resources.TypeTest.cpp" />
     <ClCompile Include="UnitTestApp.xaml.cpp">
       <DependentUpon>UnitTestApp.xaml</DependentUpon>
     </ClCompile>

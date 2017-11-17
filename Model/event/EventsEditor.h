@@ -48,7 +48,7 @@ namespace model::event {
 			EventDiff diff;
 		};
 
-		bool AutoCommit{ true };
+		bool AutoCommit{ false };
 
 		EventsEditor(Events & evt);
 		~EventsEditor();

@@ -17,6 +17,8 @@
     <ClCompile Include="UnitTest.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="EventsTest.cpp" />
+    <ClCompile Include="Property.MapTest.cpp" />
+    <ClCompile Include="Resources.TypeTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
