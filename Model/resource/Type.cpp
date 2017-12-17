@@ -56,7 +56,7 @@ namespace model::resource {
 
 	}
 
-	void Type::change(const Value & r)
+	void Type::save(const Value & r)
 	{
 		auto item = _find(r);
 		if (item == mItems.end()) return;

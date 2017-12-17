@@ -8,6 +8,7 @@ namespace model::resource {
 
 	using ResourceID = uint32_t;
 
+	static const ResourceID NullID = 0;
 	
 
 	// ResourceType owned by static ResourceTypeOwner. 

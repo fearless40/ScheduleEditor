@@ -40,7 +40,8 @@ namespace model::resource  {
 		Value & create(model::property::Map && map);
 		Value & load(ResourceID id, bool isDeleted, model::property::Map && map);
 		void remove(const Value & r);
-		void change(const Value & r);
+		void save(const Value & r);
+	
 		
 
 		/// Set a new PropertyTemplate to the class.
